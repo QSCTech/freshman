@@ -1,0 +1,4 @@
+body{background:#333;margin:0;padding:0;}
+#logo{border:5px solid #fff;color:#fff;cursor:pointer;display:inline-block;font-family:Source Sans Pro;font-size:24px;font-weight:900;padding:10px;}
+#content{color:#fff;cursor:pointer;display:inline-block;font-family:Source Sans Pro;font-size:18px;font-weight:900;padding:10px;}
+#footer{padding:10px;color:#fff;font-size:12px;}
