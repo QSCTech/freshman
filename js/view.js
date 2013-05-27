@@ -5,9 +5,9 @@ var changePage = function() {
 
     loadArtilce(page.article);
 
-    $('#footer').css({background: color});
-    $('em').css({color: color});
-    $('#left .current').css({color: page.color});
+    // Note: <style> tag already has contents, coz less.js
+    $('style').append('.theme, em, #left .current {color: '+color+';} #footer {background: '+color+';}');
+
     $('#the-text').attr('src', 'img/'+page.text);
     $('#the-title').attr('src', 'img/'+page.title);
     $('#the-img').attr('src', 'img/'+page.img);
@@ -23,15 +23,19 @@ var loadArtilce = function(articles, nth) {
             title = article.title,
             subTitle = article.subTitle,
             text = article.text;
-        htmlNav += i == 0 ? '<div class="title current">'+title+'</div>' : '<div class="title">'+title+'</div>';
-        htmlNav += i == 0 ? '<div class="sub-title current">'+subTitle+'</div>' : '<div class="sub-title">'+subTitle+'</div>';
-        htmlText += '<div class="text">'+text+'</div>';
+        htmlNav += i == 0 ? '<div class="nav current" data-id="'+i+'">' : '<div class="nav" data-id="'+i+'">';
+        htmlNav += '<div class="title">'+title+'</div>';
+        htmlNav += '<div class="sub-title">'+subTitle+'</div>';
+        htmlText += i == 0 ? '<div class="text" data-id="'+i+'">'+text+'</div>'
+                  : '<div class="text" data-id="'+i+'" style="display:none">'+text+'</div>';
+        htmlNav += '</div>';
     }
     $('#left').html(htmlNav);
     $('#right').html(htmlText);
 };
 
 var resizeHook = function() {
+    console.log("resize");
     var width = $(window).width(),
         height = $(window).height(),
         scale = width / height,
@@ -42,6 +46,7 @@ var resizeHook = function() {
     $('#top').css('height', height - 20);
     $('#text').css('margin-top', height / 2 - 180);
     $('#right').css('width', width - 330);
+    $('#bottom').css('min-height', height - 30 - 47);
 
     if(scale < imgScale) {
         $('#the-img').css({height: height, width: 'auto'});
@@ -58,23 +63,31 @@ if (window.addEventListener) {
 }
 
 $(document).ready(function() {
+    $('#article').on('click', '.nav', function() {
+        $('#left .current').removeClass('current');
+        $(this).addClass('current');
+        var id = $(this).attr('data-id');
+        $('#right .text').fadeOut(800);
+        setTimeout(function() {
+            $('#right .text[data-id="'+id+'"]').fadeIn(800);
+        }, 800);
+    });
     changePage();
-
     $('#text').click(function() {
         var h = $(window).height();
         var dom = document.getElementById('img');
         var func = (function(h, dom) {
             return function() {
-                window.scroll(0, window.scrollY+2);
+                window.scroll(0, window.scrollY+3);
                 var top = dom.style.top;
                 top = top ? parseInt(top.replace(/px/g,'')) : 0;
-                top += 2;
+                top += 3;
                 dom.style.top = top + 'px';
-                if(window.scrollY == h) {
+                if(window.scrollY >= h) {
                     dom.style.top = 0;
                     return;
                 }
-                setTimeout(arguments.callee, 2);
+                setTimeout(arguments.callee, 10);
             };
         })(h, dom);
         setTimeout(func, 0);

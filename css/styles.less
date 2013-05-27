@@ -1,7 +1,10 @@
+@import 'zeno.less/zeno.less';
+
 body {
     background: #333;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 #img {
     height: 100%;
@@ -60,9 +63,9 @@ body {
     padding: 10px;
 }
 #article {
-    margin: 36px 24px;
+    margin: 48px 24px;
     border-top: #333 dashed 3px;
-    padding-top: 24px;
+    padding-top: 48px;
     &:after {
         content: '';
         clear: both;
@@ -73,6 +76,9 @@ body {
         width: 250px;
         float: left;
         text-align: center;
+        .nav {
+            .transition(.3s);
+        }
         .title {
             cursor: pointer;
             font-size: 24px;
@@ -96,9 +102,13 @@ body {
     }
 }
 #footer {
-    padding: 12px 24px;
+    bottom: -47px;
+    left: 0;
+    width: 100%;
     color: #fff;
     font-size: 18px;
     font-weight: 900;
     font-family: Source Sans Pro;
+    padding: 12px 24px;
+    position: absolute;
 }
