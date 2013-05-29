@@ -42,7 +42,6 @@ var parsePage = function() {
     });
     $('#left').html(htmlNav);
     $('#markdown h2').each(function() {
-        $(this).next().css('margin-top', 0);
         if($(this).attr('data-id') == 0) {
             //            $(this).nextUntil("h2").andSelf().show(800);
             // 不该包括 h2
@@ -96,13 +95,6 @@ $(document).ready(function() {
         $('#left .current').removeClass('current');
         $(this).addClass('current');
         var id = $(this).attr('data-id');
-        // $('#markdown h2').each(function() {
-        //     if($(this).attr('data-id') == id) {
-        //         $(this).nextUntil("h2").fadeIn(800);
-        //     } else {
-        //         $(this).nextUntil("h2").fadeOut(800);
-        //     }
-        // });
         $('#markdown h2').each(function() {
             if($(this).attr('data-id') == id) {
                 //
@@ -122,6 +114,6 @@ $(document).ready(function() {
     });
     changePage();
     $('#text').click(function() {
-        $('body, html').animate({scrollTop: $(window).height()}, 2000);
+        $('body, html').animate({scrollTop: $(window).height()}, 800);
     });
 });

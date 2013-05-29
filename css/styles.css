@@ -18,8 +18,10 @@ a{color:#333;}
 #markdown h2{display:none;}
 #markdown h3{margin:0;margin-top:24px;padding:0;line-height:20px;font-size:18px;margin-bottom:24px;border-bottom:1px solid #f2f2f2;padding-bottom:12px;}
 #markdown p+h3{margin-top:2em;}
-#markdown h2+p{padding-left:0;}
+#markdown h2+p{padding-left:0;margin-top:1px;}
+#markdown h2+h3{margin-top:2px;}
 #markdown>p{padding-left:40px;}
+#markdown>div{padding-left:40px;}
 .hide-elem{padding-bottom:1em;}.hide-elem .hide-elem-content{display:none;font-size:12px;padding-bottom:12px;padding-left:14px;}
 .hide-elem .hide-elem-title{border-bottom:1px dashed #8a8a8a;display:inline-block;}.hide-elem .hide-elem-title:hover{cursor:pointer;}
 .hide-elem .hide-elem-title:after{content:' [点击展开]';color:#8a8a8a;}

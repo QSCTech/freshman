@@ -141,10 +141,18 @@ a {
     p + h3 {
         margin-top: 2em;
     }
+    @offset: 2px;
     h2 + p {
         padding-left: 0;
+        margin-top: @offset - 1;
+    }
+    h2 + h3 {
+        margin-top: @offset;
     }
     &>p {
+        padding-left: 40px;
+    }
+    &>div {
         padding-left: 40px;
     }
 }
