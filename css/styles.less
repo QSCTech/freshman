@@ -17,7 +17,9 @@ a {
     height: 100%;
     overflow: hidden;
     width: 100%;
-    position: relative;
+    // position: relative;
+    position: fixed;
+    left: 0;
     z-index: 1;
     top: 0;
     #the-img {
@@ -70,9 +72,11 @@ a {
     padding: 10px;
 }
 #article {
-    margin: 48px 24px;
+    background: #fff;
+    margin: 48px 24px 0 24px;
+    padding-bottom: 24px;
     border-top: #333 dashed 3px;
-    padding-top: 24px;
+    padding-top: 48px;
     &:after {
         content: '';
         clear: both;
@@ -83,7 +87,7 @@ a {
         width: 250px;
         float: left;
         text-align: center;
-        margin-top: 22px;
+        margin-top: 0;
         .nav {
             .transition(.3s);
         }
@@ -100,7 +104,6 @@ a {
     }
 }
 #footer {
-    bottom: -48px;
     left: 0;
     width: 100%;
     color: #fff;
@@ -115,6 +118,10 @@ a {
     float: right;
     padding: 0;
     font-size: 14px;
+    padding-right: 50px;
+    p {
+        line-height: 1.5em;
+    }
     h1 {
         display: none;
     }
@@ -125,9 +132,20 @@ a {
         margin: 0;
         margin-top: 24px;
         padding: 0;
-        line-height: 18px;
+        line-height: 20px;
         font-size: 18px;
         margin-bottom: 24px;
+        border-bottom: 1px solid #f2f2f2;
+        padding-bottom: 12px;
+    }
+    p + h3 {
+        margin-top: 2em;
+    }
+    h2 + p {
+        padding-left: 0;
+    }
+    &>p {
+        padding-left: 40px;
     }
 }
 .hide-elem {
@@ -151,3 +169,7 @@ a {
         }
     }
 }
+ol, ul, li {
+    margin: 0;
+}
+

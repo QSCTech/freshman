@@ -41,6 +41,7 @@ var parsePage = function() {
     });
     $('#left').html(htmlNav);
     $('#markdown h2').each(function() {
+        $(this).next().css('margin-top', 0);
         if($(this).attr('data-id') == 0) {
             //            $(this).nextUntil("h2").andSelf().show(800);
             // 不该包括 h2
@@ -60,11 +61,11 @@ var resizeHook = function() {
         imgScale = 988 / 570;
 
     $('#img').css('height', height);
-    $('#wrap').css('margin-top', -height);
+//    $('#wrap').css('margin-top', -height);
     $('#top').css('height', height - 20);
     $('#text').css('margin-top', height / 2 - 180);
-    $('#markdown').css('width', width - 350);
-    $('#bottom').css('min-height', height - 30 - 47);
+    $('#markdown').css('width', width - 350 - 50);
+    $('#bottom').css('min-height', height - 30);
 
     if(scale < imgScale) {
         $('#the-img').css({height: height, width: 'auto'});
@@ -120,22 +121,6 @@ $(document).ready(function() {
     });
     changePage();
     $('#text').click(function() {
-        var h = $(window).height();
-        var dom = document.getElementById('img');
-        var func = (function(h, dom) {
-            return function() {
-                window.scroll(0, window.scrollY+1);
-                var top = dom.style.top;
-                top = top ? parseInt(top.replace(/px/g,'')) : 0;
-                top += 1;
-                dom.style.top = top + 'px';
-                if(window.scrollY >= h) {
-                    dom.style.top = 0;
-                    return;
-                }
-                setTimeout(arguments.callee, 5);
-            };
-        })(h, dom);
-        setTimeout(func, 0);
+        $('body, html').animate({scrollTop: $(window).height()}, 2000);
     });
 });
