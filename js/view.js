@@ -3,9 +3,6 @@ var changePage = function() {
     var page = data[0];
     color = page.color;
 
-
-    // loadArtilce(page.article);
-
     // Note: <style> tag already has contents, coz less.js
     $('style').append('.theme, em, #left .current {color: '+color+';} #footer {background: '+color+';}');
 
@@ -15,12 +12,10 @@ var changePage = function() {
 
     var md = page.md;
     $.get('md/'+md, function(data) {
-        console.log(data);
         var html = markdown.toHTML(data);
-        html = html.replace(/<p>@@[ ]*([^<]+)<\/p>/g, '<div class="hide-elem"><div class="hide-elem-title">');
+        html = html.replace(/<p>@@[ ]*([^<]+)<\/p>/g, '<div class="hide-elem"><div class="hide-elem-title">$1</div>');
         html = html.replace(/<p>@@<\/p>/g, '</div>');
-        console.log(html);
-        $('.markdown').html(html);
+        $('#markdown').html(html);
         setTimeout(function() {
             parsePage();
         }, 100);
@@ -30,30 +25,32 @@ var changePage = function() {
 var parsePage = function() {
     var title = $('#markdown h1').text();
     $('title').html('求是潮新生手册 - '+title);
+    var i = 0,
+        htmlNav = '';
     $('#markdown h2').each(function() {
-
-    });
-};
-
-var loadArtilce = function(articles, nth) {
-    if(!nth) nth = 0;
-    var htmlNav = '',
-        htmlText = '';
-    for(var i=0; i<articles.length; i++) {
-        var article = articles[i],
-            title = article.title,
-            subTitle = article.subTitle,
-            text = article.text;
+        $(this).attr('data-id', i);
+        var text = $(this).text(),
+            titles = text.split(' —— '),
+            title = titles[0],
+            subTitle = titles[1] ? titles[1].replace(/ /g, '<br>') : '';
         htmlNav += i == 0 ? '<div class="nav current" data-id="'+i+'">' : '<div class="nav" data-id="'+i+'">';
         htmlNav += '<div class="title">'+title+'</div>';
         htmlNav += '<div class="sub-title">'+subTitle+'</div>';
-        htmlText += i == 0 ? '<div class="text" data-id="'+i+'">'+text+'</div>'
-                  : '<div class="text" data-id="'+i+'" style="display:none">'+text+'</div>';
         htmlNav += '</div>';
-    }
+        ++i;
+    });
     $('#left').html(htmlNav);
-    $('#right').html(htmlText);
+    $('#markdown h2').each(function() {
+        if($(this).attr('data-id') == 0) {
+            //            $(this).nextUntil("h2").andSelf().show(800);
+            // 不该包括 h2
+            $(this).nextUntil("h2").show(800);
+        } else {
+            $(this).nextUntil("h2").hide(800);
+        }
+    });
 };
+
 
 var resizeHook = function() {
     console.log("resize");
@@ -88,10 +85,13 @@ $(document).ready(function() {
         $('#left .current').removeClass('current');
         $(this).addClass('current');
         var id = $(this).attr('data-id');
-        $('#right .text').fadeOut(800);
-        setTimeout(function() {
-            $('#right .text[data-id="'+id+'"]').fadeIn(800);
-        }, 800);
+        $('#markdown h2').each(function() {
+            if($(this).attr('data-id') == id) {
+                $(this).nextUntil("h2").show(800);
+            } else {
+                $(this).nextUntil("h2").hide(800);
+            }
+        });
     });
     changePage();
     $('#text').click(function() {
