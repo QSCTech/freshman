@@ -1,13 +1,17 @@
 @import 'zeno.less/zeno.less';
 
-a {
-    color: #333;
+html {
+    margin: 0;
+    padding: 0;
 }
 body {
-    background: #333;
+    background: #fff;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+}
+a {
+    color: #333;
 }
 #img {
     height: 100%;
@@ -68,7 +72,7 @@ body {
 #article {
     margin: 48px 24px;
     border-top: #333 dashed 3px;
-    padding-top: 48px;
+    padding-top: 24px;
     &:after {
         content: '';
         clear: both;
@@ -79,13 +83,14 @@ body {
         width: 250px;
         float: left;
         text-align: center;
+        margin-top: 22px;
         .nav {
             .transition(.3s);
         }
         .title {
             cursor: pointer;
-            font-size: 24px;
-            padding-bottom: 12px;
+            font-size: 22px;
+            padding-bottom: 6px;
         }
         .sub-title {
             cursor: pointer;
@@ -95,7 +100,7 @@ body {
     }
 }
 #footer {
-    bottom: -47px;
+    bottom: -48px;
     left: 0;
     width: 100%;
     color: #fff;
@@ -116,8 +121,9 @@ body {
     h2 {
         display: none;
     }
-    h3:first-child {
+    h3 {
         margin: 0;
+        margin-top: 24px;
         padding: 0;
         line-height: 24px;
         font-size: 24px;
