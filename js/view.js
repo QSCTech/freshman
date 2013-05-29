@@ -3,7 +3,8 @@ var changePage = function() {
     var page = data[0];
     color = page.color;
 
-    loadArtilce(page.article);
+
+    // loadArtilce(page.article);
 
     // Note: <style> tag already has contents, coz less.js
     $('style').append('.theme, em, #left .current {color: '+color+';} #footer {background: '+color+';}');
@@ -12,6 +13,26 @@ var changePage = function() {
     $('#the-title').attr('src', 'img/'+page.title);
     $('#the-img').attr('src', 'img/'+page.img);
 
+    var md = page.md;
+    $.get('md/'+md, function(data) {
+        console.log(data);
+        var html = markdown.toHTML(data);
+        html = html.replace(/<p>@@[ ]*([^<]+)<\/p>/g, '<div class="hide-elem"><div class="hide-elem-title">');
+        html = html.replace(/<p>@@<\/p>/g, '</div>');
+        console.log(html);
+        $('.markdown').html(html);
+        setTimeout(function() {
+            parsePage();
+        }, 100);
+    });
+};
+
+var parsePage = function() {
+    var title = $('#markdown h1').text();
+    $('title').html('求是潮新生手册 - '+title);
+    $('#markdown h2').each(function() {
+
+    });
 };
 
 var loadArtilce = function(articles, nth) {
@@ -78,16 +99,16 @@ $(document).ready(function() {
         var dom = document.getElementById('img');
         var func = (function(h, dom) {
             return function() {
-                window.scroll(0, window.scrollY+3);
+                window.scroll(0, window.scrollY+1);
                 var top = dom.style.top;
                 top = top ? parseInt(top.replace(/px/g,'')) : 0;
-                top += 3;
+                top += 1;
                 dom.style.top = top + 'px';
                 if(window.scrollY >= h) {
                     dom.style.top = 0;
                     return;
                 }
-                setTimeout(arguments.callee, 10);
+                setTimeout(arguments.callee, 5);
             };
         })(h, dom);
         setTimeout(func, 0);

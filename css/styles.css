@@ -12,3 +12,4 @@ body{background:#333;margin:0;padding:0;overflow-x:hidden;}
 #article #left .sub-title{cursor:pointer;font-size:12px;margin-bottom:24px;}
 #article #right{color:#333;float:right;padding:0;}#article #right h3{margin:0;padding:0;margin-bottom:24px;}
 #footer{bottom:-47px;left:0;width:100%;color:#fff;font-size:18px;font-weight:900;font-family:Source Sans Pro;padding:12px 24px;position:absolute;}
+.markdown h1{display:none;}
