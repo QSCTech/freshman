@@ -1,3 +1,4 @@
+a{color:#333;}
 body{background:#333;margin:0;padding:0;overflow-x:hidden;}
 #img{height:100%;overflow:hidden;width:100%;position:relative;z-index:1;top:0;}#img #the-img{z-index:2;border:none;width:100%;}
 #wrap{position:relative;z-index:9000;}#wrap #top{border:10px solid #fff;}
@@ -13,7 +14,7 @@ body{background:#333;margin:0;padding:0;overflow-x:hidden;}
 #footer{bottom:-47px;left:0;width:100%;color:#fff;font-size:18px;font-weight:900;font-family:Source Sans Pro;padding:12px 24px;position:absolute;}
 #markdown{color:#333;float:right;padding:0;font-size:14px;}#markdown h1{display:none;}
 #markdown h2{display:none;}
-#markdown h3:first-child{margin:0;padding:0;margin-bottom:24px;}
-.hide-elem .hide-elem-content{display:none;font-size:12px;padding-bottom:12px;padding-left:14px;}
+#markdown h3:first-child{margin:0;padding:0;line-height:24px;font-size:24px;margin-bottom:24px;}
+.hide-elem{padding-bottom:1em;}.hide-elem .hide-elem-content{display:none;font-size:12px;padding-bottom:12px;padding-left:14px;}
 .hide-elem .hide-elem-title{border-bottom:1px dashed #8a8a8a;display:inline-block;}.hide-elem .hide-elem-title:hover{cursor:pointer;}
 .hide-elem .hide-elem-title:after{content:' [点击展开]';color:#8a8a8a;}
