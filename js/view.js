@@ -13,8 +13,8 @@ var changePage = function() {
     var md = page.md;
     $.get('md/'+md, function(data) {
         var html = markdown.toHTML(data);
-        html = html.replace(/<p>@@[ ]*([^<]+)<\/p>/g, '<div class="hide-elem"><div class="hide-elem-title">$1</div>');
-        html = html.replace(/<p>@@<\/p>/g, '</div>');
+        html = html.replace(/<p>@@[ ]*([^<]+)<\/p>/g, '<div class="hide-elem"><div class="hide-elem-title">$1</div><div class="hide-elem-content">');
+        html = html.replace(/<p>@@<\/p>/g, '</div></div>');
         $('#markdown').html(html);
         setTimeout(function() {
             parsePage();
@@ -44,9 +44,9 @@ var parsePage = function() {
         if($(this).attr('data-id') == 0) {
             //            $(this).nextUntil("h2").andSelf().show(800);
             // 不该包括 h2
-            $(this).nextUntil("h2").show(800);
+            $(this).nextUntil("h2").show(0);
         } else {
-            $(this).nextUntil("h2").hide(800);
+            $(this).nextUntil("h2").hide(0);
         }
     });
 };
@@ -63,7 +63,7 @@ var resizeHook = function() {
     $('#wrap').css('margin-top', -height);
     $('#top').css('height', height - 20);
     $('#text').css('margin-top', height / 2 - 180);
-    $('#right').css('width', width - 330);
+    $('#markdown').css('width', width - 350);
     $('#bottom').css('min-height', height - 30 - 47);
 
     if(scale < imgScale) {
@@ -81,6 +81,15 @@ if (window.addEventListener) {
 }
 
 $(document).ready(function() {
+    $('#markdown').on('click', '.hide-elem-title', function() {
+        $(this).parent().find('.hide-elem-content').each(function() {
+            if($(this).is(":visible")) {
+                $(this).slideUp();
+            } else {
+                $(this).slideDown();
+            }
+        });
+    });
     $('#article').on('click', '.nav', function() {
         $('#left .current').removeClass('current');
         $(this).addClass('current');
