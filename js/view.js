@@ -15,6 +15,7 @@ var changePage = function() {
         var html = markdown.toHTML(data);
         html = html.replace(/<p>@@[ ]*([^<]+)<\/p>/g, '<div class="hide-elem"><div class="hide-elem-title">$1</div><div class="hide-elem-content">');
         html = html.replace(/<p>@@<\/p>/g, '</div></div>');
+        html = html.replace(/\\n/g, '<br>');
         $('#markdown').html(html);
         setTimeout(function() {
             parsePage();
