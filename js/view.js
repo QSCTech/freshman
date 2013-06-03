@@ -2,10 +2,13 @@ var Doc = function(md) {
 
     var that = this,
         html = markdown.toHTML(md);
+    // 匹配子题标
     html = html.replace(/<h2>(.*)——(.*) (.*)<\/h2>/g, "<h2>$1</h2><div class=\"sub-header\">$2<br>$3</div>");
+    // 匹配折叠
     html = html.replace(/<p>@@[ ]*([^<]+)<\/p>/g, '<div class="hide-elem"><div class="hide-elem-title">$1</div><div class="hide-elem-content">');
     html = html.replace(/<p>@@<\/p>/g, '</div></div>');
-    html = html.replace(/\\n/g, '<br>');
+    html = html.replace(/\\n/g, '<br>'); // 匹配 \n 为 <br>
+    html = html.replace(/<p>[ ]+/, '<p>'); // 去除 <p> 标签开头的空白
     var jq = $(html);
 
     this.demo = function() {
@@ -131,6 +134,7 @@ $(document).ready(function() {
         setTimeout(function() {
             var offset = $('h3 .highlight').offset();
             $('body, html').animate({scrollTop: offset.top - 50});
+            $('.highlight').css({background: '#fff'});
         }, 670);
     });
 
