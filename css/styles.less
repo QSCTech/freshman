@@ -84,23 +84,6 @@ article {
         border-bottom: 1px solid #f2f2f2;
         padding-bottom: 12px;
     }
-    p + h3 {
-        margin-top: 2em;
-    }
-    @offset: 2px;
-    h2 + p {
-        padding-left: 0;
-        margin-top: @offset - 1;
-    }
-    h2 + h3 {
-        margin-top: @offset;
-    }
-    &>p {
-        padding-left: 40px;
-    }
-    &>div {
-        padding-left: 40px;
-    }
 }
 footer {
     background: #fff;
@@ -121,6 +104,7 @@ footer {
     }
 }
 #index {
+    margin-top: 50px;
     h2 {
         margin-left: 24px;
     }
@@ -138,4 +122,28 @@ footer {
     position: fixed;
     top: 20px;
     right: 20px;
+    padding: 12px;
+    border: 1px solid #777;
+}
+
+.hide-elem {
+    padding-bottom: 1em;
+    .hide-elem-content {
+        display: none;
+        font-size: 12px;
+        padding-bottom: 12px;
+        padding-left: 14px;
+        // border-left: 5px solid #f2f2f2;
+    }
+    .hide-elem-title {
+        border-bottom: 1px dashed #8a8a8a;
+        display: inline-block;
+        &:hover {
+            cursor: pointer;
+        }
+        &:after {
+            content: ' [点击展开]';
+            color: #8a8a8a;
+        }
+    }
 }
