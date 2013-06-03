@@ -112,7 +112,28 @@ var Doc = function(md) {
     };
 };
 
+
+var Cover = function() {
+    this.reset = function() {
+        $('body, html').animate({scrollTop: 0});
+    };
+    this.current = function(callback) {
+        var y = window.scrollY,
+            height = $('article img[alt="cover"]').height();
+        $('article img[alt="cover"]').each(function() {
+            if(($(this).offset())[top] > y) {
+                callback($(this));
+                return false;
+            }
+        });
+    };
+    this.next = function() {
+        var height = $('article img[alt="cover"]').height();
+    };
+};
+
 $(document).ready(function() {
+    cover = new Cover();
     $.get('markdown/freshman.md', function(data) {
         doc = new Doc(data);
         doc.section("地图");
@@ -124,15 +145,18 @@ $(document).ready(function() {
         e.stopPropagation();   //停止事件冒泡
     });
 
-    $('nav').on('click', 'h1', function(e) {
-        e.stopPropagation();   //停止事件冒泡
-        return false;
-    });
+    // $('nav').on('click', 'h1', function(e) {
+    //     e.stopPropagation();   //停止事件冒泡
+    //     return false;
+    // });
 
     $('body').on('click', 'h1', function() {
         var title = $(this).text();
         title = title.replace(/<i>.*<\/i>/, '');
         doc.section(title);
+        setTimeout(function() {
+            $('body, html').animate({scrollTop: 0});
+        }, 650);
     });
 
     $('body').on('click', 'h3', function() {

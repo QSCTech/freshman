@@ -351,7 +351,7 @@ article h1{font-size:36px;}
 article h2{font-size:24px;}
 article h3{margin:0;margin-top:24px;padding:0;line-height:20px;font-size:18px;margin-bottom:24px;border-bottom:1px solid #f2f2f2;padding-bottom:12px;}
 article #allmap{width:100%;height:100%;overflow:hidden;margin:0;position:relative;left:-49px;}
-footer{background:#fff;bottom:0;font-size:12px;left:0;padding:20px 0;position:fixed;text-align:center;width:200px;z-index:2000;}footer #logo{background:red;margin-bottom:20px;height:100px;width:100px;margin-left:50px;}
+footer{background:#fff;bottom:0;font-size:12px;left:0;padding:20px 0;position:fixed;text-align:center;width:200px;z-index:2000;color:#8a8a8a;}footer a{color:#8a8a8a;}
 #index{margin-top:50px;}#index h2{margin-left:24px;}
 #index h3{margin-left:48px;}
 .highlight{background-color:yellow;transition:background-color 1s linear;}
@@ -360,3 +360,4 @@ footer{background:#fff;bottom:0;font-size:12px;left:0;padding:20px 0;position:fi
 .hide-elem .hide-elem-title{border-bottom:1px dashed #8a8a8a;display:inline-block;}.hide-elem .hide-elem-title:hover{cursor:pointer;}
 .hide-elem .hide-elem-title:after{content:' [点击展开]';color:#8a8a8a;}
 img[alt="cover"]{border:none;margin:0;padding:0;margin-left:-50px;}
+#logo{margin-bottom:20px;height:100px;width:100px;margin-left:50px;}#logo img{max-width:100%;}
