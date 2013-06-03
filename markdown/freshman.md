@@ -104,8 +104,7 @@
 \n
 此外，第六个校区——冠名以浙江大学海洋学院的舟山校区正在筹建。关于第七个校区，就在今年，浙江大学与英国帝国理工学院就建立联合学院事宜签署了“浙江大学——帝国理工联合学院合作谅解备忘录”，中国高校将首次在世界名校建立海外校区！敬请大家期待~
 \n
-看看LipdubZJU中的校园风光吧~
-http://v.youku.com/v_show/id_XNDA2NzI2MjA0.html
+[看看LipdubZJU中的校园风光吧~](http://v.youku.com/v_show/id_XNDA2NzI2MjA0.html)
 
 @@ 穿梭于五个校区
 
