@@ -1,132 +1,78 @@
-@import 'zeno.less/zeno.less';
+@import 'font-awesome/font-awesome';
 
-html {
-    margin: 0;
+@theme: deepskyblue;
+@color: #555;
+
+body, html, ul, ol, li, nav, article {
     padding: 0;
-}
-body {
-    background: #fff;
     margin: 0;
-    padding: 0;
-    overflow-x: hidden;
+    color: #555;
 }
+
+h1, h2, h3 {
+    cursor: pointer;
+}
+
+ul, ol, li {
+    list-style: none;
+}
+
 a {
-    color: #333;
+    color: #777;
 }
-#img {
+
+body {
+    min-height: 1000px;
+    overflow-x: hidden;
+    opacity: 0;
+}
+
+nav {
+    border-right: 1px solid #555;
     height: 100%;
-    overflow: hidden;
-    width: 100%;
-    // position: relative;
+    width: 200px;
     position: fixed;
     left: 0;
-    z-index: 1;
     top: 0;
-    #the-img {
-        z-index: 2;
-        border: none;
-        width: 100%;
-    }
-}
-#wrap {
-    position: relative;
-    z-index: 9000;
-    #top {
-        border: 10px solid #fff;
-    }
-    #bottom {
-        background: #fff;
-        padding-top: 30px;
-    }
-    #title {
-        text-align: center;
-    }
-    #text {
-        text-align: center;
-        cursor: pointer;
-    }
-}
-#logo {
-    border: 5px solid #fff;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-family: Source Sans Pro;
-    font-size: 24px;
-    font-weight: 600;
-    margin: 24px 0 0 30px;
-    padding: 8px;
-    span {
-        font-weight: 900;
-    }
-}
-#content {
-    margin: 20px;
-    float: right;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-family: Source Sans Pro;
-    font-size: 18px;
-    font-weight: 900;
-    padding: 10px;
-}
-#article {
-    background: #fff;
-    margin: 48px 24px 0 24px;
-    padding-bottom: 24px;
-    border-top: #333 dashed 3px;
-    padding-top: 48px;
-    &:after {
-        content: '';
-        clear: both;
-        display: block;
-    }
-    #left {
-        color: #333;
-        width: 250px;
-        float: left;
-        text-align: center;
-        margin-top: 0;
-        .nav {
-            .transition(.3s);
-        }
-        .title {
-            cursor: pointer;
-            font-size: 22px;
-            padding-bottom: 6px;
-        }
-        .sub-title {
-            cursor: pointer;
-            font-size: 12px;
-            margin-bottom: 24px;
+    text-align: center;
+    h1 {
+        margin: 0;
+        padding: 0;
+        margin-top: 24px;
+        font-size: 36px;
+        i {
+            padding-left: 24px;
         }
     }
+    h2 {
+        color: @theme;
+        padding: 0;
+        margin: 36px 0 12px 0;
+        line-height: 24px;
+        font-size: 24px;
+    }
 }
-#footer {
-    left: 0;
-    width: 100%;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 900;
-    font-family: Source Sans Pro;
-    padding: 12px 24px;
+article {
     position: absolute;
-}
-#markdown {
+    left: 0;
+    top: 0;
+    margin-left: 250px;
+    padding-right: 50px;
     color: #333;
     float: right;
     padding: 0;
+    padding-top: 24px;
     font-size: 14px;
     padding-right: 50px;
+    text-align: left;
     p {
         line-height: 1.5em;
     }
     h1 {
-        display: none;
+        font-size: 36px;
     }
     h2 {
-        display: none;
+        font-size: 24px;
     }
     h3 {
         margin: 0;
@@ -156,28 +102,29 @@ a {
         padding-left: 40px;
     }
 }
-.hide-elem {
-    padding-bottom: 1em;
-    .hide-elem-content {
-        display: none;
-        font-size: 12px;
-        padding-bottom: 12px;
-        padding-left: 14px;
-        // border-left: 5px solid #f2f2f2;
-    }
-    .hide-elem-title {
-        border-bottom: 1px dashed #8a8a8a;
-        display: inline-block;
-        &:hover {
-            cursor: pointer;
-        }
-        &:after {
-            content: ' [点击展开]';
-            color: #8a8a8a;
-        }
+footer {
+    background: #fff;
+    bottom: 0;
+    font-size: 12px;
+    left: 0;
+    padding: 20px 0;
+    position: fixed;
+    text-align: center;
+    width: 200px;
+    z-index: 2000;
+    #logo {
+        background: red;
+        margin-bottom: 20px;
+        height: 100px;
+        width: 100px;
+        margin-left: 50px;
     }
 }
-ol, ul, li {
-    margin: 0;
+#index {
+    h2 {
+        margin-left: 24px;
+    }
+    h3 {
+        margin-left: 48px;
+    }
 }
-

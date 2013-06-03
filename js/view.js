@@ -1,119 +1,89 @@
-var color = '#000';
-var changePage = function() {
-    var page = data[0];
-    color = page.color;
+var Doc = function(md) {
 
-    // Note: <style> tag already has contents, coz less.js
-    $('style').append('.theme, em, #left .current {color: '+color+';} #footer {background: '+color+';}');
+    var that = this,
+        html = markdown.toHTML(md);
+    html = html.replace(/<h2>(.*)——(.*) (.*)<\/h2>/g, "<h2>$1</h2><div class=\"sub-header\">$2<br>$3</div>");
+    html = html.replace(/<p>@@[ ]*([^<]+)<\/p>/g, '<div class="hide-elem"><div class="hide-elem-title">$1</div><div class="hide-elem-content">');
+    html = html.replace(/<p>@@<\/p>/g, '</div></div>');
+    html = html.replace(/\\n/g, '<br>');
+    var jq = $(html);
 
-    $('#the-text').attr('src', 'img/'+page.text);
-    $('#the-title').attr('src', 'img/'+page.title);
-    $('#the-img').attr('src', 'img/'+page.img);
+    this.demo = function() {
+        console.log(that.html);
+        $('article').html(html);
+    };
 
-    var md = page.md;
-    $.get('md/'+md, function(data) {
-        var html = markdown.toHTML(data);
-        html = html.replace(/<p>@@[ ]*([^<]+)<\/p>/g, '<div class="hide-elem"><div class="hide-elem-title">$1</div><div class="hide-elem-content">');
-        html = html.replace(/<p>@@<\/p>/g, '</div></div>');
-        html = html.replace(/\\n/g, '<br>');
-        $('#markdown').html(html);
+    this.index = function() {
+        $('article').animate({opacity: 0}, 400);
+        var jq = $(html).filter('h1,h2,h3');
         setTimeout(function() {
-            parsePage();
-        }, 100);
-    });
+            $('article').html(jq);
+            $('article').animate({opacity: 1}, 400);
+        }, 400);
+        $('article').attr('id', 'index');
+    };
+
+    this.section = function(title) {
+        title = title.replace(/ /g, '');
+        var jq = $(html);
+        jq.each(function() {
+            if($(this).text().replace(/ /g, '') == title) {
+                var sectionContent = $(this).nextAll("h2").first().nextUntil("h2");
+                var nav = $(this).nextUntil("h1").filter('h2, .sub-header');
+                setTimeout(function() {
+                    (function() {
+                        $('nav').html(nav);
+                        $('nav').prepend('<h1>'+title+'<i class="icon-reorder"></i></h1>');
+                    })(nav);
+                }, 10);
+                $('article').html(sectionContent);
+                return false; // break
+            };
+        });
+    };
+
+    this.subSection = function(title, useAnimate) {
+        if(useAnimate) $('article').animate({opacity: 0}, 200);
+        title = title.replace(/ /g, '');
+        $(html).each(function() {
+            if($(this).text().replace(/ /g, '') == title) {
+                var subSection = $(this).nextUntil("h2");
+                subSection = subSection.filter('*:not(h1,h2,.sub-header)');
+                if(useAnimate) {
+                    setTimeout(function() {
+                        $('article').html(subSection);
+                        $('article').animate({opacity: 1});
+                    }, 200);
+                } else {
+                    $('article').html(subSection);
+                }
+                return false; // break
+            };
+        });
+    };
+
 };
-
-var parsePage = function() {
-    var title = $('#markdown h1').text();
-    $('title').html('求是潮新生手册 - '+title);
-    var i = 0,
-        htmlNav = '';
-    $('#markdown h2').each(function() {
-        $(this).attr('data-id', i);
-        var text = $(this).text(),
-            titles = text.split(' —— '),
-            title = titles[0],
-            subTitle = titles[1] ? titles[1].replace(/ /g, '<br>') : '';
-        htmlNav += i == 0 ? '<div class="nav current" data-id="'+i+'">' : '<div class="nav" data-id="'+i+'">';
-        htmlNav += '<div class="title">'+title+'</div>';
-        htmlNav += '<div class="sub-title">'+subTitle+'</div>';
-        htmlNav += '</div>';
-        ++i;
-    });
-    $('#left').html(htmlNav);
-    $('#markdown h2').each(function() {
-        if($(this).attr('data-id') == 0) {
-            //            $(this).nextUntil("h2").andSelf().show(800);
-            // 不该包括 h2
-            $(this).nextUntil("h2").show(0);
-        } else {
-            $(this).nextUntil("h2").hide(0);
-        }
-    });
-};
-
-
-var resizeHook = function() {
-    console.log("resize");
-    var width = $(window).width(),
-        height = $(window).height(),
-        scale = width / height,
-        imgScale = 988 / 570;
-
-    $('#img').css('height', height);
-//    $('#wrap').css('margin-top', -height);
-    $('#top').css('height', height - 20);
-    $('#text').css('margin-top', height / 2 - 180);
-    $('#markdown').css('width', width - 350 - 50);
-    $('#bottom').css('min-height', height - 30);
-
-    if(scale < imgScale) {
-        $('#the-img').css({height: height, width: 'auto'});
-    } else {
-        $('#the-img').css({height: 'auto', width: width});
-    }
-};
-resizeHook();
-if (window.addEventListener) {
-    window.addEventListener('resize', function() { resizeHook(); });
-} else if (window.attachEvent) {
-    // for ie
-    window.attachEvent('resize', function() { resizeHook(); });
-}
 
 $(document).ready(function() {
-    $('#markdown').on('click', '.hide-elem-title', function() {
-        $(this).parent().find('.hide-elem-content').each(function() {
-            if($(this).is(":visible")) {
-                $(this).slideUp();
-            } else {
-                $(this).slideDown();
-            }
-        });
+    $.get('freshman.md', function(data) {
+        doc = new Doc(data);
+        doc.section("地图");
+        $('body').animate({opacity: 1}, 2000);
     });
-    $('#article').on('click', '.nav', function() {
-        $('#left .current').removeClass('current');
-        $(this).addClass('current');
-        var id = $(this).attr('data-id');
-        $('#markdown h2').each(function() {
-            if($(this).attr('data-id') == id) {
-                //
-            } else {
-                $(this).nextUntil("h2").fadeOut(400);
-            }
-        });
-        setTimeout(function() {
-            $('#markdown h2').each(function() {
-                if($(this).attr('data-id') == id) {
-                    $(this).nextUntil("h2").fadeIn(400);
-                } else {
-                    //
-                }
-            });
-        }, 400);
+
+    $('body').on('click', 'h1 i', function(e) {
+        doc.index();
+        e.stopPropagation();   //停止事件冒泡
     });
-    changePage();
-    $('#text').click(function() {
-        $('body, html').animate({scrollTop: $(window).height()}, 800);
+
+    $('body').on('click', 'h1', function() {
+        var title = $(this).text();
+        title = title.replace(/<i>.*<\/i>/, '');
+        doc.section(title);
+    });
+
+    $('body').on('click', 'h2', function() {
+        var title = $(this).text();
+        doc.subSection(title, true);
     });
 });
