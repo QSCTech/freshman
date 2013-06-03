@@ -34,7 +34,7 @@ var Doc = function(md) {
         var jq = $(html);
         jq.each(function() {
             if($(this).text().replace(/ /g, '') == title) {
-                var subSection = $(this).nextAll("h2, img, p").first().nextUntil("h2");
+                var subSection = $(this).nextAll("h2, img, p").first().nextUntil("h2,h1");
                 subSection = subSection.filter('*:not(h1,h2,.sub-header)');
                 var nav = $(this).nextUntil("h1").filter('h2, .sub-header');
                 setTimeout(function() {
@@ -56,7 +56,7 @@ var Doc = function(md) {
         title = title.replace(/ /g, '');
         $(html).each(function() {
             if($(this).text().replace(/ /g, '') == title) {
-                var subSection = $(this).nextUntil("h2");
+                var subSection = $(this).nextUntil("h2,h1");
                 subSection = subSection.filter('*:not(h1,h2,.sub-header)');
                 setTimeout(function() {
                     $('article').html(subSection);
@@ -147,17 +147,15 @@ $(document).ready(function() {
     });
 
     $('body').on('click', 'h2', function() {
-        if($('article').attr('id') == 'index') {
-            var pos = $(this).prevAll('h1').last().text().replace(/ /g, '');
+        if($('#index').attr('id') == 'index') {
+            console.log("index");
+            var pos = $(this).prevAll('h1').first().text().replace(/ /g, '');
             var cur = $('nav h1').text().replace(/<i>.*<\/i>/, '').replace(/ /g, '');
-            console.log(pos);
-            console.log(cur);
             if(cur != pos) {
                 doc.section(pos);
             }
         }
         var title = $(this).text();
-        console.log(title);
         if(title.replace(/ /g, '') == '周边观察版') {
             doc.baiduMap();
             return;
