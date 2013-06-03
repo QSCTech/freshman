@@ -17,10 +17,10 @@ var Doc = function(md) {
         $('article').animate({opacity: 0}, 400);
         var jq = $(html).filter('h1,h2,h3');
         setTimeout(function() {
-            $('article').html(jq);
+            $('article').html('<div id="index"></div>');
+            $('#index').html(jq);
             $('article').animate({opacity: 1}, 400);
         }, 400);
-        $('article').attr('id', 'index');
     };
 
     this.section = function(title) {
@@ -52,7 +52,8 @@ var Doc = function(md) {
                 if(useAnimate) {
                     setTimeout(function() {
                         $('article').html(subSection);
-                        $('article').animate({opacity: 1});
+                        $('article').attr('id', '');
+                        $('article').animate({opacity: 1}, 400);
                     }, 200);
                 } else {
                     $('article').html(subSection);
@@ -60,6 +61,35 @@ var Doc = function(md) {
                 return false; // break
             };
         });
+    };
+
+    this.highlight = function(text) {
+        setTimeout(function() {
+            $('body').removeHighlight();
+            var arr = text.split(' ');
+            for(var i=0; i<arr.length; i++) {
+                $('body').highlight(arr[i]);
+            }
+        }, 50);
+    };
+
+    this.search = function(text) {
+        var jq = $(html).each(function() {
+            if($(this).text().toUpperCase().indexOf(text.toUpperCase()) > 0) {
+                $(this).addClass('mark');
+                var nodeName = $(this)[0].nodeName.toLowerCase();
+                console.log(nodeName);
+                if(nodeName == 'p' || nodeName == 'div') {
+                    console.log($(this).prevAll('h1').first());
+                    $(this).prevAll('h1').first().nextUntil($(this)).addBack().filter('h1, h2').addClass('mark');
+                }
+                if(nodeName == 'h2') {
+                    $(this).prevAll('h1').first().addClass('mark');
+                }
+            }
+        });
+        $('article').html(jq.filter('.mark'));
+        that.highlight(text);
     };
 
 };
@@ -82,8 +112,31 @@ $(document).ready(function() {
         doc.section(title);
     });
 
+    $('body').on('click', 'h3', function() {
+        console.log('click');
+        doc.section($(this).prevAll('h1').first().text());
+        doc.subSection($(this).prevAll('h2').first().text());
+        doc.highlight($(this).text());
+    });
+
     $('body').on('click', 'h2', function() {
+        if($('article').attr('id') == 'index') {
+            doc.section($(this).prevAll('h1').last().text());
+        }
         var title = $(this).text();
         doc.subSection(title, true);
+        setTimeout(function() {
+            $('body, html').animate({scrollTop: 0});
+        }, 600);
     });
+
+    $('#search').on('keyup', function() {
+        var text = $(this).val();
+        doc.search(text);
+    });
+});
+jQuery.expr[":"].icontains = jQuery.expr.createPseudo(function (arg) {
+    return function (elem) {
+        return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+    };
 });
