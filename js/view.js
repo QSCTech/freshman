@@ -5,10 +5,11 @@ var Doc = function(md) {
     // 匹配子题标
     html = html.replace(/<h2>(.*)——(.*) (.*)<\/h2>/g, "<h2>$1</h2><div class=\"sub-header\">$2<br>$3</div>");
     // 匹配折叠
-    html = html.replace(/<p>@@[ ]*([^<+])<\/p>/g, '<div class="hide-elem"><div class="hide-elem-title">$1</div><div class="hide-elem-content">');
+    html = html.replace(/<p>@@[ ]*([^<]+)<\/p>/g, '<div class="hide-elem"><div class="hide-elem-title">$1</div><div class="hide-elem-content">');
     html = html.replace(/<p>@@<\/p>/g, '</div></div>');
     html = html.replace(/\\n/g, '<br>'); // 匹配 \n 为 <br>
     html = html.replace(/<p>[ ]+/, '<p>'); // 去除 <p> 标签开头的空白
+    html = html.replace(/<p>(<img alt="cover".*>)<\/p>/g, '$1');
     var jq = $(html);
 
     this.demo = function() {
@@ -33,7 +34,7 @@ var Doc = function(md) {
         var jq = $(html);
         jq.each(function() {
             if($(this).text().replace(/ /g, '') == title) {
-                var subSection = $(this).nextAll("h2").first().nextUntil("h2");
+                var subSection = $(this).nextAll("h2, img, p").first().nextUntil("h2");
                 subSection = subSection.filter('*:not(h1,h2,.sub-header)');
                 var nav = $(this).nextUntil("h1").filter('h2, .sub-header');
                 setTimeout(function() {
@@ -41,16 +42,13 @@ var Doc = function(md) {
                     $('nav').html(nav);
                     $('nav').prepend('<h1>'+title+'<i class="icon-reorder"></i></h1>');
                     $('article').html(subSection);
+                    resizeHook();
                     $('article, nav').animate({opacity: 1}, 400);
                 }, 200);
                 return false; // break
             };
         });
         $('#search').fadeOut();
-    };
-
-    this.sectionWithCover = function(title) {
-
     };
 
     this.subSection = function(title) {
@@ -196,6 +194,15 @@ var resizeHook = function() {
     var h = $(window).height();
     $('article').css({width: w - 300, height: h});
     $('#allmap').css({width: w - 200});
+
+    var scale = (w - 200) / h,
+        imgScale = 16 / 9;
+    if(imgScale > scale) {
+        $('img[alt="cover"]').css({width: 'auto', height: h});
+    } else {
+        $('img[alt="cover"]').css({width: w - 200, height: 'auto'});
+    }
+
 };
 $(document).ready(function() {
     resizeHook();
