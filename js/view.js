@@ -5,7 +5,7 @@ var Doc = function(md) {
     // 匹配子题标
     html = html.replace(/<h2>(.*)——(.*) (.*)<\/h2>/g, "<h2>$1</h2><div class=\"sub-header\">$2<br>$3</div>");
     // 匹配折叠
-    html = html.replace(/<p>@@[ ]*([^<]+)<\/p>/g, '<div class="hide-elem"><div class="hide-elem-title">$1</div><div class="hide-elem-content">');
+    html = html.replace(/<p>@@[ ]*([^<+])<\/p>/g, '<div class="hide-elem"><div class="hide-elem-title">$1</div><div class="hide-elem-content">');
     html = html.replace(/<p>@@<\/p>/g, '</div></div>');
     html = html.replace(/\\n/g, '<br>'); // 匹配 \n 为 <br>
     html = html.replace(/<p>[ ]+/, '<p>'); // 去除 <p> 标签开头的空白
@@ -75,10 +75,7 @@ var Doc = function(md) {
         if(!timeout) timeout = 50;
         setTimeout(function() {
             $('body').removeHighlight();
-            var arr = text.split(' ');
-            for(var i=0; i<arr.length; i++) {
-                $('body').highlight(arr[i]);
-            }
+            $('body').highlight(text);
         }, timeout);
     };
 
@@ -118,7 +115,7 @@ var Doc = function(md) {
 };
 
 $(document).ready(function() {
-    $.get('freshman.md', function(data) {
+    $.get('markdown/freshman.md', function(data) {
         doc = new Doc(data);
         doc.section("地图");
         $('body').animate({opacity: 1}, 2000);
@@ -153,7 +150,13 @@ $(document).ready(function() {
 
     $('body').on('click', 'h2', function() {
         if($('article').attr('id') == 'index') {
-            doc.section($(this).prevAll('h1').last().text());
+            var pos = $(this).prevAll('h1').last().text().replace(/ /g, '');
+            var cur = $('nav h1').text().replace(/<i>.*<\/i>/, '').replace(/ /g, '');
+            console.log(pos);
+            console.log(cur);
+            if(cur != pos) {
+                doc.section(pos);
+            }
         }
         var title = $(this).text();
         console.log(title);
