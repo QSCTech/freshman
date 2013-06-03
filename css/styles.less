@@ -22,7 +22,6 @@ a {
 }
 
 body {
-    min-height: 1000px;
     overflow-x: hidden;
     opacity: 0;
 }
@@ -49,19 +48,21 @@ nav {
         padding: 0;
         margin: 36px 0 12px 0;
         line-height: 24px;
-        font-size: 24px;
+        font-size: 21px;
+    }
+    .sub-header {
+        font-size: 16px;
     }
 }
 article {
     position: absolute;
     left: 0;
     top: 0;
+    width: 100%;
+    height: 100%;
     margin-left: 250px;
-    padding-right: 50px;
     color: #333;
     float: right;
-    padding: 0;
-    padding-top: 24px;
     font-size: 14px;
     padding-right: 50px;
     text-align: left;
@@ -83,6 +84,14 @@ article {
         margin-bottom: 24px;
         border-bottom: 1px solid #f2f2f2;
         padding-bottom: 12px;
+    }
+    #allmap {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin:0;
+        position: relative;
+        left: -49px;
     }
 }
 footer {

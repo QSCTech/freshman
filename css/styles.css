@@ -342,13 +342,15 @@ body,html,ul,ol,li,nav,article{padding:0;margin:0;color:#555;}
 h1,h2,h3{cursor:pointer;}
 ul,ol,li{list-style:none;}
 a{color:#777;}
-body{min-height:1000px;overflow-x:hidden;opacity:0;}
+body{overflow-x:hidden;opacity:0;}
 nav{border-right:1px solid #555;height:100%;width:200px;position:fixed;left:0;top:0;text-align:center;}nav h1{margin:0;padding:0;margin-top:24px;font-size:36px;}nav h1 i{padding-left:24px;}
-nav h2{color:#00bfff;padding:0;margin:36px 0 12px 0;line-height:24px;font-size:24px;}
-article{position:absolute;left:0;top:0;margin-left:250px;color:#333;float:right;padding:0;padding-top:24px;font-size:14px;padding-right:50px;text-align:left;}article p{line-height:1.5em;}
+nav h2{color:#00bfff;padding:0;margin:36px 0 12px 0;line-height:24px;font-size:21px;}
+nav .sub-header{font-size:16px;}
+article{position:absolute;left:0;top:0;width:100%;height:100%;margin-left:250px;color:#333;float:right;font-size:14px;padding-right:50px;text-align:left;}article p{line-height:1.5em;}
 article h1{font-size:36px;}
 article h2{font-size:24px;}
 article h3{margin:0;margin-top:24px;padding:0;line-height:20px;font-size:18px;margin-bottom:24px;border-bottom:1px solid #f2f2f2;padding-bottom:12px;}
+article #allmap{width:100%;height:100%;overflow:hidden;margin:0;position:relative;left:-49px;}
 footer{background:#fff;bottom:0;font-size:12px;left:0;padding:20px 0;position:fixed;text-align:center;width:200px;z-index:2000;}footer #logo{background:red;margin-bottom:20px;height:100px;width:100px;margin-left:50px;}
 #index{margin-top:50px;}#index h2{margin-left:24px;}
 #index h3{margin-left:48px;}

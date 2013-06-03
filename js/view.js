@@ -102,6 +102,15 @@ var Doc = function(md) {
         that.highlight(text);
     };
 
+    this.baiduMap = function() {
+        $('#search').fadeOut();
+        $('article').html('<div id="allmap"></div>');
+        if(typeof resizeHook != "undefined")
+          resizeHook();
+        var map = new BMap.Map("allmap");
+        map.centerAndZoom(new BMap.Point(120.09391065692903, 30.310239963664857), 16);
+        map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+    };
 };
 
 $(document).ready(function() {
@@ -143,6 +152,11 @@ $(document).ready(function() {
             doc.section($(this).prevAll('h1').last().text());
         }
         var title = $(this).text();
+        console.log(title);
+        if(title.replace(/ /g, '') == '周边观察版') {
+            doc.baiduMap();
+            return;
+        }
         doc.subSection(title, true);
         setTimeout(function() {
             $('body, html').animate({scrollTop: 0});
@@ -164,3 +178,20 @@ $(document).ready(function() {
         });
     });
 });
+
+
+var resizeHook = function() {
+    var w = $(window).width();
+    var h = $(window).height();
+    $('article').css({width: w - 300, height: h});
+    $('#allmap').css({width: w - 200});
+};
+$(document).ready(function() {
+    resizeHook();
+});
+if (window.addEventListener) {
+    window.addEventListener('resize', function() { resizeHook(); });
+} else if (window.attachEvent) {
+    // for ie
+    window.attachEvent('resize', function() { resizeHook(); });
+}
