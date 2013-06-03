@@ -111,6 +111,10 @@ var Doc = function(md) {
         map.centerAndZoom(new BMap.Point(120.09391065692903, 30.310239963664857), 16);
         map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
     };
+
+    this.zdpoMap = function() {
+        window.location.href = 'http://zdpo.zju.edu.cn/map/';
+    };
 };
 
 $(document).ready(function() {
@@ -155,6 +159,10 @@ $(document).ready(function() {
         console.log(title);
         if(title.replace(/ /g, '') == '周边观察版') {
             doc.baiduMap();
+            return;
+        }
+        if(title.replace(/ /g, '') == '三维全景版') {
+            doc.zdpoMap();
             return;
         }
         doc.subSection(title, true);
