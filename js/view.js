@@ -105,11 +105,22 @@ var Cover = function() {
         window.coverInterval = setInterval(function() {
             that.next();
         }, 3000);
+        window.coverTestInterval = setInterval(function() {
+            that.test();
+        }, 500);
+    };
+
+    // auto stop if img disappears
+    this.test = function() {
+        if($(selector).length == 0) {
+            that.stop();
+        }
     };
 
     this.stop = function() {
         $('body').css({'overflow-y': 'auto'});
         clearInterval(window.coverInterval);
+        clearInterval(window.coverTestInterval);
     };
 
     this.init = function() {
@@ -120,10 +131,6 @@ var Cover = function() {
     };
 
     this.next = function() {
-        if($(selector).length == 0) {
-            // if img disappears
-            that.stop();
-        }
         $(selector).each(function() {
             if($(this).is(':visible')) {
                 $(this).fadeOut(200, function() {
