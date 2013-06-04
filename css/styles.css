@@ -350,7 +350,8 @@ nav{padding-top:36px;border-right:1px solid #ddd;height:100%;width:150px;positio
 nav h1{padding-left:20px;line-height:30px;font-size:16px;color:#8a8a8a;border-top:1px solid #ddd;}
 nav h2{display:none;padding-left:40px;color:#8a8a8a;line-height:30px;font-size:14px;}
 nav .current{color:#00bfff;}
-article{position:absolute;left:0;top:0;width:100%;height:100%;margin-left:200px;color:#333;float:right;font-size:14px;padding-right:50px;text-align:left;}article p{line-height:1.5em;}
+article{position:absolute;left:0;top:0;width:100%;height:100%;margin-left:200px;color:#333;float:right;font-size:14px;padding-right:50px;text-align:left;}article em{color:#00bfff;}
+article p{line-height:1.5em;}
 article h1{font-size:36px;}
 article h2{font-size:24px;}
 article h3{margin:0;margin-top:24px;padding:0;line-height:20px;font-size:18px;margin-bottom:24px;border-bottom:1px solid #f2f2f2;padding-bottom:12px;}
