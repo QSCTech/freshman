@@ -95,21 +95,48 @@ var Doc = function(md) {
 
 
 var Cover = function() {
-    this.reset = function() {
-        $('body, html').animate({scrollTop: 0});
+    var selector = 'article img[alt="cover"]',
+        that = this;
+
+    this.start = function() {
+        that.stop(); // make sure only one interval exists
+        that.init();
+        $('body').css({'overflow-y': 'hidden'});
+        window.coverInterval = setInterval(function() {
+            that.next();
+        }, 3000);
     };
-    this.current = function(callback) {
-        var y = window.scrollY,
-            height = $('article img[alt="cover"]').height();
-        $('article img[alt="cover"]').each(function() {
-            if(($(this).offset())[top] > y) {
-                callback($(this));
-                return false;
-            }
+
+    this.stop = function() {
+        $('body').css({'overflow-y': 'auto'});
+        clearInterval(window.coverInterval);
+    };
+
+    this.init = function() {
+        $('body, html').animate({scrollTop: 0});
+        $(selector).fadeOut(200, function() {
+            $(selector).first().fadeIn();
         });
     };
+
     this.next = function() {
-        var height = $('article img[alt="cover"]').height();
+        if($(selector).length == 0) {
+            // if img disappears
+            that.stop();
+        }
+        $(selector).each(function() {
+            if($(this).is(':visible')) {
+                $(this).fadeOut(200, function() {
+                    var next = $(this).nextAll(selector);
+                    if(next.length == 0) {
+                        that.init();
+                        return false;
+                    }
+                    next = next.first();
+                    next.fadeIn();
+                });
+            }
+        });
     };
 };
 
@@ -146,6 +173,9 @@ $(document).ready(function() {
         setTimeout(function() {
             $('body, html').animate({scrollTop: 0});
         }, 650);
+        setTimeout(function() {
+            cover.start();
+        }, 500);
     });
 
     $('body').on('click', 'h3', function() {

@@ -361,4 +361,4 @@ footer{background:#fff;bottom:0;font-size:10px;left:0;padding:20px 0;position:fi
 .hide-elem{padding-bottom:1em;}.hide-elem .hide-elem-content{display:none;font-size:12px;padding-bottom:12px;padding-left:14px;}
 .hide-elem .hide-elem-title{border-bottom:1px dashed #8a8a8a;display:inline-block;}.hide-elem .hide-elem-title:hover{cursor:pointer;}
 .hide-elem .hide-elem-title:after{content:' [点击展开]';color:#8a8a8a;}
-img[alt="cover"]{border:none;margin:0;padding:0;margin-left:-50px;}
+img[alt="cover"]{border:none;margin:0;padding:0;margin-left:-50px;display:none;}
