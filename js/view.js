@@ -12,43 +12,27 @@ var Doc = function(md) {
     html = html.replace(/<p>(<img alt="cover".*>)<\/p>/g, '$1');
     var jq = $(html);
 
-    this.demo = function() {
-        console.log(that.html);
-        $('article').html(html);
-    };
-
-    this.index = function() {
-        $('article').animate({opacity: 0}, 400);
-        var jq = $(html).filter('h1,h2,h3');
-        setTimeout(function() {
-            $('article').html('<div id="index"></div>');
-            $('#index').html(jq);
-            $('article').animate({opacity: 1}, 400);
-            $('#search').fadeIn(400);
-        }, 400);
+    this.nav = function() {
+        var jq = $(html).filter('h1, h2');
+        $('nav').html(jq);
     };
 
     this.section = function(title) {
-        $('article, nav').animate({opacity: 0}, 200);
+        $('article').animate({opacity: 0}, 200);
         title = title.replace(/ /g, '');
         var jq = $(html);
         jq.each(function() {
             if($(this).text().replace(/ /g, '') == title) {
                 var subSection = $(this).nextAll("h2, img, p").first().nextUntil("h2,h1");
                 subSection = subSection.filter('*:not(h1,h2,.sub-header)');
-                var nav = $(this).nextUntil("h1").filter('h2, .sub-header');
                 setTimeout(function() {
-                    console.log(nav);
-                    $('nav').html(nav);
-                    $('nav').prepend('<h1>'+title+'<i class="icon-reorder"></i></h1>');
                     $('article').html(subSection);
                     resizeHook();
-                    $('article, nav').animate({opacity: 1}, 400);
+                    $('article').animate({opacity: 1}, 400);
                 }, 200);
                 return false; // break
             };
         });
-        $('#search').fadeOut();
     };
 
     this.subSection = function(title) {
@@ -66,7 +50,6 @@ var Doc = function(md) {
                 return false; // break
             };
         });
-        $('#search').fadeOut();
     };
 
     this.highlight = function(text, timeout) {
@@ -82,7 +65,6 @@ var Doc = function(md) {
             if($(this).text().toUpperCase().indexOf(text.toUpperCase()) > 0) {
                 $(this).addClass('mark');
                 var nodeName = $(this)[0].nodeName.toLowerCase();
-                console.log(nodeName);
                 if(nodeName == 'p' || nodeName == 'div') {
                     console.log($(this).prevAll('h1').first());
                     $(this).prevAll('h1').first().nextUntil($(this)).addBack().filter('h1, h2').addClass('mark');
@@ -98,7 +80,6 @@ var Doc = function(md) {
     };
 
     this.baiduMap = function() {
-        $('#search').fadeOut();
         $('article').html('<div id="allmap"></div>');
         if(typeof resizeHook != "undefined")
           resizeHook();
@@ -137,6 +118,7 @@ $(document).ready(function() {
     $.get('markdown/freshman.md', function(data) {
         doc = new Doc(data);
         doc.section("地图");
+        doc.nav();
         $('body').animate({opacity: 1}, 2000);
     });
 
@@ -149,6 +131,13 @@ $(document).ready(function() {
     //     e.stopPropagation();   //停止事件冒泡
     //     return false;
     // });
+
+    $('nav').on('click', 'h1', function() {
+        $('nav h1.current').removeClass('current');
+        $(this).addClass('current');
+        $('nav h2').slideUp();
+        $(this).nextUntil('h1').slideDown();
+    });
 
     $('body').on('click', 'h1', function() {
         var title = $(this).text();
@@ -215,14 +204,14 @@ var resizeHook = function() {
     var w = $(window).width();
     var h = $(window).height();
     $('article').css({width: w - 300, height: h});
-    $('#allmap').css({width: w - 200});
+    $('#allmap').css({width: w - 150});
 
-    var scale = (w - 200) / h,
+    var scale = (w - 150) / h,
         imgScale = 16 / 9;
     if(imgScale > scale) {
         $('img[alt="cover"]').css({width: 'auto', height: h});
     } else {
-        $('img[alt="cover"]').css({width: w - 200, height: 'auto'});
+        $('img[alt="cover"]').css({width: w - 150, height: 'auto'});
     }
 
 };

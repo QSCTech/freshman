@@ -26,32 +26,57 @@ body {
     opacity: 0;
 }
 
+:focus {
+    outline: none;
+}
+#search {
+    z-index: 9999;
+    position: fixed;
+    left: 0;
+    padding-left: 20px;
+    border: none;
+    background: transparent;
+    color: #8a8a8a;
+    top: 0;
+    height: 36px;
+    width: 100px;
+}
+i.icon-search {
+    z-index: 10000;
+    position: fixed;
+    left: 120px;
+    top: 11px;
+    font-size: 12px;
+}
+
 nav {
+    padding-top: 36px;
     border-right: 1px solid #ddd;
     height: 100%;
-    width: 200px;
+    width: 150px;
     position: fixed;
     left: 0;
     top: 0;
-    text-align: center;
-    h1 {
+    text-align: left;
+    h1, h2 {
         margin: 0;
-        padding: 0;
-        margin-top: 24px;
-        font-size: 36px;
-        i {
-            padding-left: 24px;
-        }
+    }
+    h1 {
+        padding-left: 20px;
+        line-height: 30px;
+        font-size: 16px;
+        color: #8a8a8a;
+        border-top: 1px solid #ddd;
     }
     h2 {
-        color: @theme;
-        padding: 0;
-        margin: 36px 0 12px 0;
-        line-height: 24px;
-        font-size: 21px;
+        display: none;
+        padding-left: 40px;
+        color: #8a8a8a;
+        line-height: 30px;
+        font-size: 14px;
     }
-    .sub-header {
-        font-size: 16px;
+    .current {
+        color: @theme;
     }
 }
 article {
@@ -60,7 +85,7 @@ article {
     top: 0;
     width: 100%;
     height: 100%;
-    margin-left: 250px;
+    margin-left: 200px;
     color: #333;
     float: right;
     font-size: 14px;
@@ -97,41 +122,34 @@ article {
 footer {
     background: #fff;
     bottom: 0;
-    font-size: 12px;
+    font-size: 10px;
     left: 0;
     padding: 20px 0;
     position: fixed;
     text-align: center;
-    width: 200px;
+    width: 150px;
     z-index: 2000;
     color: #8a8a8a;
     a {
         color: #8a8a8a;
     }
 }
-#index {
-    margin-top: 50px;
-    h2 {
-        margin-left: 24px;
-    }
-    h3 {
-        margin-left: 48px;
+#logo {
+    margin-bottom: 20px;
+    height: 80px;
+    width: 80px;
+    margin-left: 35px;
+    img {
+        max-width: 100%;
     }
 }
+
 
 .highlight {
     background-color: yellow;
     transition: background-color 1s linear;
 }
 
-#search {
-    z-index: 9999;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 12px;
-    border: 1px solid #777;
-}
 
 .hide-elem {
     padding-bottom: 1em;
@@ -162,12 +180,3 @@ img[alt="cover"] {
     margin-left: -50px;
 }
 
-#logo {
-    margin-bottom: 20px;
-    height: 100px;
-    width: 100px;
-    margin-left: 50px;
-    img {
-        max-width: 100%;
-    }
-}
