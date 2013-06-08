@@ -161,11 +161,6 @@ $(document).ready(function() {
         e.stopPropagation();   //停止事件冒泡
     });
 
-    // $('nav').on('click', 'h1', function(e) {
-    //     e.stopPropagation();   //停止事件冒泡
-    //     return false;
-    // });
-
     $('nav').on('click', 'h1', function() {
         $('nav h1.current').removeClass('current');
         $(this).addClass('current');
