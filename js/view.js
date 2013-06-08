@@ -170,7 +170,18 @@ $(document).ready(function() {
         $('nav h1.current').removeClass('current');
         $(this).addClass('current');
         $('nav h2').slideUp();
-        $(this).nextUntil('h1').slideDown();
+        var max = 2;
+        var iter = function(jqObj) {
+            var $next = jqObj.next();
+            max--;
+            if(max < 0) return;
+            if($next[0].nodeName.toLowerCase() != 'h1' && $next.parent()[0].nodeName.toLowerCase() == 'nav') {
+                $next.slideDown(400, function() {
+                    iter($next);
+                });
+            }
+        }
+        iter($(this));
     });
 
     $('body').on('click', 'h1', function() {
