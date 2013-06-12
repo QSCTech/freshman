@@ -164,12 +164,11 @@ $(document).ready(function() {
     $('nav').on('click', 'h1', function() {
         $('nav h1.current').removeClass('current');
         $(this).addClass('current');
+        $('h2.current').removeClass('current');
+        $(this).next('h2').addClass('current');
         $('nav h2').slideUp();
-        var max = 2;
         var iter = function(jqObj) {
             var $next = jqObj.next();
-            max--;
-            if(max < 0) return;
             if($next[0].nodeName.toLowerCase() != 'h1' && $next.parent()[0].nodeName.toLowerCase() == 'nav') {
                 $next.slideDown(400, function() {
                     iter($next);
@@ -177,6 +176,11 @@ $(document).ready(function() {
             }
         }
         iter($(this));
+    });
+
+    $('nav').on('click', 'h2', function() {
+        $('h2.current').removeClass('current');
+        $(this).addClass('current');
     });
 
     $('body').on('click', 'h1', function() {
