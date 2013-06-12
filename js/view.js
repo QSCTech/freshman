@@ -18,37 +18,41 @@ var Doc = function(md) {
     };
 
     this.section = function(title) {
-        $('article').animate({opacity: 0}, 200);
         title = title.replace(/ /g, '');
         var jq = $(html);
         jq.each(function() {
             if($(this).text().replace(/ /g, '') == title) {
-                var subSection = $(this).nextAll("h2, img, p").first().nextUntil("h2,h1");
-                subSection = subSection.filter('*:not(h1,h2,.sub-header)');
-                setTimeout(function() {
-                    $('article').html(subSection);
-                    resizeHook();
-                    $('article').animate({opacity: 1}, 400);
-                }, 200);
+                $('article').html('');
+                var subSections = $(this).nextUntil("h1");
+                subSections = subSections.each(function() {
+                    var nodeName = $(this)[0].nodeName.toLowerCase();
+                    if(nodeName == 'h2') {
+                        var subSection = $(this).nextUntil("h2");
+                        var jq = $('<section><h2>'+$(this).text()+'</h2></section>').append(subSection);
+                        $('article').append(jq);
+                    }
+                });
                 return false; // break
             };
         });
+        $('article section').first().addClass('current');
+        $('#article section').perfectScrollbar();
+
     };
 
     this.subSection = function(title) {
-        $('article').animate({opacity: 0}, 200);
         title = title.replace(/ /g, '');
-        $(html).each(function() {
-            if($(this).text().replace(/ /g, '') == title) {
-                var subSection = $(this).nextUntil("h2,h1");
-                subSection = subSection.filter('*:not(h1,h2,.sub-header)');
-                setTimeout(function() {
-                    $('article').html(subSection);
-                    $('article').attr('id', '');
-                    $('article').animate({opacity: 1}, 400);
-                }, 200);
-                return false; // break
-            };
+        var i = 0;
+        $('article section').each(function() {
+            if(title == $(this).find('h2').first().text().replace(/ /g, '')) {
+                $('article section.current').removeClass('current');
+                $(this).addClass('current');
+                $('article').animate({'margin-left': -300*i}, 400, function() {
+                    $('#article section').perfectScrollbar();
+                });
+                return false;
+            }
+            ++i;
         });
     };
 
@@ -101,7 +105,7 @@ var Cover = function() {
     this.start = function() {
         that.stop(); // make sure only one interval exists
         that.init();
-        $('body').css({'overflow-y': 'hidden'});
+        //        $('body').css({'overflow-y': 'hidden'});
         window.coverInterval = setInterval(function() {
             that.next();
         }, 3000);
@@ -118,7 +122,7 @@ var Cover = function() {
     };
 
     this.stop = function() {
-        $('body').css({'overflow-y': 'auto'});
+        //        $('body').css({'overflow-y': 'auto'});
         clearInterval(window.coverInterval);
         clearInterval(window.coverTestInterval);
     };
@@ -165,12 +169,11 @@ $(document).ready(function() {
         $('nav h1.current').removeClass('current');
         $(this).addClass('current');
         $('h2.current').removeClass('current');
-        $(this).next('h2').addClass('current');
         $('nav h2').slideUp();
         var iter = function(jqObj) {
             var $next = jqObj.next();
             if($next[0].nodeName.toLowerCase() != 'h1' && $next.parent()[0].nodeName.toLowerCase() == 'nav') {
-                $next.slideDown(400, function() {
+                $next.slideDown(350, function() {
                     iter($next);
                 });
             }
@@ -244,13 +247,28 @@ $(document).ready(function() {
             }
         });
     });
-});
 
+    $('#next').click(function() {
+        var next = $('section.current').first().next().find('h2').first().text();
+        if(next) {
+            doc.subSection(next);
+        }
+    });
+
+    $('#prev').click(function() {
+        var prev = $('section.current').first().prev().find('h2').first().text();
+        if(prev) {
+            doc.subSection(prev);
+        }
+    });
+
+
+});
 
 var resizeHook = function() {
     var w = $(window).width();
     var h = $(window).height();
-    $('article').css({width: w - 300, height: h});
+    $('article').css({height: h});
     $('#allmap').css({width: w - 150});
 
     var scale = (w - 150) / h,
