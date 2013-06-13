@@ -157,6 +157,16 @@ article {
         p:last-child {
             padding-bottom: 100px;
         }
+        &#baidu-map {
+            padding: 0;
+            margin: 0;
+            margin-left: -20px;
+            width: 800px;
+            &.current {
+                margin-left: 0;
+                .transition(1s);
+            }
+        }
         &.current {
             background: #fbfbfb;
         }

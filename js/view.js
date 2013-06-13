@@ -70,8 +70,16 @@ var Doc = function(md) {
                         } else {
                             jq = $('<section><h2>'+$(this).text()+'</h2></section>');
                         }
+                        var findBaidu = false;
+                        if($(this).text() == '周边观察版') {
+                            jq.attr('id', 'baidu-map');
+                            findBaidu = true;
+                        }
                         jq = jq.append(subSection);
                         $('article').append(jq);
+                        if(findBaidu) {
+                            doc.baiduMap();
+                        }
                     }
                 });
                 if(nextSection) {
@@ -173,17 +181,14 @@ var Doc = function(md) {
     };
 
     this.baiduMap = function() {
-        $('article').html('<div id="allmap"></div>');
         if(typeof resizeHook != "undefined")
           resizeHook();
-        var map = new BMap.Map("allmap");
+        var map = new BMap.Map("baidu-map");
         map.centerAndZoom(new BMap.Point(120.09391065692903, 30.310239963664857), 16);
         map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+        $('#baidu-map').append('<h2>周边观察版</h2>');
     };
 
-    this.zdpoMap = function() {
-        window.location.href = 'http://zdpo.zju.edu.cn/map/';
-    };
 };
 
 
@@ -300,10 +305,6 @@ $(document).ready(function() {
         var title = $(this).text();
         if(title.replace(/ /g, '') == '周边观察版') {
             doc.baiduMap();
-            return;
-        }
-        if(title.replace(/ /g, '') == '三维全景版') {
-            doc.zdpoMap();
             return;
         }
         doc.subSection(title, true);
