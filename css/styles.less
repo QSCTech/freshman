@@ -1,4 +1,5 @@
 @import 'font-awesome/font-awesome';
+@import 'perfect-scrollbar';
 
 @theme: #558A2E+#222;
 @color1: #C9D787 + #222;
@@ -105,7 +106,7 @@ article {
     font-size: 14px;
     text-align: left;
     width: 10000px;
-    .transition(.3s);
+//    .transition(.3s);
     em {
         color: @theme;
     }
@@ -146,20 +147,29 @@ article {
         position: relative; // for perfect scroll
         //        overflow-y: auto;
         overflow: hidden;
-        .transition(.8s);
-        -webkit-filter: blur(3px);
-        -moz-filter: blur(3px);
-        -o-filter: blur(3px);
-        -ms-filter: blur(3px);
-        filter: blur(3px);
-        filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3'); // for IE
-        filter: url("blur.svg#blur3"); // for firefox
+        border-right: 1px solid #f0f0f0;
+//        .transition(.8s);
         &.current {
-            -webkit-filter: blur(0px);
-            filter:none;
-            width: 600px;
-            border: none;
-            //            background: @color1;
+        }
+        &.next {
+            color: @theme;
+            padding-top: 0;
+            padding-bottom: 0;
+            margin-top: 0;
+            #next-chapter {
+                height: 200px;
+                position: absolute;
+                top: 50%;
+                line-height: 60px;
+                font-size: 60px;
+                margin: 0;
+                padding: 0;
+                margin-top: -80px;
+                span {
+                    font-size: 28px;
+                    color: #ccc;
+                }
+            }
         }
     }
 }

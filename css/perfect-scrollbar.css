@@ -1,0 +1,8 @@
+.ps-container .ps-scrollbar-x{position:absolute;bottom:3px;height:8px;background-color:#aaa;border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;opacity:0;-webkit-transition:opacity.2s linear;-moz-transition:opacity .2s linear;transition:opacity .2s linear;}
+.ps-container:hover .ps-scrollbar-x{opacity:0.6;}
+.ps-container .ps-scrollbar-x:hover{opacity:0.9;cursor:default;}
+.ps-container .ps-scrollbar-x.in-scrolling{opacity:0.9;}
+.ps-container .ps-scrollbar-y{position:absolute;right:3px;width:8px;background-color:#aaa;border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;opacity:0;-webkit-transition:opacity.2s linear;-moz-transition:opacity .2s linear;transition:opacity .2s linear;}
+.ps-container:hover .ps-scrollbar-y{opacity:0.6;}
+.ps-container .ps-scrollbar-y:hover{opacity:0.9;cursor:default;}
+.ps-container .ps-scrollbar-y.in-scrolling{opacity:0.9;}

@@ -26,12 +26,18 @@ var Doc = function(md) {
                 $('nav h1.current').removeClass('current');
                 $(this).addClass('current');
                 $('h2.current').removeClass('current');
-                $('nav h2').slideUp();
+                $('nav h2').each(function() {
+                    $(this).slideUp();
+                });
                 var iter = function(jqObj) {
                     var $next = jqObj.next();
-                    if($next[0].nodeName.toLowerCase() != 'h1' && $next.parent()[0].nodeName.toLowerCase() == 'nav') {
-                        $next.slideDown(350, function() {
-                            iter($next);
+                    if($next[0] && $next[0].nodeName.toLowerCase() != 'h1' && $next.parent()[0].nodeName.toLowerCase() == 'nav') {
+                        $next.slideDown({
+                            duration: 400,
+                            easing: "linear",
+                            complete: function() {
+                                iter($next);
+                            }
                         });
                     }
                 }
@@ -40,6 +46,12 @@ var Doc = function(md) {
         });
         jq.each(function() {
             if($(this).text().replace(/ /g, '') == title) {
+                var nextSection = $(this).nextAll('h1');
+                nextSection = nextSection.first().text();
+                if(nextSection) {
+                    nextSection = $('<div id="next-chapter"><span>阅读下一章节</span><br></div>').append(nextSection);
+                    nextSection = $('<section class="next"></section>').append(nextSection);
+                }
                 $('article').html('');
                 var subSections = $(this).nextUntil("h1");
                 subSections = subSections.each(function() {
@@ -48,9 +60,11 @@ var Doc = function(md) {
                         var subSection = $(this).nextUntil("h1,h2");
                         var jq = $('<section><h2>'+$(this).text()+'</h2></section>').append(subSection);
                         $('article').append(jq);
-                        console.log(jq);
                     }
                 });
+                if(nextSection) {
+                    $('article').append(nextSection);
+                }
                 return false; // break
             };
         });
@@ -94,7 +108,7 @@ var Doc = function(md) {
                 $(this).addClass('mark');
                 var nodeName = $(this)[0].nodeName.toLowerCase();
                 if(nodeName == 'p' || nodeName == 'div') {
-                    console.log($(this).prevAll('h1').first());
+//                    console.log($(this).prevAll('h1').first());
                     $(this).prevAll('h1').first().nextUntil($(this)).addBack().filter('h1, h2').addClass('mark');
                 }
                 if(nodeName == 'h2') {
@@ -211,7 +225,7 @@ $(document).ready(function() {
 
     $('body').on('click', 'h2', function() {
         if($('#index').attr('id') == 'index') {
-            console.log("index");
+//            console.log("index");
             var pos = $(this).prevAll('h1').first().text().replace(/ /g, '');
             var cur = $('nav h1').text().replace(/<i>.*<\/i>/, '').replace(/ /g, '');
             if(cur != pos) {
