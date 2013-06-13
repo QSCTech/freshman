@@ -17,6 +17,18 @@ var Doc = function(md) {
         $('nav').html(jq);
     };
 
+    this.comment = function(su) {
+        // 这里一定要污染全局变量
+        uyan_config = {
+            title:'求是潮新生手册',
+            su:'qsc-freshman'
+        };
+        if(su) {
+            uyan_config.su = su;
+        }
+        $('article section#comment').html('<div id="uyan_frame"></div><script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1648537" async=""></script>');
+    };
+
     this.section = function(title) {
         $('article').animate({opacity: 0}, 200, 'linear', function() {
             jq.each(function() {
@@ -39,15 +51,29 @@ var Doc = function(md) {
                             } else {
                                 jq = $('<section><h2>'+$(this).text()+'</h2></section>');
                             }
-                            var findBaidu = false;
+                            var find = {};
                             if($(this).text() == '周边观察版') {
                                 jq.attr('id', 'baidu-map');
-                                findBaidu = true;
+                                find.baidu = true;
+                            }
+                            if($(this).text() == '讨论区') {
+                                jq.attr('id', 'comment');
+                                find.comment = true;
+                            }
+                            if($(this).text() == '收集建议') {
+                                jq.attr('id', 'comment');
+                                find.advice = true;
                             }
                             jq = jq.append(subSection);
                             $('article').append(jq);
-                            if(findBaidu) {
+                            if(find.baidu) {
                                 doc.baiduMap();
+                            }
+                            if(find.comment) {
+                                doc.comment('qsc-freshman-comment');
+                            }
+                            if(find.advice) {
+                                doc.comment('qsc-freshman-advice');
                             }
                         }
                     });
