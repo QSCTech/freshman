@@ -92,22 +92,29 @@ var Doc = function(md) {
                 $('article section.current').removeClass('current');
                 $(this).addClass('current');
                 $('article').animate({'margin-left': -offsetLeft}, 400, function() {
-                            $('article section').hover(
-                              function() {
-                                  var offset = $(this)[0].scrollHeight - $(this).height();
-                                  if(offset <= 40) return;
-                                  if($(this).hasClass('perfect-scrollbar')) return;
-                                  $(this).addClass('perfect-scrollbar');
-                                  $(this).perfectScrollbar({
-                                      wheelSpeed: 40,
-                                      wheelPropagation: true
-                                  });
-                              },
-                              function() {
-                                  $(this).removeClass('perfect-scrollbar');
-                                  $(this).perfectScrollbar('destroy');
-                              }
-                            );
+                    var loadPerfectScrollBar = function(that) {
+                          var offset = $(that)[0].scrollHeight - $(that).height();
+                          if(offset <= 40) return;
+                          if($(that).hasClass('perfect-scrollbar')) return;
+                          $(that).addClass('perfect-scrollbar');
+                          $(that).perfectScrollbar({
+                              wheelSpeed: 40,
+                              wheelPropagation: true
+                          });
+                    };
+                    // 保证点击折叠类的东西点击后能正常加载滚动条
+                    $('article section').click(function() {
+                        loadPerfectScrollBar(this);
+                    });
+                    $('article section').hover(
+                      function() {
+                          loadPerfectScrollBar(this);
+                      },
+                      function() {
+                          $(this).removeClass('perfect-scrollbar');
+                          $(this).perfectScrollbar('destroy');
+                      }
+                    );
                 });
                 return false;
             }
