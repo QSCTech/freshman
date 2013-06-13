@@ -185,6 +185,7 @@ var Doc = function(md) {
     this.search = function(text) {
         $('article').html('');
         $('nav .current').removeClass('current');
+        $('article').css({'margin-left': 0});
         $('nav h2').slideUp();
         var jq = $(html).each(function() {
             var nodeName = $(this)[0].nodeName.toLowerCase();
