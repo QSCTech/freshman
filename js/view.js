@@ -25,6 +25,7 @@ var Doc = function(md) {
         };
         if(su) {
             uyan_config.su = su;
+            uyan_config.title = su;
         }
         $('article section#comment').html('<div id="uyan_frame"></div><script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1648537" async=""></script>');
     };
