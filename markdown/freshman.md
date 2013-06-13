@@ -1,4 +1,38 @@
-﻿# 地图
+﻿# 开始
+
+## *封面*
+
+![cover](img/map.jpg)
+
+## 下载新生手册
+
+### PDF
+
+### Mobi
+
+### Epub
+
+### Markdown
+Download: [Freshman.md](markdown/freshman.md)
+
+### HTML
+Download: [Master.zip](https://github.com/zenozeng/freshman/archive/master.zip)
+
+## 阅读 Tips
+
+### 快捷键
+
+使用方向键可以快速跳转到下个章节
+
+### 搜索
+
+左上角有个搜索框，直接输入就会有即时的结果反馈。
+
+### 反馈或意见
+点击这里反馈意见
+
+
+# 地图
 
 ## *最新详尽版*
 
@@ -1497,4 +1531,35 @@ BG的理由可以有很多：谈恋爱了，找到工作了，拿到出国的off
 浙大的学生门户网站叫做求是潮！
 \n
 求是文化在浙大无处不在，快来发现你的求是x吧！
+
+## *贡献人员*
+
+本项目是开源项目，欢迎通过fork与pull request来提交贡献：\n
+https://github.com/zenozeng/freshman
+
+Document：
+
+    - ALEJ WONG
+
+    - Fifth
+
+    - 待补充
+
+Design：
+
+    - ALEJ WONG
+
+Coding：
+
+    - Zeng Zeng
+
+# 讨论
+
+## 讨论与留言
+
+这里放评论框什么的
+
+## 错误或意见
+
+这里放评论框什么的
 

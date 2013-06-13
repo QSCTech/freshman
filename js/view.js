@@ -247,7 +247,8 @@ $(document).ready(function() {
     $.get('markdown/freshman.md', function(data) {
         doc = new Doc(data);
         doc.nav();
-        doc.section("地图");
+        var first = $('nav h1').first().text();
+        doc.section(first);
         $('body').animate({opacity: 1}, 1000);
     });
 
