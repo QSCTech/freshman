@@ -20,6 +20,23 @@ var Doc = function(md) {
     this.section = function(title) {
         title = title.replace(/ /g, '');
         var jq = $(html);
+        $('nav h1').each(function() {
+            if($(this).text().replace(/ /g, '') == title) {
+                $('nav h1.current').removeClass('current');
+                $(this).addClass('current');
+                $('h2.current').removeClass('current');
+                $('nav h2').slideUp();
+                var iter = function(jqObj) {
+                    var $next = jqObj.next();
+                    if($next[0].nodeName.toLowerCase() != 'h1' && $next.parent()[0].nodeName.toLowerCase() == 'nav') {
+                        $next.slideDown(350, function() {
+                            iter($next);
+                        });
+                    }
+                }
+                iter($(this));
+            }
+        });
         jq.each(function() {
             if($(this).text().replace(/ /g, '') == title) {
                 $('article').html('');
@@ -35,14 +52,19 @@ var Doc = function(md) {
                 return false; // break
             };
         });
-        $('article section').first().addClass('current');
-        $('#article section').perfectScrollbar();
-
+        var subSection = $('article section').first().find('h2').first().text();
+        that.subSection(subSection);
     };
 
     this.subSection = function(title) {
         title = title.replace(/ /g, '');
         var i = 0;
+        $('nav h2').each(function() {
+            if(title == $(this).text().replace(/ /g, '')) {
+                $('nav h2.current').removeClass('current');
+                $(this).addClass('current');
+            }
+        });
         $('article section').each(function() {
             if(title == $(this).find('h2').first().text().replace(/ /g, '')) {
                 $('article section.current').removeClass('current');
@@ -155,35 +177,14 @@ $(document).ready(function() {
     cover = new Cover();
     $.get('markdown/freshman.md', function(data) {
         doc = new Doc(data);
-        doc.section("地图");
         doc.nav();
+        doc.section("地图");
         $('body').animate({opacity: 1}, 2000);
     });
 
     $('nav').on('click', 'h1 i', function(e) {
         doc.index();
         e.stopPropagation();   //停止事件冒泡
-    });
-
-    $('nav').on('click', 'h1', function() {
-        $('nav h1.current').removeClass('current');
-        $(this).addClass('current');
-        $('h2.current').removeClass('current');
-        $('nav h2').slideUp();
-        var iter = function(jqObj) {
-            var $next = jqObj.next();
-            if($next[0].nodeName.toLowerCase() != 'h1' && $next.parent()[0].nodeName.toLowerCase() == 'nav') {
-                $next.slideDown(350, function() {
-                    iter($next);
-                });
-            }
-        }
-        iter($(this));
-    });
-
-    $('nav').on('click', 'h2', function() {
-        $('h2.current').removeClass('current');
-        $(this).addClass('current');
     });
 
     $('body').on('click', 'h1', function() {
@@ -252,6 +253,11 @@ $(document).ready(function() {
         var next = $('section.current').first().next().find('h2').first().text();
         if(next) {
             doc.subSection(next);
+        } else {
+            next = $('nav h1.current').first().nextAll('h1').first().text();
+            if(next) {
+                doc.section(next);
+            }
         }
     });
 
