@@ -244,12 +244,11 @@ var Cover = function() {
 };
 
 $(document).ready(function() {
-    cover = new Cover();
     $.get('markdown/freshman.md', function(data) {
         doc = new Doc(data);
         doc.nav();
         doc.section("地图");
-        $('body').animate({opacity: 1}, 2000);
+        $('body').animate({opacity: 1}, 1000);
     });
 
     $('article').on('click', 'section', function(event) {
@@ -266,11 +265,6 @@ $(document).ready(function() {
         }
     });
 
-    $('nav').on('click', 'h1 i', function(e) {
-        doc.index();
-        e.stopPropagation();   //停止事件冒泡
-    });
-
     $('body').on('click', 'h1', function() {
         var title = $(this).text();
         title = title.replace(/<i>.*<\/i>/, '');
@@ -278,17 +272,6 @@ $(document).ready(function() {
         setTimeout(function() {
             cover.start();
         }, 500);
-    });
-
-    $('body').on('click', 'h3', function() {
-        doc.section($(this).prevAll('h1').first().text());
-        doc.subSection($(this).prevAll('h2').first().text());
-        doc.highlight($(this).text(), 650);
-        setTimeout(function() {
-            var offset = $('h3 .highlight').offset();
-            $('body, html').animate({scrollTop: offset.top - 50});
-            $('.highlight').css({background: '#fff'});
-        }, 670);
     });
 
     $('body').on('click', 'h2', function() {
@@ -300,10 +283,6 @@ $(document).ready(function() {
             }
         }
         var title = $(this).text();
-        if(title.replace(/ /g, '') == '周边观察版') {
-            doc.baiduMap();
-            return;
-        }
         doc.subSection(title, true);
         setTimeout(function() {
             $('body, html').animate({scrollTop: 0});
