@@ -5,8 +5,8 @@
 
   // The default settings for the plugin
   var defaultSettings = {
-      wheelSpeed: 10,
-      wheelPropagation: false
+    wheelSpeed: 10,
+    wheelPropagation: false
   };
 
   $.fn.perfectScrollbar = function (suppliedSettings, option) {
@@ -70,8 +70,12 @@
       var updateBarSizeAndPosition = function () {
         containerWidth = $this.width();
         containerHeight = $this.height();
-        contentWidth = $content.outerWidth(false);
-        contentHeight = $content.outerHeight(false);
+//        contentWidth = $content.outerWidth(false);
+//        contentHeight = $content.outerHeight(false);
+        contentHeight = $this[0].scrollHeight;
+        contentWidth = $this[0].scrollWidth;
+          console.log(contentWidth);
+          console.log(contentHeight);
         if (containerWidth < contentWidth) {
           scrollbarXWidth = parseInt(containerWidth * containerWidth / contentWidth, 10);
           scrollbarXLeft = parseInt($this.scrollLeft() * containerWidth / contentWidth, 10);
@@ -148,8 +152,8 @@
 
         $(document).bind('mousemove.perfect-scroll', function (e) {
           if ($scrollbarX.hasClass('in-scrolling')) {
-            moveBarX(currentLeft, e.pageX - currentPageX);
             updateContentScrollLeft();
+            moveBarX(currentLeft, e.pageX - currentPageX);
             e.stopPropagation();
             e.preventDefault();
           }
@@ -176,8 +180,8 @@
 
         $(document).bind('mousemove.perfect-scroll', function (e) {
           if ($scrollbarY.hasClass('in-scrolling')) {
-            moveBarY(currentTop, e.pageY - currentPageY);
             updateContentScrollTop();
+            moveBarY(currentTop, e.pageY - currentPageY);
             e.stopPropagation();
             e.preventDefault();
           }

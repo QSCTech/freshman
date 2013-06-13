@@ -92,7 +92,14 @@ var Doc = function(md) {
                 $('article section.current').removeClass('current');
                 $(this).addClass('current');
                 $('article').animate({'margin-left': -offsetLeft}, 400, function() {
-                    $('article section').perfectScrollbar();
+                            $('article section').hover(
+                              function() {
+                                  $(this).perfectScrollbar({wheelSpeed: 30});
+                              },
+                              function() {
+                                  $(this).perfectScrollbar('destroy');
+                              }
+                            );
                 });
                 return false;
             }
@@ -114,7 +121,7 @@ var Doc = function(md) {
                 $(this).addClass('mark');
                 var nodeName = $(this)[0].nodeName.toLowerCase();
                 if(nodeName == 'p' || nodeName == 'div') {
-//                    console.log($(this).prevAll('h1').first());
+                    //                    console.log($(this).prevAll('h1').first());
                     $(this).prevAll('h1').first().nextUntil($(this)).addBack().filter('h1, h2').addClass('mark');
                 }
                 if(nodeName == 'h2') {
@@ -204,6 +211,20 @@ $(document).ready(function() {
         $('body').animate({opacity: 1}, 2000);
     });
 
+    $('article').on('click', 'section', function(event) {
+        if($(this).hasClass('next')) {
+            var title = $('nav h1.current').nextAll('h1').first().text();
+            if(title) {
+                doc.section(title);
+            }
+        } else {
+            var title = $(this).find('h2').first().text();
+            if(title) {
+                doc.subSection(title);
+            }
+        }
+    });
+
     $('nav').on('click', 'h1 i', function(e) {
         doc.index();
         e.stopPropagation();   //停止事件冒泡
@@ -231,7 +252,7 @@ $(document).ready(function() {
 
     $('body').on('click', 'h2', function() {
         if($('#index').attr('id') == 'index') {
-//            console.log("index");
+            //            console.log("index");
             var pos = $(this).prevAll('h1').first().text().replace(/ /g, '');
             var cur = $('nav h1').text().replace(/<i>.*<\/i>/, '').replace(/ /g, '');
             if(cur != pos) {
@@ -279,7 +300,7 @@ $(document).ready(function() {
         }
     });
 
-    // no scroll
+    // force no scroll
     $(window).scroll(function() {
         window.scrollTo(0, 0);
     });
@@ -307,7 +328,6 @@ $(document).ready(function() {
             }
         }
     });
-
 
 });
 
