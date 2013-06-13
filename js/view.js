@@ -169,9 +169,7 @@ var Doc = function(md) {
                 }
                 jq = jq.append(subSection);
                 if($(this).text().toUpperCase().indexOf(text.toUpperCase()) > -1 || jq.text().toUpperCase().indexOf(text.toUpperCase()) > -1) {
-                    console.log($(this).text());
                     $('article').append(jq);
-                    console.log(jq);
                 }
             }
         });
@@ -295,7 +293,6 @@ $(document).ready(function() {
 
     $('body').on('click', 'h2', function() {
         if($('#index').attr('id') == 'index') {
-            //            console.log("index");
             var pos = $(this).prevAll('h1').first().text().replace(/ /g, '');
             var cur = $('nav h1').text().replace(/<i>.*<\/i>/, '').replace(/ /g, '');
             if(cur != pos) {
