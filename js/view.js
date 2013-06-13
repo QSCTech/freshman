@@ -20,6 +20,7 @@ var Doc = function(md) {
     this.section = function(title) {
         title = title.replace(/ /g, '');
         var jq = $(html);
+        // 导航栏动画
         $('nav h1').each(function() {
             if($(this).text().replace(/ /g, '') == title) {
                 $('nav h1.current').removeClass('current');
@@ -44,9 +45,10 @@ var Doc = function(md) {
                 subSections = subSections.each(function() {
                     var nodeName = $(this)[0].nodeName.toLowerCase();
                     if(nodeName == 'h2') {
-                        var subSection = $(this).nextUntil("h2");
+                        var subSection = $(this).nextUntil("h1,h2");
                         var jq = $('<section><h2>'+$(this).text()+'</h2></section>').append(subSection);
                         $('article').append(jq);
+                        console.log(jq);
                     }
                 });
                 return false; // break
@@ -58,23 +60,23 @@ var Doc = function(md) {
 
     this.subSection = function(title) {
         title = title.replace(/ /g, '');
-        var i = 0;
         $('nav h2').each(function() {
             if(title == $(this).text().replace(/ /g, '')) {
                 $('nav h2.current').removeClass('current');
                 $(this).addClass('current');
             }
         });
+        var offsetLeft = 0;
         $('article section').each(function() {
             if(title == $(this).find('h2').first().text().replace(/ /g, '')) {
                 $('article section.current').removeClass('current');
                 $(this).addClass('current');
-                $('article').animate({'margin-left': -300*i}, 400, function() {
-                    $('#article section').perfectScrollbar();
+                $('article').animate({'margin-left': -offsetLeft}, 400, function() {
+                    $('article section').perfectScrollbar();
                 });
                 return false;
             }
-            ++i;
+            offsetLeft += $(this).outerWidth(true); // Sum of width, padding, borders, margins
         });
     };
 
@@ -192,9 +194,6 @@ $(document).ready(function() {
         title = title.replace(/<i>.*<\/i>/, '');
         doc.section(title);
         setTimeout(function() {
-            $('body, html').animate({scrollTop: 0});
-        }, 650);
-        setTimeout(function() {
             cover.start();
         }, 500);
     });
@@ -265,6 +264,11 @@ $(document).ready(function() {
         var prev = $('section.current').first().prev().find('h2').first().text();
         if(prev) {
             doc.subSection(prev);
+        } else {
+            prev = $('nav h1.current').first().prevAll('h1').first().text();
+            if(prev) {
+                doc.section(prev);
+            }
         }
     });
 
