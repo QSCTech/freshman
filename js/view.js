@@ -18,6 +18,50 @@ var Doc = function(md) {
     };
 
     this.section = function(title) {
+        $('article').animate({opacity: 0}, 200, 'linear', function() {
+            jq.each(function() {
+                if($(this).text().replace(/ /g, '') == title) {
+                    var nextSection = $(this).nextAll('h1');
+                    nextSection = nextSection.first().text();
+                    if(nextSection) {
+                        nextSection = $('<div id="next-chapter"><span>阅读下一章节</span><br></div>').append(nextSection);
+                        nextSection = $('<section class="next"></section>').append(nextSection);
+                    }
+                    $('article').html('');
+                    var subSections = $(this).nextUntil("h1");
+                    subSections = subSections.each(function() {
+                        var nodeName = $(this)[0].nodeName.toLowerCase();
+                        if(nodeName == 'h2') {
+                            var subSection = $(this).nextUntil("h1,h2"),
+                                jq;
+                            if($(this).find('em').text()) {
+                                jq = $('<section class="em"><h2>'+$(this).text()+'</h2></section>');
+                            } else {
+                                jq = $('<section><h2>'+$(this).text()+'</h2></section>');
+                            }
+                            var findBaidu = false;
+                            if($(this).text() == '周边观察版') {
+                                jq.attr('id', 'baidu-map');
+                                findBaidu = true;
+                            }
+                            jq = jq.append(subSection);
+                            $('article').append(jq);
+                            if(findBaidu) {
+                                doc.baiduMap();
+                            }
+                        }
+                    });
+                    if(nextSection) {
+                        $('article').append(nextSection);
+                    }
+                    return false; // break
+                };
+            });
+            loadPerfectScrollBar();
+            var subSection = $('article section').first().find('h2').first().text();
+            that.subSection(subSection);
+            $('article').animate({opacity: 1}, 400);
+        });
         title = title.replace(/ /g, '');
         var jq = $(html);
         // 导航栏动画
@@ -50,47 +94,6 @@ var Doc = function(md) {
                 iter($(this));
             }
         });
-        jq.each(function() {
-            if($(this).text().replace(/ /g, '') == title) {
-                var nextSection = $(this).nextAll('h1');
-                nextSection = nextSection.first().text();
-                if(nextSection) {
-                    nextSection = $('<div id="next-chapter"><span>阅读下一章节</span><br></div>').append(nextSection);
-                    nextSection = $('<section class="next"></section>').append(nextSection);
-                }
-                $('article').html('');
-                var subSections = $(this).nextUntil("h1");
-                subSections = subSections.each(function() {
-                    var nodeName = $(this)[0].nodeName.toLowerCase();
-                    if(nodeName == 'h2') {
-                        var subSection = $(this).nextUntil("h1,h2"),
-                            jq;
-                        if($(this).find('em').text()) {
-                            jq = $('<section class="em"><h2>'+$(this).text()+'</h2></section>');
-                        } else {
-                            jq = $('<section><h2>'+$(this).text()+'</h2></section>');
-                        }
-                        var findBaidu = false;
-                        if($(this).text() == '周边观察版') {
-                            jq.attr('id', 'baidu-map');
-                            findBaidu = true;
-                        }
-                        jq = jq.append(subSection);
-                        $('article').append(jq);
-                        if(findBaidu) {
-                            doc.baiduMap();
-                        }
-                    }
-                });
-                if(nextSection) {
-                    $('article').append(nextSection);
-                }
-                return false; // break
-            };
-        });
-        loadPerfectScrollBar();
-        var subSection = $('article section').first().find('h2').first().text();
-        that.subSection(subSection);
     };
 
     var loadPerfectScrollBar = function() {
