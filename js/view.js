@@ -307,10 +307,10 @@ $(document).ready(function() {
     // 绑定方向键
     $('body').keyup(function(e) {
         var code = e.keyCode;
-        if(code == 39) {
+        if(code == 39 || code == 40) {
             $('#next').click();
         }
-        if(code == 37) {
+        if(code == 37 || code == 38) {
             $('#prev').click();
         }
     });
