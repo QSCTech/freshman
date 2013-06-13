@@ -63,8 +63,14 @@ var Doc = function(md) {
                 subSections = subSections.each(function() {
                     var nodeName = $(this)[0].nodeName.toLowerCase();
                     if(nodeName == 'h2') {
-                        var subSection = $(this).nextUntil("h1,h2");
-                        var jq = $('<section><h2>'+$(this).text()+'</h2></section>').append(subSection);
+                        var subSection = $(this).nextUntil("h1,h2"),
+                            jq;
+                        if($(this).find('em').text()) {
+                            jq = $('<section class="em"><h2>'+$(this).text()+'</h2></section>');
+                        } else {
+                            jq = $('<section><h2>'+$(this).text()+'</h2></section>');
+                        }
+                        jq = jq.append(subSection);
                         $('article').append(jq);
                     }
                 });
@@ -74,8 +80,41 @@ var Doc = function(md) {
                 return false; // break
             };
         });
+        loadPerfectScrollBar();
         var subSection = $('article section').first().find('h2').first().text();
         that.subSection(subSection);
+    };
+
+    var loadPerfectScrollBar = function() {
+        var loadPerfectScrollBar = function(that) {
+            var offset = $(that)[0].scrollHeight - $(that).height();
+            if(offset <= 40) return;
+            if($(that).hasClass('perfect-scrollbar')) return;
+            $(that).addClass('perfect-scrollbar');
+            $(that).perfectScrollbar({
+                wheelSpeed: 40,
+                wheelPropagation: true
+            });
+        };
+        // 保证点击折叠类的东西点击后能正常加载滚动条
+        $('article section').click(function() {
+            var callback = (function(that) {
+                return function () {
+                    loadPerfectScrollBar(that);
+                }
+            })(this);
+            setTimeout(callback, 400);
+            loadPerfectScrollBar(this);
+        });
+        $('article section').hover(
+          function() {
+              loadPerfectScrollBar(this);
+          },
+          function() {
+              $(this).removeClass('perfect-scrollbar');
+              $(this).perfectScrollbar('destroy');
+          }
+        );
     };
 
     this.subSection = function(title) {
@@ -91,31 +130,7 @@ var Doc = function(md) {
             if(title == $(this).find('h2').first().text().replace(/ /g, '')) {
                 $('article section.current').removeClass('current');
                 $(this).addClass('current');
-                $('article').animate({'margin-left': -offsetLeft}, 400, function() {
-                    var loadPerfectScrollBar = function(that) {
-                          var offset = $(that)[0].scrollHeight - $(that).height();
-                          if(offset <= 40) return;
-                          if($(that).hasClass('perfect-scrollbar')) return;
-                          $(that).addClass('perfect-scrollbar');
-                          $(that).perfectScrollbar({
-                              wheelSpeed: 40,
-                              wheelPropagation: true
-                          });
-                    };
-                    // 保证点击折叠类的东西点击后能正常加载滚动条
-                    $('article section').click(function() {
-                        loadPerfectScrollBar(this);
-                    });
-                    $('article section').hover(
-                      function() {
-                          loadPerfectScrollBar(this);
-                      },
-                      function() {
-                          $(this).removeClass('perfect-scrollbar');
-                          $(this).perfectScrollbar('destroy');
-                      }
-                    );
-                });
+                $('article').animate({'margin-left': -offsetLeft}, 400);
                 return false;
             }
             offsetLeft += $(this).outerWidth(true); // Sum of width, padding, borders, margins
@@ -125,27 +140,35 @@ var Doc = function(md) {
     this.highlight = function(text, timeout) {
         if(!timeout) timeout = 50;
         setTimeout(function() {
-            $('body').removeHighlight();
-            $('body').highlight(text);
+            $('article').removeHighlight();
+            $('article').highlight(text);
         }, timeout);
     };
 
     this.search = function(text) {
+        $('article').html('');
+        $('nav .current').removeClass('current');
+        $('nav h2').slideUp();
         var jq = $(html).each(function() {
-            if($(this).text().toUpperCase().indexOf(text.toUpperCase()) > 0) {
-                $(this).addClass('mark');
-                var nodeName = $(this)[0].nodeName.toLowerCase();
-                if(nodeName == 'p' || nodeName == 'div') {
-                    //                    console.log($(this).prevAll('h1').first());
-                    $(this).prevAll('h1').first().nextUntil($(this)).addBack().filter('h1, h2').addClass('mark');
+            var nodeName = $(this)[0].nodeName.toLowerCase();
+            if(nodeName == 'h2') {
+                var subSection = $(this).nextUntil("h1,h2"),
+                    jq;
+                if($(this).find('em').text()) {
+                    jq = $('<section class="em"><h2>'+$(this).text()+'</h2></section>');
+                } else {
+                    jq = $('<section><h2>'+$(this).text()+'</h2></section>');
                 }
-                if(nodeName == 'h2') {
-                    $(this).prevAll('h1').first().addClass('mark');
+                jq = jq.append(subSection);
+                if($(this).text().toUpperCase().indexOf(text.toUpperCase()) > -1 || jq.text().toUpperCase().indexOf(text.toUpperCase()) > -1) {
+                    console.log($(this).text());
+                    $('article').append(jq);
+                    console.log(jq);
                 }
             }
         });
-        $('article').html('<div id="search-results"></div>');
-        $('#search-results').html(jq.filter('.mark'));
+        $('article section').first().addClass('current');
+        loadPerfectScrollBar();
         that.highlight(text);
     };
 
@@ -297,9 +320,9 @@ $(document).ready(function() {
     $('article').on('click', '.hide-elem-title', function() {
         $(this).parent().find('.hide-elem-content').each(function() {
             if($(this).is(":visible")) {
-                $(this).slideUp();
+                $(this).slideUp(400);
             } else {
-                $(this).slideDown();
+                $(this).slideDown(400);
             }
         });
     });
