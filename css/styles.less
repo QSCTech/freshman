@@ -143,12 +143,17 @@ article {
         float: left;
         width: 300px - 20px*2;
         padding: 20px;
+        padding-top: 0;
+        margin-right: 20px;
         height: 100%;
         position: relative; // for perfect scroll
         overflow: hidden;
 //        overflow-y: auto;
         border-right: 1px solid #f0f0f0;
 //        .transition(.8s);
+        p:last-child {
+            padding-bottom: 100px;
+        }
         &.current {
             background: #fbfbfb;
         }
@@ -174,6 +179,11 @@ article {
             }
         }
     }
+}
+#search-results {
+    padding-left: 40px;
+    width: 600px;
+    scroll-y: auto;
 }
 footer {
     background: #fff;

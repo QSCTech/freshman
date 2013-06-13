@@ -94,9 +94,17 @@ var Doc = function(md) {
                 $('article').animate({'margin-left': -offsetLeft}, 400, function() {
                             $('article section').hover(
                               function() {
-                                  $(this).perfectScrollbar({wheelSpeed: 30});
+                                  var offset = $(this)[0].scrollHeight - $(this).height();
+                                  if(offset <= 40) return;
+                                  if($(this).hasClass('perfect-scrollbar')) return;
+                                  $(this).addClass('perfect-scrollbar');
+                                  $(this).perfectScrollbar({
+                                      wheelSpeed: 40,
+                                      wheelPropagation: true
+                                  });
                               },
                               function() {
+                                  $(this).removeClass('perfect-scrollbar');
                                   $(this).perfectScrollbar('destroy');
                               }
                             );
@@ -129,8 +137,8 @@ var Doc = function(md) {
                 }
             }
         });
-        $('article').html('<div id="index"></div>');
-        $('#index').html(jq.filter('.mark'));
+        $('article').html('<div id="search-results"></div>');
+        $('#search-results').html(jq.filter('.mark'));
         that.highlight(text);
     };
 
