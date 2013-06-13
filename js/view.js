@@ -26,8 +26,12 @@ var Doc = function(md) {
                 $('nav h1.current').removeClass('current');
                 $(this).addClass('current');
                 $('h2.current').removeClass('current');
+                window.animateLock = true;
+                $('nav h2').stop(); // 终止动画
                 $('nav h2').each(function() {
-                    $(this).slideUp();
+                    $(this).slideUp(400, function() {
+                        window.animateLock = false;
+                    });
                 });
                 var iter = function(jqObj) {
                     var $next = jqObj.next();
@@ -36,7 +40,9 @@ var Doc = function(md) {
                             duration: 400,
                             easing: "linear",
                             complete: function() {
-                                iter($next);
+                                if(!window.animateLock) {
+                                    iter($next);
+                                }
                             }
                         });
                     }
@@ -260,6 +266,22 @@ $(document).ready(function() {
                 $(this).slideDown();
             }
         });
+    });
+
+    // 绑定方向键
+    $('body').keyup(function(e) {
+        var code = e.keyCode;
+        if(code == 39) {
+            $('#next').click();
+        }
+        if(code == 37) {
+            $('#prev').click();
+        }
+    });
+
+    // no scroll
+    $(window).scroll(function() {
+        window.scrollTo(0, 0);
     });
 
     $('#next').click(function() {
