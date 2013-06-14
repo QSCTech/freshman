@@ -6,8 +6,6 @@
 
 ## 下载新生手册
 
-### PDF
-
 ### Mobi
 Download: [Freshman.mobi](downloads/freshman.mobi)
 
