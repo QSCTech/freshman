@@ -9,8 +9,10 @@
 ### PDF
 
 ### Mobi
+Download: [Freshman.mobi](downloads/freshman.mobi)
 
 ### Epub
+Download: [Freshman.epub](downloads/freshman.epub)
 
 ### Markdown
 Download: [Freshman.md](markdown/freshman.md)
