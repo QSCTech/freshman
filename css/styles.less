@@ -133,24 +133,10 @@ article {
         border-bottom: 1px solid #f2f2f2;
         padding-bottom: 12px;
     }
-    #allmap {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        margin:0;
-        position: relative;
-        left: -49px;
-    }
     section {
         // hide scrollbar x
         .ps-scrollbar-x {
             display: none;
-        }
-        img[alt="map"] {
-            width: 650px;
-            position: relative;
-            left: -20px;
-            top: -380px;
         }
         float: left;
         width: 300px - 20px*2;
@@ -171,6 +157,17 @@ article {
             &.current {
                 margin-left: 0;
                 .transition(1s);
+            }
+        }
+        &.background {
+            padding: 0;
+            margin: 0;
+            h1, h2 {
+                display: none;
+            }
+            p {
+                padding: 0;
+                margin: 0;
             }
         }
         &.current {

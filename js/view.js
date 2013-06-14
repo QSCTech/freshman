@@ -84,9 +84,9 @@ var Doc = function(md) {
                     return false; // break
                 };
             });
-            loadPerfectScrollBar();
             var subSection = $('article section').first().find('h2').first().text();
             that.subSection(subSection);
+            that.sectionReady();
             $('article').animate({opacity: 1}, 400);
         });
         title = title.replace(/ /g, '');
@@ -155,6 +155,26 @@ var Doc = function(md) {
         );
     };
 
+    this.sectionReady = function(callback) {
+        if(typeof callback == "function") {
+            window.sectionOnloadHook = window.sectionOnloadHook ? window.sectionOnloadHook.push(callback) : [callback];
+        } else {
+            // when called without a argument, call all the callbacks
+            var callbacks = window.sectionOnloadHook;
+            if(callbacks) {
+                for(var i = 0; i<callbacks.length; i++) {
+                    var fun = callbacks[i];
+                    fun.call();
+                }
+            }
+        }
+    };
+
+    this.sectionReady(function() {
+        that.bg();
+        loadPerfectScrollBar();
+    });
+
     this.subSection = function(title) {
         title = title.replace(/ /g, '');
         $('nav h2').each(function() {
@@ -218,58 +238,32 @@ var Doc = function(md) {
         $('#baidu-map').append('<h2>周边观察版</h2>');
     };
 
-};
-
-
-var Cover = function() {
-    var selector = 'article img[alt="cover"]',
-        that = this;
-
-    this.start = function() {
-        that.stop(); // make sure only one interval exists
-        that.init();
-        //        $('body').css({'overflow-y': 'hidden'});
-        window.coverInterval = setInterval(function() {
-            that.next();
-        }, 3000);
-        window.coverTestInterval = setInterval(function() {
-            that.test();
-        }, 500);
-    };
-
-    // auto stop if img disappears
-    this.test = function() {
-        if($(selector).length == 0) {
-            that.stop();
-        }
-    };
-
-    this.stop = function() {
-        //        $('body').css({'overflow-y': 'auto'});
-        clearInterval(window.coverInterval);
-        clearInterval(window.coverTestInterval);
-    };
-
-    this.init = function() {
-        $('body, html').animate({scrollTop: 0});
-        $(selector).fadeOut(200, function() {
-            $(selector).first().fadeIn();
-        });
-    };
-
-    this.next = function() {
-        $(selector).each(function() {
-            if($(this).is(':visible')) {
-                $(this).fadeOut(200, function() {
-                    var next = $(this).nextAll(selector);
-                    if(next.length == 0) {
-                        that.init();
-                        return false;
+    this.bg = function() {
+        $('img[alt="background"]').each(function() {
+            // cacl the corret height and width to set
+            var callback = (function(that) {
+                return function (imgScale) {
+                    var section = $(that).parent().parent(),
+                        width = section.width(),
+                        height = section.height(),
+                        sectionScale = width / height;
+                    section.addClass('background');
+                    if(imgScale > sectionScale) {
+                        $(that).css({width: 'auto', height: height});
+                    } else {
+                        $(that).css({width: width, height: 'auto'});
                     }
-                    next = next.first();
-                    next.fadeIn();
-                });
-            }
+                }
+            })(this);
+
+            // Make in memory copy of image to avoid css issues
+            $("<img/>").attr("src", $(this).attr("src")).load(function() {
+                var real_width = this.width,
+                    real_height = this.height,
+                    imgScale = real_width / real_height;
+                callback(imgScale);
+            });
+
         });
     };
 };
@@ -382,16 +376,6 @@ var resizeHook = function() {
     var w = $(window).width();
     var h = $(window).height();
     $('article').css({height: h});
-    $('#allmap').css({width: w - 150});
-
-    var scale = (w - 150) / h,
-        imgScale = 16 / 9;
-    if(imgScale > scale) {
-        $('img[alt="cover"]').css({width: 'auto', height: h});
-    } else {
-        $('img[alt="cover"]').css({width: w - 150, height: 'auto'});
-    }
-
 };
 $(document).ready(function() {
     resizeHook();

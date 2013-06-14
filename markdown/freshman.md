@@ -2,7 +2,7 @@
 
 ## *封面*
 
-![cover](img/map.jpg)
+![background](img/map.jpg)
 
 ## 下载新生手册
 
@@ -36,7 +36,7 @@ Download: [Master.zip](https://github.com/zenozeng/freshman/archive/master.zip)
 
 ## *最新详尽版*
 
-![map](img/map.jpg)
+![background](img/map.jpg)
 
 ## 三维全景版
 
