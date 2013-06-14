@@ -1,8 +1,11 @@
 # 页面标题
 
-![cover](封面图片名.jpg)
+特殊img:
+保证始终填充当前section,按照 width / height 计算, 父级其他元素隐藏
+![background](封面图片名.jpg) 
 
-![cover](封面图片名.jpg)
+保证宽度一致, 父级其他元素隐藏
+![background-width](封面图片名.jpg)
 
 
 ## Nav —— 爸爸妈妈再也不用担心了这是一个副标题 这是副标题的第二行

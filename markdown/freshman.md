@@ -38,7 +38,7 @@ Download: [Master.zip](https://github.com/zenozeng/freshman/archive/master.zip)
 
 ## *最新详尽版*
 
-![background](img/map.jpg)
+![background-width](img/map.jpg)
 
 ## 三维全景版
 

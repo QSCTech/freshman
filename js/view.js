@@ -171,7 +171,7 @@ var Doc = function(md) {
     };
 
     this.sectionReady(function() {
-        that.bg();
+        that.img();
         loadPerfectScrollBar();
     });
 
@@ -238,7 +238,7 @@ var Doc = function(md) {
         $('#baidu-map').append('<h2>周边观察版</h2>');
     };
 
-    this.bg = function() {
+    this.img = function() {
         $('img[alt="background"]').each(function() {
             // cacl the corret height and width to set
             var callback = (function(that) {
@@ -265,6 +265,14 @@ var Doc = function(md) {
             });
 
         });
+
+        $('img[alt="background-width"]').each(function() {
+            var section = $(this).parent().parent(),
+                width = section.width();
+            section.addClass('background');
+            $(this).css({width: width, height: 'auto'});
+        });
+
     };
 };
 
