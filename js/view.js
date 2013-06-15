@@ -303,9 +303,6 @@ $(document).ready(function() {
         var title = $(this).text();
         title = title.replace(/<i>.*<\/i>/, '');
         doc.section(title);
-        setTimeout(function() {
-            cover.start();
-        }, 500);
     });
 
     $('body').on('click', 'h2', function() {
