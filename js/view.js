@@ -68,7 +68,12 @@ var Doc = function(md) {
                         nextSection = $('<div id="next-chapter"><span>阅读下一章节</span><br></div>').append(nextSection);
                         nextSection = $('<section class="next"></section>').append(nextSection);
                     }
+
                     $('article').html('<section class="cover"></div>');
+                    var preface = $(this).nextUntil('h2');
+                    var imgs = preface.filter('img');
+                    $('section.cover').append(imgs);
+
                     var subSections = $(this).nextUntil("h1");
                     subSections = subSections.each(function() {
                         var nodeName = $(this)[0].nodeName.toLowerCase();
@@ -201,6 +206,7 @@ var Doc = function(md) {
     this.sectionReady(function() {
         that.img();
         loadPerfectScrollBar();
+        setSectionPreface();
     });
 
     this.subSection = function(title) {
@@ -394,6 +400,9 @@ $(document).ready(function() {
     $('#prev').click(function() {
         if($('section.current').first().prev('.cover').html()) {
             $('article').animate({'margin-left': 0});
+            $('article .current').removeClass('current');
+            $('article .cover').first().addClass('current');
+            return;
         }
         var prev = $('section.current').first().prev().find('h2').first().text();
         if(prev) {
@@ -445,3 +454,23 @@ $(document).ready(function() {
     });
     $('#cover').hide(0);
 });
+var setSectionPreface = function() {
+    if(!window.count) window.count = 0;
+    console.log(window.count);
+    var src = $('section.cover.current').find('img').eq(window.count).attr('src');
+    if(typeof src == "undefined") {
+        if(window.count == 0) {
+            return;
+        } else {
+            window.count = 0;
+            setSectionPreface();
+            return;
+        }
+    }
+    window.count++;
+    console.log(src)
+    $('section.cover.current').css({width: $(window).width(), 'background-image': 'url('+src+')', 'background-size': 'cover'});
+}
+doc.sectionReady(function() {
+});
+setInterval(setSectionPreface, 2000);

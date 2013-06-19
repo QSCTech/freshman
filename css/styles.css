@@ -347,7 +347,7 @@ ul.icons-ul{list-style-type:none;text-indent:-0.7142857142857143em;margin-left:2
 .ps-container .ps-scrollbar-y:hover{opacity:0.9;cursor:default;}
 .ps-container .ps-scrollbar-y.in-scrolling{opacity:0.9;}
 *{transition:color .3s linear;-moz-transition:color .3s linear;-webkit-transition:color .3s linear;transition:background-color 0.5s linear;-moz-transition:background-color 0.5s linear;-webkit-transition:background-color 0.5s linear;}
-body,html,ul,ol,li,nav,article,h1,h2,h3{padding:0;margin:0;color:#555;}
+body,html,ul,ol,li,nav,article,h1,h2,h3{padding:0;margin:0;color:#555;font-family:"Hiragino Sans GB","ST Heiti","LiHei Pro Medium","Microsoft YaHei","Wenquanyi Micro Hei","WenQuanYi Zen Hei";}
 h1,h2,h3{cursor:pointer;}
 ul,ol,li{list-style:none;}
 a{color:#777;}
@@ -365,18 +365,22 @@ body{opacity:0;overflow:hidden;}
 :focus{outline:none;}
 #search{display:none;z-index:9999;position:fixed;left:0;padding-left:20px;border:none;background:transparent;color:#8a8a8a;top:0;height:36px;width:100px;}
 i.icon-search{display:none;z-index:10000;position:fixed;left:120px;top:11px;font-size:12px;}
-nav{padding-top:36px;height:100%;background:#ff9078 url(../img/icons/icon_b_1.png) no-repeat center 90%;position:fixed;top:0;text-align:center;z-index:2000;width:60px;transition:all 0.5s linear;-moz-transition:all 0.5s linear;-webkit-transition:all 0.5s linear;-o-transition:all 0.5s linear;}nav h1,nav h2{font-weight:normal;opacity:0;}
-nav:hover{transition:all 0.5s linear;-moz-transition:all 0.5s linear;-webkit-transition:all 0.5s linear;-o-transition:all 0.5s linear;width:180px;}nav:hover h1,nav:hover h2{transition:opacity .5s linear;-moz-transition:opacity .5s linear;-webkit-transition:opacity .5s linear;opacity:1;}
-nav:hover #sidebar{transition:all 0.5s linear;-moz-transition:all 0.5s linear;-webkit-transition:all 0.5s linear;-o-transition:all 0.5s linear;opacity:0;}
+nav{padding-top:36px;height:100%;background:#ff9078 url(../img/icons/icon_b_0.png) no-repeat center 90%;position:fixed;top:0;text-align:center;z-index:19000;width:60px;transition:all 0.4s linear;-moz-transition:all 0.4s linear;-webkit-transition:all 0.4s linear;-o-transition:all 0.4s linear;}nav h1,nav h2{font-weight:normal;opacity:0;}
+nav hr{text-align:center;border:none;border-top:1px solid #fff;width:60px;opacity:0;transition:all 0.2s linear;-moz-transition:all 0.2s linear;-webkit-transition:all 0.2s linear;-o-transition:all 0.2s linear;margin-bottom:1em;}
+nav #nav-top{text-align:center;color:#fff;line-height:25px;padding-bottom:12px;opacity:0;transition:all 0.2s linear;-moz-transition:all 0.2s linear;-webkit-transition:all 0.2s linear;-o-transition:all 0.2s linear;font-size:13px;letter-spacing:5px;padding-left:5px;}nav #nav-top strong{font-size:18px;}
+nav:hover{transition:all 0.3s linear;-moz-transition:all 0.3s linear;-webkit-transition:all 0.3s linear;-o-transition:all 0.3s linear;width:180px;}nav:hover hr{opacity:1;transition:all 0.2s linear;-moz-transition:all 0.2s linear;-webkit-transition:all 0.2s linear;-o-transition:all 0.2s linear;}
+nav:hover #nav-top{transition:all 0.3s linear;-moz-transition:all 0.3s linear;-webkit-transition:all 0.3s linear;-o-transition:all 0.3s linear;opacity:1;}
+nav:hover h1,nav:hover h2{transition:opacity .8s linear;-moz-transition:opacity .8s linear;-webkit-transition:opacity .8s linear;opacity:1;}
+nav:hover #sidebar{transition:all 0.1s linear;-moz-transition:all 0.1s linear;-webkit-transition:all 0.1s linear;-o-transition:all 0.1s linear;opacity:0;}
 nav #zju-logo{height:50px;background:url(../img/icons/zju.png) center top no-repeat;}
-nav #sidebar{transition:all 0.5s linear;-moz-transition:all 0.5s linear;-webkit-transition:all 0.5s linear;-o-transition:all 0.5s linear;position:fixed;top:40px;left:0px;z-index:2001;color:#fff;display:block;font-size:18px;width:18px;opacity:1;padding:50px 21px;line-height:24px;}
+nav #sidebar{transition:all 0.8s linear;-moz-transition:all 0.8s linear;-webkit-transition:all 0.8s linear;-o-transition:all 0.8s linear;position:fixed;top:40px;left:0px;z-index:2001;color:#fff;display:block;font-size:15px;width:18px;opacity:1;padding:50px 21px;line-height:21px;}
 nav h1,nav h2{margin:0;}nav h1 em,nav h2 em{font-style:normal;}
-nav h1{line-height:30px;font-size:16px;color:#fff;}
-nav h2{display:none;color:#fff;line-height:30px;font-size:12px;}
+nav h1{line-height:25px;font-size:15px;color:#fff;margin-top:5px;}
+nav h2{display:none;color:#fff;line-height:24px;font-size:13px;}
 nav .current{font-weight:bold;}
 nav h2.current:before{content:'< ';}
 nav h2.current:after{content:' >';}
-article{position:absolute;left:150px;top:0;width:100%;height:100%;color:#777;float:right;font-size:14px;text-align:left;width:10000px;}article div{word-break:break-all;}
+article{position:absolute;left:60px;top:0;width:100%;height:100%;color:#777;float:right;font-size:14px;text-align:left;width:10000px;}article div{word-break:break-all;}
 article em{color:#ff9078;}
 article p{line-height:1.5em;}
 article h1{font-size:36px;line-height:72px;}
@@ -388,6 +392,7 @@ article section#comment h1,article section#comment h2,article section#comment h3
 article section#baidu-map{padding:0;margin:0;margin-left:-20px;width:800px;}article section#baidu-map.current{margin-left:0;transition:all 1s linear;-moz-transition:all 1s linear;-webkit-transition:all 1s linear;-o-transition:all 1s linear;}
 article section.background{padding:0;margin:0;}article section.background h1,article section.background h2{display:none;}
 article section.background p{padding:0;margin:0;}
+article section.cover{background-size:cover;overflow:hidden;transition:background-image 0.5s linear;-moz-transition:background-image 0.5s linear;-webkit-transition:background-image 0.5s linear;}article section.cover img{display:none;}
 article section.current{background:#fbfbfb;}
 article section.em{width:600px;}
 article section.next{color:#ff9078;padding-top:0;padding-bottom:0;margin-top:0;cursor:pointer;}article section.next #next-chapter{height:200px;position:absolute;top:50%;line-height:60px;font-size:60px;margin:0;padding:0;margin-top:-80px;}article section.next #next-chapter span{font-size:28px;color:#ccc;}

@@ -21,6 +21,20 @@
     -webkit-transition: background-color .5s linear;
 }
 
+.font-hei() {
+    font-family: "Hiragino Sans GB", "ST Heiti", "LiHei Pro Medium", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei";
+}
+.font-song() {
+    font-family: "NSimSun", "STSong", "AR PL SungtiL GB", "TW\-Sung", "SimSun";
+}
+.font-kai() {
+    font-family: "STKaiti", "KaiTi", "AR PL KaitiM GB", "TW\-Kai";
+}
+.font-code() {
+    font-family: "Source Code Pro", "Ubuntu Mono", FreeMono;
+}
+
+
 body, html, ul, ol, li, nav, article, h1, h2, h3 {
     padding: 0;
     margin: 0;
@@ -359,6 +373,16 @@ article {
             p {
                 padding: 0;
                 margin: 0;
+            }
+        }
+        &.cover {
+            background-size: cover;
+            overflow: hidden;
+            transition: background-image .5s linear;
+            -moz-transition: background-image .5s linear;
+            -webkit-transition: background-image .5s linear;
+            img {
+                display: none;
             }
         }
         &.current {
