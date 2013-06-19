@@ -203,6 +203,8 @@ nav {
         opacity: 0;
     }
     hr {
+        display: block;
+        margin: 0 auto;
         text-align: center;
         border: none;
         border-top: 1px solid #fff;
@@ -313,7 +315,8 @@ article {
         color: @theme;
     }
     p {
-        line-height: 1.5em;
+        font-size: 13px;
+        line-height: 2em;
     }
     h1 {
         font-size: 36px;
@@ -330,22 +333,24 @@ article {
         line-height: 20px;
         font-size: 18px;
         margin-bottom: 24px;
-        border-bottom: 1px solid #f2f2f2;
         padding-bottom: 12px;
+        border-top: 1px solid #a0a0a0;
+        padding-top: 16px;
     }
     section {
         // hide scrollbar x
         .ps-scrollbar-x {
             display: none;
         }
+        background: fade(@theme, 5%);
         float: left;
         width: 300px - 20px*2;
         padding: 0 20px;
-        margin-right: 20px;
         height: 100%;
         position: relative; // for perfect scroll
         overflow: hidden;
         border-right: 1px solid #f0f0f0;
+        line-height: 2em;
         p:last-child {
             padding-bottom: 100px;
         }
@@ -378,15 +383,20 @@ article {
         &.cover {
             background-size: cover;
             overflow: hidden;
-            transition: background-image .5s linear;
-            -moz-transition: background-image .5s linear;
-            -webkit-transition: background-image .5s linear;
+            .mask { // 遮罩层，用于伪造动画
+                    width: 100%;
+                    height: 100%;
+                    margin-left: -20px;
+                    position: absolute;
+                    z-index: 10;
+                    background: #fff;
+                  }
             img {
                 display: none;
             }
         }
         &.current {
-            background: #fbfbfb;
+            background: fade(@theme, 3%);
         }
         &.em {
             width: 600px;
@@ -413,22 +423,33 @@ article {
             }
         }
         #section-preface {
+            cursor: pointer;
             h2 {
-                color: #000;
+                color: #fff;
                 line-height: 80px;
                 display: inline-block;
+                margin: 0 1em;
+                margin-right: 10px;
+                position: relative;
+                top: -2px;
             }
             position: absolute;
+            z-index: 3000;
             top: 50%;
             margin-top: -40px;
             right: 180px;
             font-size: 18px;
-            color: #000;
+            color: #fff;
             height: 80px;
-            background: rgba(255, 255, 255, .58);
+            background: fade(@theme, 50%);
+            &:hover {
+                background: @theme;
+            }
             p {
-                padding-bottom: 0;
+                padding: 10px 10px 0 0;
+                line-height: 18px;
                 font-size: 12px;
+                color: #fff;
                 display: inline-block;
             }
         }
@@ -450,9 +471,12 @@ article {
     font-size: 80px;
     line-height: 80px;
     text-align: center;
-    background: @theme;
+    background: fade(@theme, 50%);
     cursor: pointer;
-    opacity: .5;
+    z-index: 100;
+    &:hover {
+        background: @theme;
+    }
 }
 #prev {
     border-right: 1px solid #fff;

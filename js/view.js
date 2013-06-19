@@ -52,7 +52,7 @@ var Doc = function(md) {
                 var colors = ['ffb300', '46775f', '00b551', '00cfb0', '00bce6', '556066'];
                 getSectionNth(function(nth) {
                     var color = colors[nth];
-                    console.log(color);
+                    window.themeColor = color; // 留待后用
                     less.modifyVars({
                         '@theme': '#'+color
                     });
@@ -137,8 +137,12 @@ var Doc = function(md) {
                 window.animateLock = true;
                 $('nav h2').stop(); // 终止动画
                 $('nav h2').each(function() {
-                    $(this).slideUp(400, function() {
-                        window.animateLock = false;
+                    $(this).slideUp({
+                        duration: 400,
+                        easing: 'linear',
+                        complete: function() {
+                            window.animateLock = false;
+                        }
                     });
                 });
                 var iter = function(jqObj) {
@@ -344,12 +348,7 @@ $(document).ready(function() {
             if(title) {
                 doc.section(title);
             }
-        } else {
-            var title = $(this).find('h2').first().text();
-            if(title) {
-                doc.subSection(title);
-            }
-        }
+        } 
     });
 
     $('body').on('click', 'h1', function() {
@@ -495,3 +494,21 @@ var setSectionPreface = function() {
     });
 }
 setInterval(setSectionPreface, 2000);
+$(document).ready(function() {
+    $('article').on('click', '#section-preface', function() {
+        $('#next').click();
+    });
+
+    $('article').on('mouseover', '#section-preface', function() {
+        $('#next').css('background-color', '#'+window.themeColor);
+    });
+    $('article').on('mouseout', '#section-preface', function() {
+        $('#next').css('background-color', ''); // 使用无效值使声明丢弃而使用原先值
+    });
+    $('#next').on('mouseover', function() {
+        $('#section-preface').css('background-color', '#'+window.themeColor);
+    });
+    $('#next').on('mouseout', function() {
+        $('#section-preface').css('background-color', '');
+    });
+});
