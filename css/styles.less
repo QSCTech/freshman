@@ -9,10 +9,10 @@
 
 // css3类
 .transition(@time) {
-    transition: all @time ease-in-out;
-    -moz-transition: all @time ease-in-out;
-    -webkit-transition: all @time ease-in-out;
-    -o-transition: all @time ease-in-out;
+    transition: all @time linear;
+    -moz-transition: all @time linear;
+    -webkit-transition: all @time linear;
+    -o-transition: all @time linear;
 }
 
 
@@ -36,15 +36,57 @@ a {
 }
 
 #cover {
-    background: #fff url(../img/cover1.jpg);
+    background: #fff url(../img/cover0.jpg);
     background-size: cover;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 110%;
-    height: 110%;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
     z-index: 20000;
     overflow: hidden;
+    #start-reading {
+        cursor: pointer;
+        position: fixed;
+        top: 50%;
+        height: 80px;
+        line-height: 80px;
+        margin-top: -40px;
+        font-size: 28px;
+        padding: 0 20px;
+        right: 0;
+        color: #fff;
+        background: rgba(0, 0, 0, .5);
+        i {
+            display: block;
+            float: right;
+            line-height: 80px;
+            margin-left: 20px;
+            font-size: 48px;
+        }
+    }
+    #cover-nav {
+        color: #fff;
+        text-align: center;
+        #cover-logo {
+            font-size: 18px;
+            line-height: 24px;
+            margin-bottom: 24px;
+        }
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 200px;
+        height: 500px;
+        background: url(../img/icons/zju.png) center 50px no-repeat;
+        padding-top: 100px;
+        h1 {
+            color: #fff;
+            font-weight: bold;
+            font-size: 15px;
+            line-height: 36px;
+        }
+    }
     #cover-bar {
         background: rgba(0, 0, 0, .5);
         width: 100%;
@@ -66,7 +108,7 @@ a {
                 font-size: 12px;
                 line-height: 16px;
             }
-            .transition(.3s);
+            .transition(.2s);
             float: left;
             display: block;
             margin: 0 20px;

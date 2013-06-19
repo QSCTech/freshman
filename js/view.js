@@ -12,6 +12,9 @@ var Doc = function(md) {
     html = html.replace(/<p>(<img alt="cover".*>)<\/p>/g, '$1');
     var jq = $(html);
 
+    var coverNav = $(html).filter('h1');
+    $('#cover-nav').append(coverNav);
+
     this.nav = function() {
         var jq = $(html).filter('h1, h2');
         $('nav').html(jq);
