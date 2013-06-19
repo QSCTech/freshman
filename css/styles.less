@@ -1,11 +1,7 @@
 @import 'font-awesome/font-awesome';
 @import 'perfect-scrollbar';
 
-@theme: #558A2E+#222;
-@color1: #C9D787 + #222;
-@color2: #FFF;
-@color3: #FFA2B3;
-@color4: #FB479E;
+@theme: #ff9078;
 
 // css3类
 .transition(@time) {
@@ -15,6 +11,14 @@
     -o-transition: all @time linear;
 }
 
+* {
+    transition: color .3s linear;
+    -moz-transition: color .3s linear;
+    -webkit-transition: color .3s linear;
+    transition: background-color .5s linear;
+    -moz-transition: background-color .5s linear;
+    -webkit-transition: background-color .5s linear;
+}
 
 body, html, ul, ol, li, nav, article, h1, h2, h3 {
     padding: 0;
@@ -36,7 +40,7 @@ a {
 }
 
 #cover {
-    background: #fff url(../img/cover0.jpg);
+    background: #fff url(../img/cover1.jpg);
     background-size: cover;
     position: fixed;
     top: -10%;
@@ -112,7 +116,7 @@ a {
             float: left;
             display: block;
             margin: 0 20px;
-            height: 30px;
+            max-height: 30px;
             padding-left: 50px;
             @width: ~"25% - 90px";
             width: calc(@width);
@@ -132,7 +136,7 @@ a {
         }
         &:hover {
             li {
-                height: 90px;
+                max-height: 200px;
             }
         }
     }
@@ -147,6 +151,7 @@ body {
     outline: none;
 }
 #search {
+    display: none;
     z-index: 9999;
     position: fixed;
     left: 0;
@@ -159,6 +164,7 @@ body {
     width: 100px;
 }
 i.icon-search {
+    display: none;
     z-index: 10000;
     position: fixed;
     left: 120px;
@@ -168,15 +174,50 @@ i.icon-search {
 
 nav {
     padding-top: 36px;
-    border-right: 1px solid #ddd;
     height: 100%;
-    width: 150px;
+    background: @theme url(../img/icons/icon_b_1.png) no-repeat center 90%;
     position: fixed;
-    left: 0;
     top: 0;
-    text-align: left;
-    background: #fff;
+    text-align: center;
     z-index: 2000;
+    width: 60px;
+    .transition(.5s);
+    h1, h2 {
+        font-weight: normal;
+        opacity: 0;
+    }
+    &:hover {
+        .transition(.5s);
+        width: 180px;
+        h1, h2 {
+            transition: opacity .5s linear;
+            -moz-transition: opacity .5s linear;
+            -webkit-transition: opacity .5s linear;
+            opacity: 1;
+        }
+        #sidebar {
+            .transition(.5s);
+            opacity: 0;
+        }
+    }
+    #zju-logo {
+        height: 50px;
+        background: url(../img/icons/zju.png) center top no-repeat;
+    }
+    #sidebar {
+        .transition(.5s);
+        position: fixed;
+        top: 40px;
+        left: 0px;
+        z-index: 2001;
+        color: #fff;
+        display: block;
+        font-size: 18px;
+        width: 18px;
+        opacity: 1;
+        padding: 50px (60 - 18)/2px;
+        line-height: 24px;
+    }
     h1, h2 {
         margin: 0;
         em {
@@ -184,20 +225,26 @@ nav {
         }
     }
     h1 {
-        padding-left: 20px;
         line-height: 30px;
         font-size: 16px;
-        color: #8a8a8a;
+        color: #fff;
     }
     h2 {
         display: none;
-        padding-left: 40px;
-        color: #8a8a8a;
+        color: #fff;
         line-height: 30px;
-        font-size: 14px;
+        font-size: 12px;
     }
     .current {
-        color: @theme;
+        font-weight: bold;
+    }
+    h2.current {
+        &:before {
+            content: '< ';
+        }
+        &:after {
+            content: ' >';
+        }
     }
 }
 article {
@@ -313,21 +360,6 @@ article {
     padding-left: 40px;
     width: 600px;
     scroll-y: auto;
-}
-footer {
-    background: #fff;
-    bottom: 0;
-    font-size: 10px;
-    left: 0;
-    padding: 20px 0;
-    position: fixed;
-    text-align: center;
-    width: 150px;
-    z-index: 2000;
-    color: #8a8a8a;
-    a {
-        color: #8a8a8a;
-    }
 }
 #prev, #next {
     position: fixed;

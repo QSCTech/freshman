@@ -18,6 +18,7 @@ var Doc = function(md) {
     this.nav = function() {
         var jq = $(html).filter('h1, h2');
         $('nav').html(jq);
+        $('nav').prepend('<div id="zju-logo"></div><div id="sidebar">新生手册</div>');
     };
 
     this.comment = function(su) {
@@ -35,6 +36,30 @@ var Doc = function(md) {
 
     this.section = function(title) {
         $('article').animate({opacity: 0}, 200, 'linear', function() {
+            var getSectionNth = function(callback) {
+                var nth = 0;
+                $('nav h1').each(function() {
+                    var text = $(this).text().replace(/ /g, '');
+                    if(text == title) {
+                        callback(nth);
+                        return false;
+                    }
+                    console.log(nth);
+                    ++nth;
+                });
+            }
+            var applyThemeColor = function() {
+                var colors = ['ff9078', '46775f', '00ce7d', '00cfb0', '00bce6', '556066'];
+                getSectionNth(function(nth) {
+                    var color = colors[nth];
+                    console.log(color);
+                    less.modifyVars({
+                        '@theme': '#'+color
+                    });
+                });
+            }
+            applyThemeColor();
+
             jq.each(function() {
                 if($(this).text().replace(/ /g, '') == title) {
                     var nextSection = $(this).nextAll('h1');
@@ -111,7 +136,7 @@ var Doc = function(md) {
                     var $next = jqObj.next();
                     if($next[0] && $next[0].nodeName.toLowerCase() != 'h1' && $next.parent()[0].nodeName.toLowerCase() == 'nav') {
                         $next.slideDown({
-                            duration: 400,
+                            duration: 200,
                             easing: "linear",
                             complete: function() {
                                 if(!window.animateLock) {
@@ -415,4 +440,5 @@ $(document).ready(function() {
     $('#start-reading').click(function() {
         $('#cover').fadeOut(800);
     });
+    $('#cover').hide(0);
 });
