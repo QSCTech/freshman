@@ -1,38 +1,4 @@
-﻿# 开始
-
-## *封面*
-
-![background](img/map.jpg)
-
-## 下载新生手册
-
-### Mobi
-Download: [Freshman.mobi](downloads/freshman.mobi)
-
-### Epub
-Download: [Freshman.epub](downloads/freshman.epub)
-
-### Markdown
-Download: [Freshman.md](markdown/freshman.md)
-
-### HTML
-Download: [Master.zip](https://github.com/zenozeng/freshman/archive/master.zip)
-
-## 阅读 Tips
-
-### 快捷键
-
-使用方向键可以快速跳转到下个章节
-
-### 搜索
-
-左上角有个搜索框，直接输入就会有即时的结果反馈。
-
-### 反馈或意见
-点击这里反馈意见
-
-
-# 入校
+﻿# 入校
 
 永远的求是精神
 现代一流的浙江大学
@@ -1537,11 +1503,6 @@ Coding：
 
     - Zeng Zeng
 
-# 讨论
+# 讨论区
 
-## *讨论区*
-
-# 建议
-
-## *收集建议*
 

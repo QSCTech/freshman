@@ -350,6 +350,7 @@ body,html,ul,ol,li,nav,article,h1,h2,h3{padding:0;margin:0;color:#555;}
 h1,h2,h3{cursor:pointer;}
 ul,ol,li{list-style:none;}
 a{color:#777;}
+#cover{background:#ffffff url(img/cover.jpg);background-size:cover;position:fixed;top:0;left:0;width:100%;height:100%;z-index:20000;overflow:hidden;}
 body{opacity:0;overflow:hidden;}
 :focus{outline:none;}
 #search{z-index:9999;position:fixed;left:0;padding-left:20px;border:none;background:transparent;color:#8a8a8a;top:0;height:36px;width:100px;}
