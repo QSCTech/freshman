@@ -408,4 +408,11 @@ $(document).ready(function() {
             }
         })(event.pageX, event.pageY);
     });
+    $('#cover').on('click', 'h1', function() {
+        $('#cover').fadeOut(800);
+        doc.section($(this).text());
+    });
+    $('#start-reading').click(function() {
+        $('#cover').fadeOut(800);
+    });
 });
