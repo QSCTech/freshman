@@ -32,22 +32,6 @@ Download: [Master.zip](https://github.com/zenozeng/freshman/archive/master.zip)
 点击这里反馈意见
 
 
-# 地图
-
-## *最新详尽版*
-
-![background-width](img/map.jpg)
-
-## 三维全景版
-
-[三维全景地图: http://zdpo.zju.edu.cn/map/](http://zdpo.zju.edu.cn/map/)
-\n
-不过，这是几年前的版本了哟~几年来紫金港又完成建设了农生环组团（东南方）、建工实验中心（安中大楼西侧）、海洋大楼（安中大楼北侧）和体育场（图上规划用地处）。此外，计算中心改名蒙民伟楼（又称国际会议中心），而紫金港机房搬迁到了海洋大楼中。
-
-## *周边观察版*
-
-
-
 # 入校
 
 永远的求是精神
