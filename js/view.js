@@ -74,7 +74,7 @@ var Doc = function(md) {
                     var imgs = preface.filter('img');
                     var p = preface.filter('p');
                     $('section.cover').append(imgs);
-                    $('section.cover').append('<div id="section-preface"></div>');
+                    $('section.cover').append('<div class="mask"></div><div id="section-preface"></div>');
                     $('#section-preface').append('<h2>'+title+'篇</h2>');
                     $('#section-preface').append(p);
 
@@ -486,7 +486,12 @@ var setSectionPreface = function() {
             return;
         }
     }
+    if(src == window.sectionPrefaceLast) return;
+    window.sectionPrefaceLast = src;
     window.count++;
-    $('section.cover.current').css({width: $(window).width(), 'background-image': 'url('+src+')', 'background-size': 'cover'});
+    $('section.cover .mask').fadeIn(400, function() {
+        $('section.cover.current').css({width: $(window).width(), 'background-image': 'url('+src+')', 'background-size': 'cover'});
+        $('section.cover .mask').fadeOut();
+    });
 }
 setInterval(setSectionPreface, 2000);
