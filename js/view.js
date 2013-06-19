@@ -456,7 +456,6 @@ $(document).ready(function() {
     $('#start-reading').click(function() {
         $('#cover').fadeOut(800);
     });
-    $('#cover').hide(0);
 });
 var setSectionPreface = function() {
     if(!window.count) window.count = 0;
