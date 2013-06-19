@@ -394,8 +394,15 @@ if (window.addEventListener) {
 $(document).ready(function() {
     $('#cover').mousemove(function(event) {
         (function(x, y) {
-            var rate = 0.1;
-            $('#cover').css({'margin-left': -x*rate, 'margin-top': -y*rate});
+            if(typeof window.basePoint != "undefined") {
+                x -= window.basePoint.x;
+                y -= window.basePoint.y;
+                var rate = 0.1;
+                $('#cover').css({'margin-left': -x*rate, 'margin-top': -y*rate});
+            } else {
+                window.basePoint = {x: x, y: y};
+                console.log(window.basePoint);
+            }
         })(event.pageX, event.pageY);
     });
 });
