@@ -1,5 +1,6 @@
 @import 'font-awesome/font-awesome';
 @import 'perfect-scrollbar';
+@import 'lib';
 
 @theme: #ff9078;
 
@@ -24,6 +25,7 @@ body, html, ul, ol, li, nav, article, h1, h2, h3 {
     padding: 0;
     margin: 0;
     color: #555;
+    .font-hei;
 }
 
 
@@ -175,28 +177,59 @@ i.icon-search {
 nav {
     padding-top: 36px;
     height: 100%;
-    background: @theme url(../img/icons/icon_b_1.png) no-repeat center 90%;
+    background: @theme url(../img/icons/icon_b_0.png) no-repeat center 90%;
     position: fixed;
     top: 0;
     text-align: center;
-    z-index: 2000;
+    z-index: 19000;
     width: 60px;
-    .transition(.5s);
+    .transition(.4s);
     h1, h2 {
         font-weight: normal;
         opacity: 0;
     }
+    hr {
+        text-align: center;
+        border: none;
+        border-top: 1px solid #fff;
+        width: 60px;
+        opacity: 0;
+        .transition(.2s);
+        margin-bottom: 1em;
+    }
+    #nav-top {
+        text-align: center;
+        color: #fff;
+        line-height: 25px;
+        padding-bottom: 12px;
+        opacity: 0;
+        .transition(.2s);
+        font-size: 13px;
+        letter-spacing: 5px;
+        padding-left: 5px;
+        strong {
+            font-size: 18px;
+        }
+    }
     &:hover {
-        .transition(.5s);
+        hr {
+            opacity: 1;
+            .transition(.2s);
+        }
+        .transition(.3s);
         width: 180px;
+        #nav-top {
+            .transition(.3s);
+            opacity: 1;
+        }
         h1, h2 {
-            transition: opacity .5s linear;
-            -moz-transition: opacity .5s linear;
-            -webkit-transition: opacity .5s linear;
+            transition: opacity .8s linear;
+            -moz-transition: opacity .8s linear;
+            -webkit-transition: opacity .8s linear;
             opacity: 1;
         }
         #sidebar {
-            .transition(.5s);
+            .transition(.1s);
             opacity: 0;
         }
     }
@@ -205,18 +238,18 @@ nav {
         background: url(../img/icons/zju.png) center top no-repeat;
     }
     #sidebar {
-        .transition(.5s);
+        .transition(.8s);
         position: fixed;
         top: 40px;
         left: 0px;
         z-index: 2001;
         color: #fff;
         display: block;
-        font-size: 18px;
+        font-size: 15px;
         width: 18px;
         opacity: 1;
         padding: 50px (60 - 18)/2px;
-        line-height: 24px;
+        line-height: 21px;
     }
     h1, h2 {
         margin: 0;
@@ -225,15 +258,16 @@ nav {
         }
     }
     h1 {
-        line-height: 30px;
-        font-size: 16px;
+        line-height: 25px;
+        font-size: 15px;
         color: #fff;
+        margin-top: 5px;
     }
     h2 {
         display: none;
         color: #fff;
-        line-height: 30px;
-        font-size: 12px;
+        line-height: 24px;
+        font-size: 13px;
     }
     .current {
         font-weight: bold;
@@ -249,7 +283,7 @@ nav {
 }
 article {
     position: absolute;
-    left: 150px;
+    left: 60px;
     top: 0;
     width: 100%;
     height: 100%;
