@@ -36,15 +36,64 @@ a {
 }
 
 #cover {
-    background: #fff url(img/cover.jpg);
+    background: #fff url(../img/cover1.jpg);
     background-size: cover;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 110%;
+    height: 110%;
     z-index: 20000;
     overflow: hidden;
+    #cover-bar {
+        background: rgba(0, 0, 0, .5);
+        width: 100%;
+        position: fixed;
+        padding: 20px;
+        left: 0;
+        bottom: 0;
+        overflow: hidden;
+        li {
+            padding: 0;
+            color: #eee;
+            font-size: 14px;
+            line-height: 18px;
+            a {
+                color: #eee;
+                line-height: 21px;
+            }
+            p {
+                font-size: 12px;
+                line-height: 16px;
+            }
+            .transition(.3s);
+            float: left;
+            display: block;
+            margin: 0 20px;
+            height: 30px;
+            padding-left: 50px;
+            @width: ~"25% - 90px";
+            width: calc(@width);
+            background: transparent left top no-repeat;
+            &:nth-child(1) {
+                background-image: url(../img/icons/icon_b_1.png);
+            }
+            &:nth-child(2) {
+                background-image: url(../img/icons/icon_b_2.png);
+            }
+            &:nth-child(3) {
+                background-image: url(../img/icons/icon_b_3.png);
+            }
+            &:nth-child(4) {
+                background-image: url(../img/icons/icon_b_4.png);
+            }
+        }
+        &:hover {
+            li {
+                height: 90px;
+            }
+        }
+    }
 }
 
 body {

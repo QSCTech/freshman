@@ -391,3 +391,11 @@ if (window.addEventListener) {
     // for ie
     window.attachEvent('resize', function() { resizeHook(); });
 }
+$(document).ready(function() {
+    $('#cover').mousemove(function(event) {
+        (function(x, y) {
+            var rate = 0.1;
+            $('#cover').css({'margin-left': -x*rate, 'margin-top': -y*rate});
+        })(event.pageX, event.pageY);
+    });
+});
