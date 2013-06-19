@@ -87,7 +87,7 @@ var Doc = function(md) {
                             if($(this).find('em').text()) {
                                 jq = $('<section class="em"><h2>'+$(this).text()+'</h2></section>');
                             } else {
-                                jq = $('<section><h2>'+$(this).text()+'</h2></section>');
+                                jq = $('<section class="sub"><h2>'+$(this).text()+'</h2></section>');
                             }
                             var find = {};
                             if($(this).text() == '周边观察版') {
@@ -348,28 +348,13 @@ $(document).ready(function() {
             if(title) {
                 doc.section(title);
             }
-        } 
+        }
     });
 
     $('body').on('click', 'h1', function() {
         var title = $(this).text();
         title = title.replace(/<i>.*<\/i>/, '');
         doc.section(title);
-    });
-
-    $('body').on('click', 'h2', function() {
-        if($('#index').attr('id') == 'index') {
-            var pos = $(this).prevAll('h1').first().text().replace(/ /g, '');
-            var cur = $('nav h1').text().replace(/<i>.*<\/i>/, '').replace(/ /g, '');
-            if(cur != pos) {
-                doc.section(pos);
-            }
-        }
-        var title = $(this).text();
-        doc.subSection(title, true);
-        setTimeout(function() {
-            $('body, html').animate({scrollTop: 0});
-        }, 600);
     });
 
     $('#search').on('keyup', function() {
