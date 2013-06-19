@@ -18,7 +18,7 @@ var Doc = function(md) {
     this.nav = function() {
         var jq = $(html).filter('h1, h2');
         $('nav').html(jq);
-        $('nav').prepend('<div id="zju-logo"></div><div id="sidebar">新生手册</div>');
+        $('nav').prepend('<div id="zju-logo"></div><div id="sidebar">新生手册</div><div id="nav-top">浙江大学<br><strong>新生手册</strong></div><hr>');
     };
 
     this.comment = function(su) {
@@ -68,7 +68,7 @@ var Doc = function(md) {
                         nextSection = $('<div id="next-chapter"><span>阅读下一章节</span><br></div>').append(nextSection);
                         nextSection = $('<section class="next"></section>').append(nextSection);
                     }
-                    $('article').html('');
+                    $('article').html('<section class="cover"></div>');
                     var subSections = $(this).nextUntil("h1");
                     subSections = subSections.each(function() {
                         var nodeName = $(this)[0].nodeName.toLowerCase();
@@ -392,6 +392,9 @@ $(document).ready(function() {
     });
 
     $('#prev').click(function() {
+        if($('section.current').first().prev('.cover').html()) {
+            $('article').animate({'margin-left': 0});
+        }
         var prev = $('section.current').first().prev().find('h2').first().text();
         if(prev) {
             doc.subSection(prev);
