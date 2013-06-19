@@ -49,7 +49,7 @@ var Doc = function(md) {
                 });
             }
             var applyThemeColor = function() {
-                var colors = ['ff9078', '46775f', '00ce7d', '00cfb0', '00bce6', '556066'];
+                var colors = ['ffb300', '46775f', '00b551', '00cfb0', '00bce6', '556066'];
                 getSectionNth(function(nth) {
                     var color = colors[nth];
                     console.log(color);
@@ -72,7 +72,11 @@ var Doc = function(md) {
                     $('article').html('<section class="cover"></div>');
                     var preface = $(this).nextUntil('h2');
                     var imgs = preface.filter('img');
+                    var p = preface.filter('p');
                     $('section.cover').append(imgs);
+                    $('section.cover').append('<div id="section-preface"></div>');
+                    $('#section-preface').append('<h2>'+title+'篇</h2>');
+                    $('#section-preface').append(p);
 
                     var subSections = $(this).nextUntil("h1");
                     subSections = subSections.each(function() {
@@ -203,10 +207,24 @@ var Doc = function(md) {
         }
     };
 
+    this.testPrevAndNext = function() {
+        if($('section.current').prevAll('section').first().html()) {
+            $('#prev').show();
+        } else {
+            $('#prev').hide();
+        }
+        if($('section.current').nextAll('section').first().html() || $('nav h1.current').nextAll('h1').first().html()) {
+            $('#next').show();
+        } else {
+            $('#next').hide();
+        }
+    }
+
     this.sectionReady(function() {
         that.img();
         loadPerfectScrollBar();
         setSectionPreface();
+        that.testPrevAndNext();
     });
 
     this.subSection = function(title) {
@@ -223,6 +241,7 @@ var Doc = function(md) {
                 $('article section.current').removeClass('current');
                 $(this).addClass('current');
                 $('article').animate({'margin-left': -offsetLeft}, 400);
+                that.testPrevAndNext();
                 return false;
             }
             offsetLeft += $(this).outerWidth(true); // Sum of width, padding, borders, margins
@@ -402,6 +421,7 @@ $(document).ready(function() {
             $('article').animate({'margin-left': 0});
             $('article .current').removeClass('current');
             $('article .cover').first().addClass('current');
+            doc.testPrevAndNext(); // fix scroll back to preface
             return;
         }
         var prev = $('section.current').first().prev().find('h2').first().text();
@@ -456,7 +476,6 @@ $(document).ready(function() {
 });
 var setSectionPreface = function() {
     if(!window.count) window.count = 0;
-    console.log(window.count);
     var src = $('section.cover.current').find('img').eq(window.count).attr('src');
     if(typeof src == "undefined") {
         if(window.count == 0) {
@@ -468,9 +487,6 @@ var setSectionPreface = function() {
         }
     }
     window.count++;
-    console.log(src)
     $('section.cover.current').css({width: $(window).width(), 'background-image': 'url('+src+')', 'background-size': 'cover'});
 }
-doc.sectionReady(function() {
-});
 setInterval(setSectionPreface, 2000);

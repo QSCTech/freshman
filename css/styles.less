@@ -412,6 +412,26 @@ article {
                 }
             }
         }
+        #section-preface {
+            h2 {
+                color: #000;
+                line-height: 80px;
+                display: inline-block;
+            }
+            position: absolute;
+            top: 50%;
+            margin-top: -40px;
+            right: 180px;
+            font-size: 18px;
+            color: #000;
+            height: 80px;
+            background: rgba(255, 255, 255, .58);
+            p {
+                padding-bottom: 0;
+                font-size: 12px;
+                display: inline-block;
+            }
+        }
     }
 }
 #search-results {
@@ -422,21 +442,21 @@ article {
 #prev, #next {
     position: fixed;
     top: 50%;
-    width: 100px;
-    margin-top: -50px;
-    height: 100px;
+    width: 80px;
+    margin-top: -40px;
+    height: 80px;
     right: 0;
     color: #fff;
-    font-size: 100px;
-    line-height: 100px;
+    font-size: 80px;
+    line-height: 80px;
     text-align: center;
-    background: #000;
+    background: @theme;
     cursor: pointer;
     opacity: .5;
 }
 #prev {
     border-right: 1px solid #fff;
-    right: 100px;
+    right: 80px;
 }
 #logo {
     margin-bottom: 20px;
