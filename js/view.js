@@ -351,6 +351,11 @@ $(document).ready(function() {
         }
     });
 
+    $('nav').on('click', 'h2', function() {
+        var title = $(this).text();
+        doc.subSection(title, true);
+    });
+
     $('body').on('click', 'h1', function() {
         var title = $(this).text();
         title = title.replace(/<i>.*<\/i>/, '');
