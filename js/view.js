@@ -55,6 +55,19 @@ var Doc = function(md) {
                     less.modifyVars({
                         '@theme': '#'+color
                     });
+                    var css = '[class^="icon-"]:before,'
+                              + '[class*=" icon-"]:before {'
+                              + 'text-decoration: inherit;'
+                              + 'display: inline-block;'
+                              + 'speak: none;'
+                              + '}'
+                            + '.icon-angle-left:before           { content: "\f104"; }'
+                            + '.icon-angle-right:before          { content: "\f105"; }'
+                            + '.icon-angle-up:before             { content: "\f106"; }'
+                            + '.icon-angle-down:before           { content: "\f107"; }';
+
+                    $('head').append('<style>'+css+'</style>');
+
                 });
             }
             applyThemeColor();
@@ -79,7 +92,7 @@ var Doc = function(md) {
 
                     var subSections = $(this).nextUntil("h1");
                     subSections = subSections.each(function() {
-                        var nodeName = $(this)[0].nodeName.toLowerCase();
+                        var nodeName = $(this).prop('nodeName').toLowerCase();
                         if(nodeName == 'h2') {
                             var subSection = $(this).nextUntil("h1,h2"),
                                 jq;
@@ -265,6 +278,7 @@ var Doc = function(md) {
         $('article').css({'margin-left': 0});
         $('nav h2').slideUp();
         var jq = $(html).each(function() {
+            if($(this)[0] == null) return;
             var nodeName = $(this)[0].nodeName.toLowerCase();
             if(nodeName == 'h2') {
                 var subSection = $(this).nextUntil("h1,h2"),
@@ -498,4 +512,9 @@ $(document).ready(function() {
     $('#next').on('mouseout', function() {
         $('#section-preface').css('background-color', '');
     });
+});
+
+$(document).ready(function() {
+    //    dirty hack for 搜狗高速浏览器 to force download the font
+    localStorage.clear();
 });

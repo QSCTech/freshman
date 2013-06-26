@@ -6,13 +6,42 @@
     <title>求是潮新生手册</title>
     <link rel="stylesheet/less" type="text/css" href="css/styles.less">
     <script type="text/javascript">
-      less = {
+    less = {
       functions: {
       },      // user functions, keyed by name
       relativeUrls: false,
       rootpath: "/freshman/css/"// a path to add on to the start of every url
-      };
+    };
     </script>
+    <style>
+    @font-face {
+      font-family: 'FontAwesome';
+      src: url('./font/fontawesome-webfont.eot'),
+           url('./font/fontawesome-webfont.woff') format('woff'),
+           url('./font/fontawesome-webfont.ttf') format('truetype'),
+           url('./font/fontawesome-webfont.svg#fontawesomeregular') format('svg');
+      font-weight: normal;
+      font-style: normal;
+    }
+    [class^="icon-"],
+    [class*=" icon-"] {
+      font-family: FontAwesome;
+      font-weight: normal;
+      font-style: normal;
+      text-decoration: inherit;
+      -webkit-font-smoothing: antialiased;
+    }
+    [class^="icon-"]:before,
+    [class*=" icon-"]:before {
+      text-decoration: inherit;
+      display: inline-block;
+      speak: none;
+    }
+    .icon-angle-left:before           { content: "\f104"; }
+    .icon-angle-right:before          { content: "\f105"; }
+    .icon-angle-up:before             { content: "\f106"; }
+    .icon-angle-down:before           { content: "\f107"; }
+    </style>
     <script src="js/less-1.4.0.min.js"></script>
     <script src="js/markdown.js"></script>
     <script src="js/jquery-1.9.1.min.js"></script>
@@ -21,9 +50,6 @@
     <script src="js/perfect-scrollbar.with-mousewheel.with-patch.min.js"></script>
     <script src="js/view.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=E3fde22d8e1d693258d1e05f751ef582"></script>
-    <!--[if lt IE 9]>
-        <script src="js/html5shiv.js"></script>
-        <![endif]-->
   </head>
   <body>
     <div id="cover">
@@ -34,9 +60,9 @@
         <li><strong>查看阅读贴士</strong><br>善用快捷键及搜索<p>使用方向键可快速跳转到下个章节；使用右上角的搜索可以快速检索内容</p></li>
         <li><strong>分享给好友</strong><br>与好友一起阅读浙里的故事<p>一坨分享图标在此</p></li>
         <li><strong>下载离线版本</strong><br>随时随地在你的终端上阅读<p>
-            <a href="downloads/freshman.epub">Epub电子书</a><br>
-            <a href="downloads/freshman.mobi">Mobi电子书</a><br>
-          </p>
+          <a href="downloads/freshman.epub">Epub电子书</a><br>
+          <a href="downloads/freshman.mobi">Mobi电子书</a><br>
+        </p>
         </li>
       </ul>
     </div>
