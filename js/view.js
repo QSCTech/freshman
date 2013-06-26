@@ -44,7 +44,6 @@ var Doc = function(md) {
                         callback(nth);
                         return false;
                     }
-                    console.log(nth);
                     ++nth;
                 });
             }
@@ -450,7 +449,6 @@ $(document).ready(function() {
                 $('#cover').css({'margin-left': -x*rate, 'margin-top': -y*rate});
             } else {
                 window.basePoint = {x: x, y: y};
-                console.log(window.basePoint);
             }
         })(event.pageX, event.pageY);
     });
