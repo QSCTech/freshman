@@ -1505,7 +1505,7 @@ VPN用户可以使用学号作为用户名，默认密码为身份证号后6位�
 
 ## 贡献人员
 
-本项目为开源项目，欢迎通过fork与pull request来[提交贡献](https://github.com/zenozeng/freshman)
+本项目为开源项目，欢迎通过fork与pull request来[提交贡献](https://github.com/QSCTech/freshman)
 
 欢迎在讨论区提交你的意见和建议！
 
