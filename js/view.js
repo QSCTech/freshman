@@ -307,7 +307,7 @@ var Doc = function(md) {
     };
 
     this.applyUrl = function() {
-        var url = window.location.href,
+        var url = decodeURIComponent(window.location.href),
             path = url.split(window.baseUrl);
         path = path.pop().split('/');
         path.shift();
