@@ -160,16 +160,19 @@ var Doc = function(md) {
         });
     };
 
+    this.applyScrollBar = function(that) {
+        var offset = $(that)[0].scrollHeight - $(that).height();
+        if(offset <= 40) return;
+        if($(that).hasClass('perfect-scrollbar')) return;
+        $(that).addClass('perfect-scrollbar');
+        $(that).perfectScrollbar({
+            wheelSpeed: 40,
+            wheelPropagation: false
+        });
+    }
     var loadPerfectScrollBar = function() {
-        var loadPerfectScrollBar = function(that) {
-            var offset = $(that)[0].scrollHeight - $(that).height();
-            if(offset <= 40) return;
-            if($(that).hasClass('perfect-scrollbar')) return;
-            $(that).addClass('perfect-scrollbar');
-            $(that).perfectScrollbar({
-                wheelSpeed: 40,
-                wheelPropagation: true
-            });
+        var loadPerfectScrollBar = function(dom) {
+            that.applyScrollBar(dom);
         };
         // 保证点击折叠类的东西点击后能正常加载滚动条
         $('article section').click(function() {
@@ -186,6 +189,7 @@ var Doc = function(md) {
               loadPerfectScrollBar(this);
           },
           function() {
+              if(supportsTouch) return;
               $(this).removeClass('perfect-scrollbar');
               $(this).perfectScrollbar('destroy');
           }
@@ -511,6 +515,7 @@ $(document).ready(function() {
 var setSectionPreface = function() {
     if(!window.count) window.count = 0;
     var src = $('section.cover.current').find('img').eq(window.count).attr('src');
+    // console.log(src);
     if(typeof src == "undefined") {
         if(window.count == 0) {
             return;
@@ -548,16 +553,16 @@ $(document).ready(function() {
     });
     $('nav').hover(
       function() {
-          $('article, nav').stop(false, true); // 不清除动画队列，并直接完成当前动画
-          $('nav').animate({width: 180}, 200, 'linear', function() {
-              $('article').animate({left: 180}, 200, 'linear');
-          });
+          $('nav').css({width: 180});
+          $('article').css({left: 180});
+          // $('nav').animate({width: 180}, 200, 'linear', function() {
+          //     $('article').animate({left: 180}, 200, 'linear');
+          // });
       },
       function() {
-          $('article, nav').stop(false, true); // 不清除动画队列，并直接完成当前动画
-          $('article').animate({left: 60}, 200, 'linear', function() {
-              $('nav').animate({width: 60}, 200, 'linear');
-          });
+          //$('article, nav').stop(false, true); // 不清除动画队列，并直接完成当前动画
+          $('nav').css({width: 60});
+          $('article').css({left: 60});
       });
 });
 
