@@ -21,17 +21,12 @@ var Doc = function(md) {
         $('nav').prepend('<div id="zju-logo"></div><div id="sidebar">新生手册</div><div id="nav-top">浙江大学<br><strong>新生手册</strong></div><hr>');
     };
 
-    this.comment = function(su) {
-        // 这里一定要污染全局变量
-        uyan_config = {
+    this.comment = function() {
+        window.uyan_config = {
             title:'求是潮新生手册',
             su:'qsc-freshman'
         };
-        if(su) {
-            uyan_config.su = su;
-            uyan_config.title = su;
-        }
-        $('article section#comment').append('<div id="uyan_frame"></div><script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1811609" async=""></script>');
+        $('article section#comments').append('<div id="uyan_frame"></div><script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1811609" async=""></script>');
     };
 
     this.section = function(title) {
@@ -122,7 +117,7 @@ var Doc = function(md) {
             });
             var subSection = $('article section').first().find('h2').first().text();
             that.subSection(subSection);
-            that.sectionReady();
+            that.sectionReady(title);
             $('article').animate({opacity: 1}, 400);
         });
         title = title.replace(/ /g, '');
@@ -161,10 +156,6 @@ var Doc = function(md) {
                 iter($(this));
             }
         });
-        if(title == "讨论") {
-            $('article').html('<section id="comments"></div>');
-        }
-
     };
 
     var loadPerfectScrollBar = function() {
@@ -199,16 +190,16 @@ var Doc = function(md) {
         );
     };
 
-    this.sectionReady = function(callback) {
-        if(typeof callback == "function") {
-            window.sectionOnloadHook = window.sectionOnloadHook ? window.sectionOnloadHook.push(callback) : [callback];
+    this.sectionReady = function(arg) {
+        if(typeof arg == "function") {
+            window.sectionOnloadHook = window.sectionOnloadHook ? window.sectionOnloadHook.push(arg) : [arg];
         } else {
-            // when called without a argument, call all the callbacks
+            // when called without a function argument, call all the callbacks
             var callbacks = window.sectionOnloadHook;
             if(callbacks) {
                 for(var i = 0; i<callbacks.length; i++) {
                     var fun = callbacks[i];
-                    fun.call();
+                    fun(arg);
                 }
             }
         }
@@ -229,11 +220,15 @@ var Doc = function(md) {
         $('#prev').is(':visible') ? $('#section-preface').hide() : $('#section-preface').show();
     }
 
-    this.sectionReady(function() {
+    this.sectionReady(function(title) {
         that.img();
         loadPerfectScrollBar();
         setSectionPreface();
         that.testPrevAndNext();
+        if(title == '讨论') {
+            $('article').html('<section id="comments"></section>');
+            that.comment();
+        }
     });
 
     this.subSection = function(title) {
