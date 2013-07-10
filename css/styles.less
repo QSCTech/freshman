@@ -200,7 +200,11 @@ nav {
     text-align: center;
     z-index: 19000;
     width: 60px;
-  //  .transition(.4s);
+    transition: width .5s linear;
+    -moz-transition: width .5s linear;
+    -webkit-transition: width .5s linear;
+    -o-transition: width .5s linear;
+
     h1, h2 {
         font-weight: normal;
         opacity: 0;
@@ -235,10 +239,8 @@ nav {
             opacity: 1;
             .transition(.2s);
         }
-//        .transition(.3s);
-        //width: 180px;
         #nav-top {
-            .transition(.3s);
+            .transition(.5s);
             opacity: 1;
         }
         h1, h2 {
@@ -311,6 +313,12 @@ article {
     font-size: 14px;
     text-align: left;
     width: 10000px;
+
+    transition: left .5s linear;
+    -moz-transition: left .5s linear;
+    -webkit-transition: left .5s linear;
+    -o-transition: left .5s linear;
+    
     div{
         word-break:break-all;
     }    
@@ -461,7 +469,7 @@ article {
             //background: fade(@theme, 3%);
         }
         &:hover {
-            background: fade(@theme, 3%) ! important;
+            background-color: fade(@theme, 3%) ! important;
         }
         &.next {
             color: @theme;
