@@ -236,8 +236,15 @@ var Doc = function(md) {
     });
 
     this.subSection = function(title) {
-        that.updateUrl('#!/'+window.currentSection+'/'+title);
         title = title.replace(/ /g, '');
+        var isSectionPreface = false;
+        $('nav h1').each(function() {
+            if(title.replace(/篇/g, '') == $(this).text().replace(/ /g, '')) {
+                isSectionPreface = true;
+            }
+        });
+        if(!isSectionPreface)
+          that.updateUrl('#!/'+window.currentSection+'/'+title);
         $('nav h2').each(function() {
             if(title == $(this).text().replace(/ /g, '')) {
                 $('nav h2.current').removeClass('current');
@@ -302,6 +309,7 @@ var Doc = function(md) {
     };
 
     this.updateUrl = function(url) {
+        url = window.baseUrl + url;
         window.history.pushState("求是潮新生手册", "求是潮新生手册", url);
         sessionStorage.setItem('url', JSON.stringify({url: url, timestamp: new Date().getTime()}));
     };
@@ -374,6 +382,7 @@ $(document).ready(function() {
         doc.applyUrl();
     });
 
+    // 下一章
     $('article').on('click', 'section', function(event) {
         if($(this).hasClass('next')) {
             var title = $('nav h1.current').nextAll('h1').first().text();
@@ -555,4 +564,11 @@ $(document).ready(function() {
 $(document).ready(function() {
     //    dirty hack for 搜狗高速浏览器 to force download the font
     localStorage.clear();
+});
+
+$(document).ready(function() {
+    $('body').on('click', '#zju-logo, #sidebar, #nav-top', function() {
+        doc.updateUrl('');
+        $('#cover').fadeIn(800);
+    });
 });
