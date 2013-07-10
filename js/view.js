@@ -302,8 +302,8 @@ var Doc = function(md) {
     };
 
     this.updateUrl = function(url) {
-        url = window.baseUrl + url;
         window.history.pushState("求是潮新生手册", "求是潮新生手册", url);
+        sessionStorage.setItem('url', JSON.stringify({url: url, timestamp: new Date().getTime()}));
     };
 
     this.applyUrl = function() {
@@ -362,6 +362,15 @@ $(document).ready(function() {
     $.get('markdown/freshman.md', function(data) {
         doc = new Doc(data);
         doc.nav();
+        var lastUrl = sessionStorage.getItem('url');
+        if(lastUrl) {
+            lastUrl = JSON.parse(lastUrl);
+            if((new Date().getTime()) - lastUrl.timestamp < 1000*60*5) {
+                var url = lastUrl.url.split(window.baseUrl);
+                url = url.pop();
+                doc.updateUrl(url);
+            }
+        }
         doc.applyUrl();
     });
 
