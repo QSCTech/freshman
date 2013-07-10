@@ -6,12 +6,13 @@
     <title>求是潮新生手册</title>
     <link rel="stylesheet/less" type="text/css" href="css/styles.less">
     <script type="text/javascript">
+    window.baseUrl = window.location.href.match(/f\.myqsc\.com/) ? "//f.myqsc.com/" : "/freshman/";
     var debug = false
     less = {
       functions: {
       },      // user functions, keyed by name
       relativeUrls: false,
-      rootpath: window.location.href.match(/localhost/) ? "/freshman/css/" : "/"
+      rootpath: window.baseUrl + '/css/'
       // rootpath: "/"// a path to add on to the start of every url
     };
     </script>

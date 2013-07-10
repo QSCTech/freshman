@@ -29,7 +29,7 @@ var Doc = function(md) {
         $('article section#comments').append('<div id="uyan_frame"></div><script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1811609" async=""></script>');
     };
 
-    this.section = function(title) {
+    this.section = function(title, callback) {
         if(debug) alert(title);
         $('article').animate({opacity: 0}, 200, 'linear', function() {
             var getSectionNth = function(callback) {
@@ -118,6 +118,8 @@ var Doc = function(md) {
             var subSection = $('article section').first().find('h2').first().text();
             that.subSection(subSection);
             that.sectionReady(title);
+            if(typeof callback == "function")
+              callback(title);
             $('article').animate({opacity: 1}, 400);
         });
         title = title.replace(/ /g, '');
@@ -225,13 +227,16 @@ var Doc = function(md) {
         loadPerfectScrollBar();
         setSectionPreface();
         that.testPrevAndNext();
+        that.updateUrl('#!/'+title);
         if(title == '讨论') {
             $('article').html('<section id="comments"></section>');
             that.comment();
         }
+        window.currentSection = title;
     });
 
     this.subSection = function(title) {
+        that.updateUrl('#!/'+window.currentSection+'/'+title);
         title = title.replace(/ /g, '');
         $('nav h2').each(function() {
             if(title == $(this).text().replace(/ /g, '')) {
@@ -296,6 +301,25 @@ var Doc = function(md) {
         $('#baidu-map').append('<h2>周边观察版</h2>');
     };
 
+    this.updateUrl = function(url) {
+        url = window.baseUrl + url;
+        window.history.pushState("求是潮新生手册", "求是潮新生手册", url);
+    };
+
+    this.applyUrl = function() {
+        var url = window.location.href,
+            path = url.split(window.baseUrl);
+        path = path.pop().split('/');
+        path.shift();
+        if(path[0]) {
+            $('#cover').hide();
+            that.section(path[0], function() {
+                if(path[1])
+                  that.subSection(path[1]);
+            });
+        }
+    };
+
     this.img = function() {
         $('img[alt="background"]').each(function() {
             // cacl the corret height and width to set
@@ -338,6 +362,7 @@ $(document).ready(function() {
     $.get('markdown/freshman.md', function(data) {
         doc = new Doc(data);
         doc.nav();
+        doc.applyUrl();
     });
 
     $('article').on('click', 'section', function(event) {
@@ -506,8 +531,8 @@ $(document).ready(function() {
     $('nav').hover(
       function() {
           $('article, nav').stop(false, true); // 不清除动画队列，并直接完成当前动画
-          $('nav').animate({width: 180}, 400, 'linear', function() {
-              $('article').animate({left: 180}, 400, 'linear');
+          $('nav').animate({width: 180}, 200, 'linear', function() {
+              $('article').animate({left: 180}, 200, 'linear');
           });
       },
       function() {
