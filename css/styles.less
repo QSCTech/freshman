@@ -114,6 +114,8 @@ a {
         left: 0;
         bottom: 0;
         overflow: hidden;
+        max-height: 30px;
+        //.transition(.3s);
         li {
             padding: 0;
             color: #eee;
@@ -127,11 +129,9 @@ a {
                 font-size: 12px;
                 line-height: 16px;
             }
-            .transition(.2s);
             float: left;
             display: block;
             margin: 0 20px;
-            max-height: 30px;
             padding-left: 50px;
             @width: ~"25% - 90px";
             width: calc(@width);
@@ -152,15 +152,13 @@ a {
             }
         }
         &:hover {
-            li {
-                max-height: 200px;
-            }
+            //.transition(.3s);
+            max-height: none;
         }
     }
 }
 
 body {
-    opacity: 0;
     overflow: hidden;
 }
 
@@ -198,7 +196,7 @@ nav {
     text-align: center;
     z-index: 19000;
     width: 60px;
-    .transition(.4s);
+  //  .transition(.4s);
     h1, h2 {
         font-weight: normal;
         opacity: 0;
@@ -233,8 +231,8 @@ nav {
             opacity: 1;
             .transition(.2s);
         }
-        .transition(.3s);
-        width: 180px;
+//        .transition(.3s);
+        //width: 180px;
         #nav-top {
             .transition(.3s);
             opacity: 1;
@@ -377,7 +375,7 @@ article {
         &.sub {
             h2 {
                 text-align: center;
-                background: @theme;
+                background: fade(@theme, 42);
                 color: #fff;
                 font-size: 15px;
                 font-weight: normal;
@@ -406,7 +404,6 @@ article {
                 list-style: decimal;
             }
             p {
-                line-height: 14px;
                 text-indent: 0 ! important; 
                 padding-bottom: 0 ! important;
             }
@@ -482,11 +479,11 @@ article {
                 position: relative;
                 top: -2px;
             }
-            position: absolute;
+            position: fixed;
             z-index: 3000;
             top: 50%;
             margin-top: -40px;
-            right: 180px;
+            right: 80px;
             font-size: 18px;
             color: #fff;
             height: 80px;

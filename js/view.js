@@ -31,10 +31,11 @@ var Doc = function(md) {
             uyan_config.su = su;
             uyan_config.title = su;
         }
-        $('article section#comment').append('<div id="uyan_frame"></div><script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1648537" async=""></script>');
+        $('article section#comment').append('<div id="uyan_frame"></div><script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1811609" async=""></script>');
     };
 
     this.section = function(title) {
+        if(debug) alert(title);
         $('article').animate({opacity: 0}, 200, 'linear', function() {
             var getSectionNth = function(callback) {
                 var nth = 0;
@@ -106,24 +107,10 @@ var Doc = function(md) {
                                 jq.attr('id', 'baidu-map');
                                 find.baidu = true;
                             }
-                            if($(this).text() == '讨论区') {
-                                jq.attr('id', 'comment');
-                                find.comment = true;
-                            }
-                            if($(this).text() == '收集建议') {
-                                jq.attr('id', 'comment');
-                                find.advice = true;
-                            }
                             jq = jq.append(subSection);
                             $('article').append(jq);
                             if(find.baidu) {
                                 doc.baiduMap();
-                            }
-                            if(find.comment) {
-                                doc.comment('qsc-freshman-comment');
-                            }
-                            if(find.advice) {
-                                doc.comment('qsc-freshman-advice');
                             }
                         }
                     });
@@ -174,6 +161,10 @@ var Doc = function(md) {
                 iter($(this));
             }
         });
+        if(title == "讨论") {
+            $('article').html('<section id="comments"></div>');
+        }
+
     };
 
     var loadPerfectScrollBar = function() {
@@ -224,6 +215,7 @@ var Doc = function(md) {
     };
 
     this.testPrevAndNext = function() {
+        // 判断是否应该显示#prev, #next, #section-pracface，并操作之
         if($('section.current').prevAll('section').first().html()) {
             $('#prev').show();
         } else {
@@ -234,6 +226,7 @@ var Doc = function(md) {
         } else {
             $('#next').hide();
         }
+        $('#prev').is(':visible') ? $('#section-preface').hide() : $('#section-preface').show();
     }
 
     this.sectionReady(function() {
@@ -350,9 +343,6 @@ $(document).ready(function() {
     $.get('markdown/freshman.md', function(data) {
         doc = new Doc(data);
         doc.nav();
-        var first = $('nav h1').first().text();
-        doc.section(first);
-        $('body').animate({opacity: 1}, 1000);
     });
 
     $('article').on('click', 'section', function(event) {
@@ -468,10 +458,16 @@ $(document).ready(function() {
     });
     $('#cover').on('click', 'h1', function() {
         $('#cover').fadeOut(800);
-        doc.section($(this).text());
+        if($(this).text() != $('#cover h1').first().text()) {
+            if (debug)
+              alert("hello");
+            doc.section($(this).text());
+        }
     });
     $('#start-reading').click(function() {
         $('#cover').fadeOut(800);
+        var first = $('nav h1').first().text();
+        doc.section(first);
     });
 });
 var setSectionPreface = function() {
@@ -512,6 +508,19 @@ $(document).ready(function() {
     $('#next').on('mouseout', function() {
         $('#section-preface').css('background-color', '');
     });
+    $('nav').hover(
+      function() {
+          $('article, nav').stop(false, true); // 不清除动画队列，并直接完成当前动画
+          $('nav').animate({width: 180}, 400, 'linear', function() {
+              $('article').animate({left: 180}, 400, 'linear');
+          });
+      },
+      function() {
+          $('article, nav').stop(false, true); // 不清除动画队列，并直接完成当前动画
+          $('article').animate({left: 60}, 200, 'linear', function() {
+              $('nav').animate({width: 60}, 200, 'linear');
+          });
+      });
 });
 
 $(document).ready(function() {
