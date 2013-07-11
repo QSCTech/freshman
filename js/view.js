@@ -533,7 +533,7 @@ var setSectionPreface = function() {
         $('section.cover .mask').fadeOut();
     });
 }
-setInterval(setSectionPreface, 2000);
+setInterval(setSectionPreface, 3000);
 $(document).ready(function() {
     $('article').on('click', '#section-preface', function() {
         $('#next').click();
