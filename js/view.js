@@ -529,7 +529,7 @@ var setSectionPreface = function() {
     window.sectionPrefaceLast = src;
     window.count++;
     $('section.cover .mask').fadeIn(400, function() {
-        $('section.cover.current').css({width: $(window).width(), 'background-image': 'url('+src+')', 'background-size': 'cover'});
+        $('section.cover.current').css({width: $(window).width(), 'background-image': 'url('+src+')'});
         $('section.cover .mask').fadeOut();
     });
 }
