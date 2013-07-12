@@ -234,12 +234,16 @@ var Doc = function(md) {
     }
 
     this.sectionReady(function(title) {
+        console.log("sec"+title);
         that.img();
         setSectionPreface();
         that.testPrevAndNext();
         that.updateUrl('#!/'+title);
         if(title == '讨论') {
             $('article').html('<section id="comments"></section>');
+            if(window.commentLoaded)
+              window.location.reload(); // 强制刷新以重载uyan
+            window.commentLoaded = true;
             that.comment();
         }
         window.currentSection = title;
@@ -247,6 +251,7 @@ var Doc = function(md) {
     });
 
     this.subSection = function(title) {
+        console.log("sub"+title);
         title = title.replace(/ /g, '');
         var isSectionPreface = false;
         $('nav h1').each(function() {
