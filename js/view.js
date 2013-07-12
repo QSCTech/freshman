@@ -5,6 +5,13 @@ var aboutQSC = function() {
     });
 }
 
+var fallback = function() {
+    var ua = navigator.userAgent;
+    if(ua.match(/Phone|Mob|Android|Touch/))
+       window.location.href = './mobile/';
+}
+fallback();
+
 var Doc = function(md) {
 
     var that = this,
