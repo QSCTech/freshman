@@ -235,7 +235,6 @@ var Doc = function(md) {
 
     this.sectionReady(function(title) {
         that.img();
-        loadPerfectScrollBar();
         setSectionPreface();
         that.testPrevAndNext();
         that.updateUrl('#!/'+title);
@@ -244,6 +243,7 @@ var Doc = function(md) {
             that.comment();
         }
         window.currentSection = title;
+        loadPerfectScrollBar();
     });
 
     this.subSection = function(title) {
