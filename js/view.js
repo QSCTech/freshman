@@ -1,3 +1,10 @@
+var aboutQSC = function() {
+    $('#cover').fadeOut(800);
+    doc.section('特典', function() {
+        doc.subSection('求是潮');
+    });
+}
+
 var Doc = function(md) {
 
     var that = this,
