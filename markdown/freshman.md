@@ -1352,7 +1352,7 @@ VPN用户可以使用学号作为用户名，默认密码为身份证号后6位�
 
 我们做得并不完美，但我们一直在试着做得更好。
 
-[点击这里进入我们的主站](http://tide.myqsc.com/wp/)~
+[进入《水朝夕》](http://tide.myqsc.com/wp/)~
 
 ### 加入我们
 
@@ -1546,7 +1546,7 @@ ALEJ WONG
 
 ### Coding
 
-Zeno Zeng
+[Zeno Zeng](http://zenoes.com)
 
 ### Photograph
 
