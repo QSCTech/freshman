@@ -1540,6 +1540,10 @@ Unique
 
 养鸡
 
+[richard1122](http://www.richard1993.com/blog/)
+
+[Zeno Zeng](http://zenoes.com)
+
 ### Design
 
 ALEJ WONG
