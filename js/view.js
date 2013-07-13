@@ -241,7 +241,6 @@ var Doc = function(md) {
     }
 
     this.sectionReady(function(title) {
-        console.log("sec"+title);
         that.img();
         setSectionPreface();
         that.testPrevAndNext();
@@ -258,7 +257,6 @@ var Doc = function(md) {
     });
 
     this.subSection = function(title) {
-        console.log("sub"+title);
         title = title.replace(/ /g, '');
         var isSectionPreface = false;
         $('nav h1').each(function() {
@@ -533,16 +531,13 @@ $(document).ready(function() {
 });
 var setSectionPreface = function() {
     if(!window.count) window.count = 0;
+    var max = $('section.cover img').length;
+    if(window.count >= max) {
+        window.count -= max;
+    }
     var src = $('section.cover.current').find('img').eq(window.count).attr('src');
-    // console.log(src);
     if(typeof src == "undefined") {
-        if(window.count == 0) {
-            return;
-        } else {
-            window.count = 0;
-            setSectionPreface();
-            return;
-        }
+        return;
     }
     if(src == window.sectionPrefaceLast) return;
     window.sectionPrefaceLast = src;
