@@ -450,6 +450,13 @@ $(document).ready(function() {
         }
     });
 
+    // 对 #comments，应该直接阻止事件冒泡
+    $('body').on('keyup', '#comments', function(e) {
+        var code = e.keyCode;
+        e.preventDefault();
+        e.stopPropagation();
+    });
+
     // force no scroll
     $(window).scroll(function() {
         window.scrollTo(0, 0);
