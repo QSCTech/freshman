@@ -1,7 +1,8 @@
 var comment = function() {
     window.uyan_config = {
         title:'求是潮新生手册',
-        su:'qsc-freshman'
+        su:'qsc-freshman',
+        url:'http://f.myqsc.com/'
     };
     $('#content').append('<h1>讨论</h1><div id="uyan_frame"></div><script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1811609" async=""></script>');
 }

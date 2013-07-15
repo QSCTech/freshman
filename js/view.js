@@ -38,7 +38,8 @@ var Doc = function(md) {
     this.comment = function() {
         window.uyan_config = {
             title:'求是潮新生手册',
-            su:'qsc-freshman'
+            su:'qsc-freshman',
+            url:'http://f.myqsc.com/'
         };
         $('article section#comments').append('<div id="uyan_frame"></div><script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1811609" async=""></script>');
     };
