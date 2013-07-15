@@ -38,7 +38,8 @@ var Doc = function(md) {
     this.comment = function() {
         window.uyan_config = {
             title:'求是潮新生手册',
-            su:'qsc-freshman'
+            su:'qsc-freshman',
+            url:'http://f.myqsc.com/'
         };
         $('article section#comments').append('<div id="uyan_frame"></div><script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1811609" async=""></script>');
     };
@@ -241,7 +242,6 @@ var Doc = function(md) {
     }
 
     this.sectionReady(function(title) {
-        console.log("sec"+title);
         that.img();
         setSectionPreface();
         that.testPrevAndNext();
@@ -258,7 +258,6 @@ var Doc = function(md) {
     });
 
     this.subSection = function(title) {
-        console.log("sub"+title);
         title = title.replace(/ /g, '');
         var isSectionPreface = false;
         $('nav h1').each(function() {
@@ -436,7 +435,19 @@ $(document).ready(function() {
             if($(this).is(":visible")) {
                 $(this).slideUp(400);
             } else {
-                $(this).slideDown(400);
+                var isLastElem = false;
+                var section = $(this).parents('section').first();
+                if($(this).html() == section.find('.hide-elem-content').last().html()) {
+                    isLastElem = true;
+                }
+                $(this).slideDown(isLastElem ? 0 : 400, function() {
+                    if(isLastElem) {
+                        var scroll = section.prop('scrollHeight');
+                        section.animate({scrollTop: scroll}, 400, 'swing', function() {
+                            section.perfectScrollbar('update');
+                        });
+                    }
+                });
             }
         });
     });
@@ -450,6 +461,13 @@ $(document).ready(function() {
         if(code == 37 || code == 38) {
             $('#prev').click();
         }
+    });
+
+    // 对 #comments，应该直接阻止事件冒泡
+    $('body').on('keyup', '#comments', function(e) {
+        var code = e.keyCode;
+        e.preventDefault();
+        e.stopPropagation();
     });
 
     // force no scroll
@@ -533,16 +551,13 @@ $(document).ready(function() {
 });
 var setSectionPreface = function() {
     if(!window.count) window.count = 0;
+    var max = $('section.cover img').length;
+    if(window.count >= max) {
+        window.count -= max;
+    }
     var src = $('section.cover.current').find('img').eq(window.count).attr('src');
-    // console.log(src);
     if(typeof src == "undefined") {
-        if(window.count == 0) {
-            return;
-        } else {
-            window.count = 0;
-            setSectionPreface();
-            return;
-        }
+        return;
     }
     if(src == window.sectionPrefaceLast) return;
     window.sectionPrefaceLast = src;
