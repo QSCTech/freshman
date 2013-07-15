@@ -4,7 +4,7 @@ var comment = function() {
         su:'qsc-freshman',
         url:'http://f.myqsc.com/'
     };
-    $('#content').append('<h1>讨论</h1><div id="uyan_frame"></div><script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1811609" async=""></script>');
+    $('#content').append('<div id="uyan_frame"></div><script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1811609" async=""></script>');
 }
 var init = function() {
     $.get('../markdown/freshman.md', function(data) {
