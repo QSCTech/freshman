@@ -434,7 +434,19 @@ $(document).ready(function() {
             if($(this).is(":visible")) {
                 $(this).slideUp(400);
             } else {
-                $(this).slideDown(400);
+                var isLastElem = false;
+                var section = $(this).parents('section').first();
+                if($(this).html() == section.find('.hide-elem-content').last().html()) {
+                    isLastElem = true;
+                }
+                $(this).slideDown(isLastElem ? 0 : 400, function() {
+                    if(isLastElem) {
+                        var scroll = section.prop('scrollHeight');
+                        section.animate({scrollTop: scroll}, 400, 'swing', function() {
+                            section.perfectScrollbar('update');
+                        });
+                    }
+                });
             }
         });
     });
