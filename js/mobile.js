@@ -1,3 +1,10 @@
+var comment = function() {
+    window.uyan_config = {
+        title:'求是潮新生手册',
+        su:'qsc-freshman'
+    };
+    $('#content').append('<h1>讨论</h1><div id="uyan_frame"></div><script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1811609" async=""></script>');
+}
 var init = function() {
     $.get('../markdown/freshman.md', function(data) {
         var html = markdown.toHTML(data);
@@ -8,11 +15,11 @@ var init = function() {
         html = html.replace(/<p>[ ]+/, '<p>'); // 去除 <p> 标签开头的空白
         html = html.replace(/<p>(<img alt="cover".*>)<\/p>/g, '$1');
         html = html.replace(/<img .*>/g, '');
-        html = html.replace(/<h1>讨论<\/h1>/g, '');
         var jq = $(html);
         $('#content').html(jq);
         var index = jq.clone().filter('h1, h2');
         $('#index').html(index);
+        comment();
         $('h1, h2').on('click', function() {
             var text = $(this).text();
             $('#content h1, #content h2').each(function() {
@@ -23,6 +30,7 @@ var init = function() {
             });
         });
     });
+
 };
 $(document).ready(function() {
     init();
