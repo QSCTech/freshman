@@ -189,6 +189,9 @@ var Doc = function(md) {
         var loadPerfectScrollBar = function(dom) {
             that.applyScrollBar(dom);
         };
+        var isInScrolling = function () {
+            return $('article section .ps-scrollbar-y.in-scrolling').length > 0;
+        };
         // 保证点击折叠类的东西点击后能正常加载滚动条
         $('article section').click(function() {
             var callback = (function(that) {
@@ -201,12 +204,15 @@ var Doc = function(md) {
         });
         $('article section').hover(
           function() {
-              loadPerfectScrollBar(this);
+              if (!isInScrolling()) {
+                  loadPerfectScrollBar(this);
+              }
           },
           function() {
-              if(supportsTouch) return;
-              $(this).removeClass('perfect-scrollbar');
-              $(this).perfectScrollbar('destroy');
+              if (!isInScrolling()) {
+                  $(this).removeClass('perfect-scrollbar');
+                  $(this).perfectScrollbar('destroy');
+              }
           }
         );
     };
