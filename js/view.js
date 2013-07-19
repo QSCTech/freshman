@@ -241,6 +241,19 @@ var Doc = function(md) {
             $('#next').hide();
         }
         $('#prev').is(':visible') ? $('#section-preface').hide() : $('#section-preface').show();
+        $('#next').is(':visible') ? $('#prev').css({right: 80}) : $('#prev').css({right: 0});
+        // 计算 #search的位置
+        var count = 0;
+        if ($('#prev').is(':visible')) {
+            console.log (0)
+            count++;
+        }
+        if ($('#next').is(':visible')) {
+            console.log (1)
+            count++;
+        }
+        var offset = count * 80;
+        $('#search').css('right', offset);
     }
 
     this.sectionReady(function(title) {
@@ -256,9 +269,10 @@ var Doc = function(md) {
             that.comment();
         }
         if(title == '搜索') {
-            $('article').html('<section id="search"><input type="text" id="search-input"></section><div id="search-results"></div>');
-            $('#search-input').on('keyup', function() {
-                doc.search($(this).text());
+            $('article').html('<input type="text" id="search" placeholder="戳我以搜索">');
+            doc.search('');
+            $('#search').on('keyup', function() {
+                doc.search($(this).val());
             });
         }
         window.currentSection = title;
@@ -302,28 +316,61 @@ var Doc = function(md) {
         }, timeout);
     };
 
-    this.search = function(text) {
-        $('#search-resutls').html('');
-        var jq = $(html).each(function() {
-            if($(this)[0] == null) return;
-            var nodeName = $(this)[0].nodeName.toLowerCase();
+    this.search = function(keyword) {
+        console.log (keyword);
+
+        var html = markdown.toHTML(md);
+
+        // 判断有无包含关键词
+        var match = function(jq, text) {
+            text = text.toLowerCase();
+            if (text == '') return true;
+            return jq.text().toLowerCase().indexOf(text) > -1;
+        };
+
+        var collection = $('<div id="search-results"></div>')
+        var collect = function(jq) {
+            var subSection = $('<section></section>');
+            // header
+            var header = jq.last();
+            var isEm = header.find('em').text(); // 判断是否为SubSection
+            header = '<h2>'+header.text()+'</h2>'; // 去除em之类的多余东西
+            subSection.append(header);
+
+            // content
+            subSection.append(jq.not('h2'));
+
+            // 剩余操作
+            if (isEm) {
+                subSection.addClass('em');
+            } else {
+                subSection.addClass('sub');
+            }
+            collection.append(subSection);
+        };
+
+        var display = function() {
+            var html = collection.html();
+            $('article section').remove();
+            $('article').css('margin-left', 0);
+            $('article').append(html);
+            $('article section').first().addClass('current');
+            loadPerfectScrollBar();
+            that.highlight(keyword);
+            doc.testPrevAndNext();
+        };
+
+        $(html).each(function() {
+            var nodeName = $(this)[0] && $(this)[0].nodeName.toLowerCase();
             if(nodeName == 'h2') {
-                var subSection = $(this).nextUntil("h1,h2"),
-                    jq;
-                if($(this).find('em').text()) {
-                    jq = $('<section class="em"><h2>'+$(this).text()+'</h2></section>');
-                } else {
-                    jq = $('<section><h2>'+$(this).text()+'</h2></section>');
-                }
-                jq = jq.append(subSection);
-                if($(this).text().toUpperCase().indexOf(text.toUpperCase()) > -1 || jq.text().toUpperCase().indexOf(text.toUpperCase()) > -1) {
-                    $('#search-results').append(jq);
+                var subSection = $(this).nextUntil("h1, h2").addBack();
+                if(match (subSection, keyword) ) {
+                    collect(subSection);
                 }
             }
         });
-        $('#search-results section').first().addClass('current');
-        loadPerfectScrollBar();
-        that.highlight(text);
+
+        display();
     };
 
     this.updateUrl = function(url) {
@@ -419,11 +466,6 @@ $(document).ready(function() {
         var title = $(this).text();
         title = title.replace(/<i>.*<\/i>/, '');
         doc.section(title);
-    });
-
-    $('#search').on('keyup', function() {
-        var text = $(this).val();
-        doc.search(text);
     });
 
     $('article').on('click', '.hide-elem-title', function() {

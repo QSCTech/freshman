@@ -169,28 +169,6 @@ body {
 :focus {
     outline: none;
 }
-#search {
-    display: none;
-    z-index: 9999;
-    position: fixed;
-    left: 0;
-    padding-left: 20px;
-    border: none;
-    background: transparent;
-    color: #8a8a8a;
-    top: 0;
-    height: 36px;
-    width: 100px;
-}
-i.icon-search {
-    display: none;
-    z-index: 10000;
-    position: fixed;
-    left: 120px;
-    top: 11px;
-    font-size: 12px;
-}
-
 nav {
     padding-top: 36px;
     height: 100%;
@@ -526,11 +504,6 @@ article {
         }
     }
 }
-#search-results {
-    padding-left: 40px;
-    width: 600px;
-    scroll-y: auto;
-}
 #prev, #next {
     position: fixed;
     top: 50%;
@@ -588,5 +561,29 @@ article {
             content: ' [点击展开]';
             color: #8a8a8a;
         }
+    }
+}
+#search {
+    position: fixed;
+    z-index: 10000;
+    top: 50%;
+    margin-top: -40px;
+    right: 160px;
+    display: block;
+    border: none;
+    line-height: 26px;
+    padding: 0 1em;
+    height: 50px;
+    font-size: 18px;
+    height: 80px;
+    background: fade(@theme, 50%);
+    .transition(.5s);
+    &:hover {
+        background: @theme;
+    }
+    &::after {
+        font-family: FontAwesome;
+        content: "\f002";
+        display: block;
     }
 }

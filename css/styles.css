@@ -24,8 +24,6 @@ a{color:#777;}
 #cover #cover-bar:hover{max-height:none;}
 body{overflow:hidden;}
 :focus{outline:none;}
-#search{display:none;z-index:9999;position:fixed;left:0;padding-left:20px;border:none;background:transparent;color:#8a8a8a;top:0;height:36px;width:100px;}
-i.icon-search{display:none;z-index:10000;position:fixed;left:120px;top:11px;font-size:12px;}
 nav{padding-top:36px;height:100%;background:#ff9078 url(../img/icons/icon_b_0.png) no-repeat center 90%;position:fixed;top:0;text-align:center;z-index:19000;width:60px;transition:width .5s linear;-moz-transition:width .5s linear;-webkit-transition:width .5s linear;-o-transition:width .5s linear;}nav h1,nav h2{font-weight:normal;opacity:0;}
 nav hr{display:block;margin:0 auto;text-align:center;border:none;border-top:1px solid #fff;width:60px;opacity:0;transition:all 0.2s linear;-moz-transition:all 0.2s linear;-webkit-transition:all 0.2s linear;-o-transition:all 0.2s linear;margin-bottom:1em;}
 nav #nav-top{text-align:center;color:#fff;line-height:25px;padding-bottom:12px;opacity:0;transition:all 0.2s linear;-moz-transition:all 0.2s linear;-webkit-transition:all 0.2s linear;-o-transition:all 0.2s linear;font-size:13px;letter-spacing:5px;padding-left:5px;}nav #nav-top strong{font-size:18px;}
@@ -71,7 +69,6 @@ article section.next{color:#ff9078;padding-top:0;padding-bottom:0;margin-top:0;c
 article section #section-preface{cursor:pointer;position:fixed;z-index:3000;top:50%;margin-top:-40px;right:80px;font-size:18px;color:#fff;height:80px;background:rgba(255, 144, 120, 0.5);}article section #section-preface h2{color:#fff;line-height:80px;display:inline-block;margin:0 1em;margin-right:10px;position:relative;top:-2px;}
 article section #section-preface:hover{background:#ff9078;}
 article section #section-preface p{padding:10px 10px 0 0;line-height:18px;font-size:12px;color:#fff;display:inline-block;}
-#search-results{padding-left:40px;width:600px;scroll-y:auto;}
 #prev,#next{position:fixed;top:50%;width:80px;margin-top:-40px;height:80px;right:0;color:#fff;font-size:80px;line-height:80px;text-align:center;background:rgba(255, 144, 120, 0.5);cursor:pointer;z-index:100;}#prev:hover,#next:hover{background:#ff9078;}
 #prev{border-right:1px solid #fff;right:80px;}
 #logo{margin-bottom:20px;height:80px;width:80px;margin-left:35px;}#logo img{max-width:100%;}
@@ -79,3 +76,5 @@ article section #section-preface p{padding:10px 10px 0 0;line-height:18px;font-s
 .hide-elem{padding-bottom:1em;}.hide-elem .hide-elem-content{display:none;font-size:12px;padding-left:14px;}
 .hide-elem .hide-elem-title{border-bottom:1px dashed #8a8a8a;display:inline-block;}.hide-elem .hide-elem-title:hover{cursor:pointer;}
 .hide-elem .hide-elem-title:after{content:' [点击展开]';color:#8a8a8a;}
+#search{position:fixed;z-index:10000;top:50%;margin-top:-40px;right:160px;display:block;border:none;line-height:26px;padding:0 1em;height:50px;font-size:18px;height:80px;background:rgba(255, 144, 120, 0.5);transition:all 0.5s linear;-moz-transition:all 0.5s linear;-webkit-transition:all 0.5s linear;-o-transition:all 0.5s linear;}#search:hover{background:#ff9078;}
+#search::after{font-family:FontAwesome;content:"\f002";display:block;}
