@@ -1542,7 +1542,7 @@ VPN用户可以使用学号作为用户名，默认密码为身份证号后6位�
 
 ### Document
 
-ALEJ WONG
+[ALEJ WONG](http://alej.1992y.com)
 
 BBBBrook
 
@@ -1560,13 +1560,15 @@ Unique
 
 ### Design
 
-ALEJ WONG
+[ALEJ WONG](http://alej.1992y.com)
 
 ### Coding
 
 [Zeno Zeng](http://zenoes.com)
 
 ### Photograph
+
+Michael Zhang
 
 BBBBrook
 
