@@ -1580,6 +1580,10 @@ QSC Photo
 
 浙江大学新手手册正式上线！
 
+### Github Commits Log
+
+[https://github.com/QSCTech/freshman/commits/master](https://github.com/QSCTech/freshman/commits/master)
+
 欢迎通过讨论区提交意见建议，或提供文字或图片内容！
 
 # 讨论
