@@ -1582,7 +1582,7 @@ QSC Photo
 
 ### Github Commits Log
 
-[https://github.com/QSCTech/freshman/commits/master](https://github.com/QSCTech/freshman/commits/master)
+[View it on Github](https://github.com/QSCTech/freshman/commits/master)
 
 欢迎通过讨论区提交意见建议，或提供文字或图片内容！
 
