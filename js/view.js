@@ -61,6 +61,9 @@ var Doc = function(md) {
             var applyThemeColor = function() {
                 var colors = ['ffb300', '46775f', '00b551', '00cfb0', '00bce6', '556066'];
                 getSectionNth(function(nth) {
+                    if (nth >= colors.length) {
+                        nth -= colors.length;
+                    }
                     var color = colors[nth];
                     window.themeColor = color; // 留待后用
                     less.modifyVars({
@@ -113,15 +116,8 @@ var Doc = function(md) {
                                 jq = $('<section class="sub"><h2>'+$(this).text()+'</h2></section>');
                             }
                             var find = {};
-                            if($(this).text() == '周边观察版') {
-                                jq.attr('id', 'baidu-map');
-                                find.baidu = true;
-                            }
                             jq = jq.append(subSection);
                             $('article').append(jq);
-                            if(find.baidu) {
-                                doc.baiduMap();
-                            }
                         }
                     });
                     if(nextSection) {
@@ -259,6 +255,12 @@ var Doc = function(md) {
             window.commentLoaded = true;
             that.comment();
         }
+        if(title == '搜索') {
+            $('article').html('<section id="search"><input type="text" id="search-input"></section><div id="search-results"></div>');
+            $('#search-input').on('keyup', function() {
+                doc.search($(this).text());
+            });
+        }
         window.currentSection = title;
         loadPerfectScrollBar();
     });
@@ -301,10 +303,7 @@ var Doc = function(md) {
     };
 
     this.search = function(text) {
-        $('article').html('');
-        $('nav .current').removeClass('current');
-        $('article').css({'margin-left': 0});
-        $('nav h2').slideUp();
+        $('#search-resutls').html('');
         var jq = $(html).each(function() {
             if($(this)[0] == null) return;
             var nodeName = $(this)[0].nodeName.toLowerCase();
@@ -318,22 +317,13 @@ var Doc = function(md) {
                 }
                 jq = jq.append(subSection);
                 if($(this).text().toUpperCase().indexOf(text.toUpperCase()) > -1 || jq.text().toUpperCase().indexOf(text.toUpperCase()) > -1) {
-                    $('article').append(jq);
+                    $('#search-results').append(jq);
                 }
             }
         });
-        $('article section').first().addClass('current');
+        $('#search-results section').first().addClass('current');
         loadPerfectScrollBar();
         that.highlight(text);
-    };
-
-    this.baiduMap = function() {
-        if(typeof resizeHook != "undefined")
-          resizeHook();
-        var map = new BMap.Map("baidu-map");
-        map.centerAndZoom(new BMap.Point(120.09391065692903, 30.310239963664857), 16);
-        map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
-        $('#baidu-map').append('<h2>周边观察版</h2>');
     };
 
     this.updateUrl = function(url) {
@@ -469,7 +459,7 @@ $(document).ready(function() {
         }
     });
 
-    // 对 #comments，应该直接阻止事件冒泡
+    // 对 #comments，应该直接阻止事件冒泡，防止方向键之类的事件触发
     $('body').on('keyup', '#comments', function(e) {
         var code = e.keyCode;
         e.preventDefault();
@@ -595,12 +585,8 @@ $(document).ready(function() {
       function() {
           $('nav').css({width: 180});
           $('article').css({left: 180});
-          // $('nav').animate({width: 180}, 200, 'linear', function() {
-          //     $('article').animate({left: 180}, 200, 'linear');
-          // });
       },
       function() {
-          //$('article, nav').stop(false, true); // 不清除动画队列，并直接完成当前动画
           $('nav').css({width: 60});
           $('article').css({left: 60});
       });
@@ -609,9 +595,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     //    dirty hack for 搜狗高速浏览器 to force download the font
     localStorage.clear();
-});
 
-$(document).ready(function() {
     $('body').on('click', '#zju-logo, #sidebar, #nav-top', function() {
         doc.updateUrl('');
         $('#cover').fadeIn(800);
