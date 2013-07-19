@@ -1574,6 +1574,12 @@ BBBBrook
 
 QSC Photo
 
+### 贡献
+
+欢迎通过讨论区提交意见建议，或提供文字或图片内容！
+
+或直接提交到我们的Github Issues之上，[View it on Github](https://github.com/QSCTech/freshman/issues)
+
 ## 更新日志
 
 ### 2013-7-10
@@ -1584,7 +1590,6 @@ QSC Photo
 
 [View it on Github](https://github.com/QSCTech/freshman/commits/master)
 
-欢迎通过讨论区提交意见建议，或提供文字或图片内容！
 
 # 讨论
 
