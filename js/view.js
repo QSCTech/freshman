@@ -245,11 +245,9 @@ var Doc = function(md) {
         // 计算 #search的位置
         var count = 0;
         if ($('#prev').is(':visible')) {
-            console.log (0)
             count++;
         }
         if ($('#next').is(':visible')) {
-            console.log (1)
             count++;
         }
         var offset = count * 80;
@@ -317,8 +315,6 @@ var Doc = function(md) {
     };
 
     this.search = function(keyword) {
-        console.log (keyword);
-
         var html = markdown.toHTML(md);
 
         // 判断有无包含关键词
@@ -379,16 +375,34 @@ var Doc = function(md) {
         sessionStorage.setItem('url', JSON.stringify({url: url, timestamp: new Date().getTime()}));
     };
 
-    this.applyUrl = function() {
-        var url = decodeURIComponent(window.location.href),
-            path = url.split(window.baseUrl);
+    this.applyUrl = function(url) {
+        if(!url) {
+            url = decodeURIComponent(window.location.href);
+        }
+        var path = url.split(window.baseUrl);
         path = path.pop().split('/');
         path.shift();
+        that.applyPath(path);
+    };
+
+    // path is something like ["学习", "选课入门"]
+    this.applyPath = function(path) {
         if(path[0]) {
             $('#cover').hide();
             that.section(path[0], function() {
                 if(path[1])
                   that.subSection(path[1]);
+                if(path[2]) {
+                    // 如果第三层url，就自动scroll到那个位置
+                    $('section.current h3').each(function() {
+                        if($(this).text() == path[2]) {
+                            var offsetY = $(this).offset().top;
+                            var section = $(this).parents('section');
+                            section.scrollTop(offsetY);
+                            section.perfectScrollbar('update');
+                        }
+                    });
+                }
             });
         }
     };
@@ -641,5 +655,27 @@ $(document).ready(function() {
     $('body').on('click', '#zju-logo, #sidebar, #nav-top', function() {
         doc.updateUrl('');
         $('#cover').fadeIn(800);
+    });
+
+
+    // 劫持链接点击
+    // ATTENTION: window.open() will not open in new tab if it is not happening on actual click event. In the example given the url is being opened on actual click event.
+    $('body').on('click', 'a', function(e) {
+        var href = $(this).attr('href');
+        if(!href) return;
+        e.preventDefault();
+        e.stopPropagation()
+        if(href.match(/.*\/\/.+/)) {
+            // 外部链接
+            window.open(href, '_blank');
+        } else {
+            // 内部链接
+            // sth like #!/学习/选课入门
+            doc.applyUrl(href);
+        }
+    });
+
+    $(window).on('hashchange', function() {
+        doc.applyUrl();
     });
 });
