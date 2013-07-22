@@ -59,7 +59,7 @@ var Doc = function(md) {
                 });
             }
             var applyThemeColor = function() {
-                var colors = ['ffb300', '46775f', '00b551', '00cfb0', '00bce6', '556066'];
+                var colors = ['ffb300', '46775f', '00b551', '00cfb0', '00bce6', '556066', '556066'];
                 getSectionNth(function(nth) {
                     if (nth >= colors.length) {
                         nth -= colors.length;
