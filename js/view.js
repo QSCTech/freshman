@@ -665,13 +665,12 @@ $(document).ready(function() {
         if(!href) return;
         e.preventDefault();
         e.stopPropagation()
-        if(href.match(/.*\/\/.+/)) {
-            // 外部链接
-            window.open(href, '_blank');
-        } else {
-            // 内部链接
+        if(/#/.test(href) && !(/\/\//.test(href))) {
+            // 内部章节跳转链接
             // sth like #!/学习/选课入门
             doc.applyUrl(href);
+        } else {
+            window.open(href, '_blank');
         }
     });
 
