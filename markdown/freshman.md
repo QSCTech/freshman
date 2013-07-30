@@ -1342,7 +1342,7 @@ VPN用户可以使用学号作为用户名，默认密码为身份证号后6位�
 
 ### 线上产品
 
-[Mobile 手机站](http://m.myqsc.com/)
+[Mobile 手机站](http://m.myqsc.com/get/download.html)
 
 [Box 云U盘](http://box.myqsc.com/)
 
