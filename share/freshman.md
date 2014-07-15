@@ -9,7 +9,7 @@
 争创一流的创新精神
 
 
-## *懂得浙大* —— 116年根基，永远的求是精神
+## *懂得浙大* —— 117年根基，永远的求是精神
 
 一入浙大门，终身浙大人。浙大将带给你的，绝非仅仅是知识，最重要的是留传了116年的求是精神，它是浙大诞生至今的立足根基，它是西迁路上学子们的精神食粮，它是求是学子一生的宝贵财富。
 
@@ -1532,6 +1532,8 @@ Unique
 
 [人人浙江现代教务管理系统主页君](http://page.renren.com/601647967/index)
 
+[Delostik](https://github.com/Delostik)
+
 ### Design
 
 [ALEJ WONG](http://alej.1992y.com)
@@ -1539,6 +1541,8 @@ Unique
 ### Coding
 
 [Zeno Zeng](http://zenoes.com)
+
+[Delostik](https://github.com/Delostik)
 
 ### Photograph
 
@@ -1558,7 +1562,11 @@ QSC Photo
 
 ### 2013-7-10
 
-浙江大学新手手册正式上线！
+浙江大学新生手册正式上线！
+
+### 2014-7-14
+
+浙江大学新生手册重新上线，更多内容不断完善中！
 
 ### Github Commits Log
 
@@ -1568,3 +1576,4 @@ QSC Photo
 # 讨论
 
 # 搜索
+
