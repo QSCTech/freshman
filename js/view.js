@@ -446,7 +446,7 @@ var Doc = function(md) {
 };
 
 $(document).ready(function() {
-    $.get('markdown/freshman.md', function(data) {
+    $.get('share/freshman.md', function(data) {
         doc = new Doc(data);
         doc.nav();
         var lastUrl = sessionStorage.getItem('url');
