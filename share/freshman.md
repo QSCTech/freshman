@@ -1522,7 +1522,7 @@ Share our Share，分享的意义。
 
 ## 贡献人员
 
-### Document
+### Documention
 
 [ALEJ WONG](http://alej.1992y.com)
 
