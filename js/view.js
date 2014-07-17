@@ -29,6 +29,29 @@ var Doc = function(md) {
     var coverNav = $(html).filter('h1');
     $('#cover-nav').append(coverNav);
 
+    this.applyPictureInfo = function(obj) {
+        this.picture_info = obj;
+        // cover0 先行
+        this.displayPictureInfo('cover0');
+    };
+
+    this.displayPictureInfo = function(name) {
+        $('#picture-info').unbind('click').bind('click', function() {
+            $(this).fadeOut();
+        });
+        $(this).fadeIn();
+        try {
+            if (typeof(this.picture_info[name]) == 'undefined') {
+                name = /\/?([^/.]+)\.jpg$/.exec(name)[1];
+            }
+            $('#picture-info-author').html(this.picture_info[name].author);
+            $('#picture-info-info').html(this.picture_info[name].info);
+        } catch(e) {
+            $('#picture-info-author').html('');
+            $('#picture-info-info').html('');
+        }
+    };
+
     this.nav = function() {
         var jq = $(html).filter('h1, h2');
         $('nav').html(jq);
@@ -460,6 +483,9 @@ $(document).ready(function() {
         }
         doc.applyUrl();
     });
+    $.get('img/picture_info.json', function(data) {
+        doc.applyPictureInfo(data);
+    }, "json");
 
     // 下一章
     $('article').on('click', 'section', function(event) {
@@ -616,6 +642,7 @@ var setSectionPreface = function() {
     window.count++;
     $('section.cover .mask').fadeIn(400, function() {
         $('section.cover.current').css({width: $(window).width(), 'background-image': 'url('+src+')'});
+        doc.displayPictureInfo(src);
         $('section.cover .mask').fadeOut();
     });
 }
