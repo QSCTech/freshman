@@ -617,6 +617,8 @@ TIPS，蓝田的寝室号都是四位数哦~全校中的特例~
 
 # 军训
 
+![cover](img/2.4.jpg)
+
 ![cover](img/2.1.jpg)
 
 ![cover](img/2.2.jpg)
@@ -1055,6 +1057,10 @@ GPA（主修专业课程平均学分绩点）=Σ主修专业课程学分绩点/�
 [戳我提前去预定门票](http://notice.myqsc.com) ~
 
 # 生活
+
+![cover](img/4.7.jpg)
+
+![cover](img/4.8.jpg)
 
 ![cover](img/4.1.jpg)
 
