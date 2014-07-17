@@ -469,8 +469,8 @@ var Doc = function(md) {
 };
 
 $(document).ready(function() {
-    doc = new Doc(data);
     $.get('share/freshman.md', function(data) {
+        doc = new Doc(data);
         doc.nav();
         var lastUrl = sessionStorage.getItem('url');
         if(lastUrl) {
@@ -482,10 +482,11 @@ $(document).ready(function() {
             }
         }
         doc.applyUrl();
+        $.get('img/picture_info.json', function(data) {
+            doc.applyPictureInfo(data);
+        }, "json");
+
     });
-    $.get('img/picture_info.json', function(data) {
-        doc.applyPictureInfo(data);
-    }, "json");
 
     // 下一章
     $('article').on('click', 'section', function(event) {
