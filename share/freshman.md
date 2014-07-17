@@ -1542,6 +1542,10 @@ Unique
 
 [人人浙江现代教务管理系统主页君](http://page.renren.com/601647967/index)
 
+[vxst](https://blog.vxst.org)
+
+[Final Controller](https://github.com/finalctrl)
+
 [Senorsen](https://blog.senorsen.com)
 
 ### Design
