@@ -469,8 +469,8 @@ var Doc = function(md) {
 };
 
 $(document).ready(function() {
+    doc = new Doc(data);
     $.get('share/freshman.md', function(data) {
-        doc = new Doc(data);
         doc.nav();
         var lastUrl = sessionStorage.getItem('url');
         if(lastUrl) {
