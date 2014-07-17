@@ -1542,7 +1542,7 @@ Unique
 
 [人人浙江现代教务管理系统主页君](http://page.renren.com/601647967/index)
 
-[Senorsen](https://www.senorsen.com)
+[Senorsen](https://blog.senorsen.com)
 
 ### Design
 
@@ -1553,6 +1553,8 @@ Unique
 [Zeno Zeng](http://zenoes.com) 电脑网页版新生手册
 
 [Delostik](https://github.com/Delostik) 移动版新生手册
+
+[Senorsen](https://blog.senorsen.com) 修正及新增特性
 
 ### Photograph
 
