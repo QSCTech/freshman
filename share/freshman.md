@@ -1550,9 +1550,9 @@ Unique
 
 ### Coding
 
-[Zeno Zeng](http://zenoes.com)
+[Zeno Zeng](http://zenoes.com) 电脑网页版新生手册
 
-[Delostik](https://github.com/Delostik)
+[Delostik](https://github.com/Delostik) 移动版新生手册
 
 ### Photograph
 
