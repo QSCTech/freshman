@@ -577,9 +577,19 @@ article {
     font-size: 18px;
     height: 80px;
     background: fade(@theme, 50%);
+    color: #fff;
     .transition(.5s);
     &:hover {
         background: @theme;
+    }
+    &::-webkit-input-placeholder {
+        color: #ddd;
+    }
+    &::-moz-placeholder {
+        color: #ddd;
+    }
+    &:-ms-input-placeholder {
+        color: #ddd;
     }
     &::after {
         font-family: FontAwesome;
