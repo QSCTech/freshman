@@ -1640,6 +1640,4 @@ QSC Photo
 [View it on Github](https://github.com/QSCTech/freshman/commits/master)
 
 
-# 讨论
-
 # 搜索
