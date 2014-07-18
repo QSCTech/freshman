@@ -459,10 +459,6 @@ $(document).ready(function() {
             }
         }
         doc.applyUrl();
-        $.get('img/picture_info.json', function(data) {
-            doc.applyPictureInfo(data);
-        }, "json");
-
     });
 
     // 下一章

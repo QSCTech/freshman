@@ -1597,9 +1597,13 @@ Unique
 
 [ALEJ WONG](http://alej.1992y.com)
 
+二师兄
+
 ### Coding
 
 [Zeno Zeng](http://zenoes.com) 电脑网页版新生手册
+
+[vxst](https://blog.vxst.org) 电脑网页版新生手册新版
 
 [Delostik](https://github.com/Delostik) 移动版新生手册
 
