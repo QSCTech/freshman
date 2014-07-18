@@ -1559,6 +1559,8 @@ Tips：邮递取货点时有变动，大家取快递时要看准短信噢~如果
 
 ### Documention
 
+#### Version 2013
+
 [ALEJ WONG](http://alej.1992y.com)
 
 BBBBrook
@@ -1577,9 +1579,15 @@ Unique
 
 [人人浙江现代教务管理系统主页君](http://page.renren.com/601647967/index)
 
+#### Version 2014
+
 [vxst](https://blog.vxst.org)
 
-[Final Controller](https://github.com/finalctrl)
+OAOA
+
+shadow.卢
+
+[某柴柴柴柴](https://github.com/fnlctrl)
 
 [Senorsen](https://blog.senorsen.com)
 
