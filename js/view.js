@@ -259,13 +259,6 @@ var Doc = function(md) {
         setSectionPreface();
         that.testPrevAndNext();
         that.updateUrl('#!/'+title);
-        if(title == '讨论') {
-            $('article').html('<section id="comments"></section>');
-            if(window.commentLoaded)
-              window.location.reload(); // 强制刷新以重载uyan
-            window.commentLoaded = true;
-            that.comment();
-        }
         if(title == '搜索') {
             $('article').html('<input type="text" id="search" placeholder="戳我以搜索">');
             doc.search('');
@@ -328,7 +321,7 @@ var Doc = function(md) {
         var collect = function(jq) {
             var subSection = $('<section></section>');
             // header
-            var header = jq.last();
+            var header = jq.first();
             var isEm = header.find('em').text(); // 判断是否为SubSection
             header = '<h2>'+header.text()+'</h2>'; // 去除em之类的多余东西
             subSection.append(header);
