@@ -616,7 +616,6 @@ var setSectionPreface = function() {
     window.count++;
     $('section.cover .mask').fadeIn(400, function() {
         $('section.cover.current').css({width: $(window).width(), 'background-image': 'url('+src+')'});
-        doc.displayPictureInfo(src);
         $('section.cover .mask').fadeOut();
     });
 }
