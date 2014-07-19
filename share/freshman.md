@@ -651,6 +651,8 @@ TIPS，蓝田的寝室号都是四位数哦~全校中的特例~
 
 # 军训
 
+![cover](img/2.4.jpg)
+
 ![cover](img/2.1.jpg)
 
 ![cover](img/2.2.jpg)
@@ -1096,6 +1098,8 @@ http://search.cnki.net/)、[Scopus文摘数据库](http://www.scopus.com)、[书
 [戳我去看看有什么有意思的活动](http://notice.myqsc.com) ~
 
 # 生活
+
+![cover](img/4.7.jpg)
 
 ![cover](img/4.1.jpg)
 
