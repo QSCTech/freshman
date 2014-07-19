@@ -642,7 +642,7 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    //    dirty hack for 搜狗高速浏览器 to force download the font
+    // dirty hack for 搜狗高速浏览器 to force download the font
     localStorage.clear();
 
     $('body').on('click', '#zju-logo, #sidebar, #nav-top', function() {
