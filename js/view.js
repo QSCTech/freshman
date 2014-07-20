@@ -21,7 +21,7 @@ var Doc = function(md) {
     // 匹配折叠
     html = html.replace(/<p>@@[ ]*([^<]+)<\/p>/g, '<div class="hide-elem"><div class="hide-elem-title">$1</div><div class="hide-elem-content">');
     html = html.replace(/<p>@@<\/p>/g, '</div></div>');
-    html = html.replace(/\\n/g, '<br>'); // 匹配 \n 为 <br>
+    html = html.replace(/\\n/g, '<br>'); // 替换 \n 为 <br>
     html = html.replace(/<p>[ ]+/, '<p>'); // 去除 <p> 标签开头的空白
     html = html.replace(/<p>(<img alt="cover".*>)<\/p>/g, '$1');
     var jq = $(html);
