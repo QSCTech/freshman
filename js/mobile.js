@@ -7,7 +7,7 @@ var comment = function() {
     $('#content').append('<div id="uyan_frame"></div><script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1811609" async=""></script>');
 }
 var init = function() {
-    $.get('../markdown/freshman.md', function(data) {
+    $.get('../share/freshman.md', function(data) {
         var html = markdown.toHTML(data);
         html = html.replace(/<h2>(.*)——(.*) (.*)<\/h2>/g, "<h2>$1</h2><div class=\"sub-header\">$2<br>$3</div>");
         html = html.replace(/@@/g, '');
