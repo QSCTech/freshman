@@ -1614,11 +1614,9 @@ shadow.卢
 
 [Zeno Zeng](http://zenoes.com) 电脑网页版新生手册 
 
-[vxst](https://blog.vxst.org) 电脑网页版新生手册新版 
+[vxst](https://blog.vxst.org) 电脑网页版新生手册修改 
 
-[Delostik](https://github.com/Delostik) 移动版新生手册 
-
-[Senorsen](https://blog.senorsen.com) 修正及新增特性 
+[Senorsen](https://blog.senorsen.com) 移动设备网页版本 
 
 ### Photograph
 
