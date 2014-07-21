@@ -67,7 +67,7 @@ var Doc = function(md) {
                     var color = colors[nth];
                     window.themeColor = color; // 留待后用
                     less.modifyVars({
-                        '@theme': '#'+color
+                        '@theme': color
                     });
                     var css = '[class^="icon-"]:before,'
                               + '[class*=" icon-"]:before {'
@@ -619,13 +619,13 @@ $(document).ready(function() {
     });
 
     $('article').on('mouseover', '#section-preface', function() {
-        $('#next').css('background-color', '#'+window.themeColor);
+        $('#next').css('background-color', window.themeColor);
     });
     $('article').on('mouseout', '#section-preface', function() {
         $('#next').css('background-color', ''); // 使用无效值使声明丢弃而使用原先值
     });
     $('#next').on('mouseover', function() {
-        $('#section-preface').css('background-color', '#'+window.themeColor);
+        $('#section-preface').css('background-color', window.themeColor);
     });
     $('#next').on('mouseout', function() {
         $('#section-preface').css('background-color', '');
