@@ -658,7 +658,7 @@ $(document).ready(function() {
 
     $('#know-of-qsc').hover(function() {
         $('#weixin-qsc').stop(true, false).fadeIn()
-                        .css('bottom', $(this).height() + 'px');
+                        .css('bottom', $('#cover-bar').height() + 'px');
     }, function() {
         $('#weixin-qsc').stop(true, false).fadeOut();
     });
