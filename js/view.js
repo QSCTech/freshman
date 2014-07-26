@@ -650,6 +650,18 @@ $(document).ready(function() {
         $('#cover').fadeIn(800);
     });
 
+    $('#mobile-version').hover(function() {
+        $(this).text('手机直接访问本网址即可哦～');
+    }, function() {
+        $(this).text('移动版');
+    });
+
+    $('#know-of-qsc').hover(function() {
+        $('#weixin-qsc').stop(true, false).fadeIn()
+                        .css('bottom', $(this).height() + 'px');
+    }, function() {
+        $('#weixin-qsc').stop(true, false).fadeOut();
+    });
 
     // 劫持链接点击
     // ATTENTION: window.open() will not open in new tab if it is not happening on actual click event. In the example given the url is being opened on actual click event.

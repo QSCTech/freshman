@@ -94,7 +94,7 @@ a {
         #cover-copyright {
             position: absolute;
             bottom: 180px;
-            left: 40px;
+            left: 20px;
             font-size: 0.7rem;
         }
         #cover-logo {
@@ -162,6 +162,20 @@ a {
             }
             &:nth-child(4) {
                 background-image: url(../img/icons/icon_b_4.png);
+            }
+            .weixin-qsc {
+                display: none;
+                background-color: rgba(0, 0, 0, 0.5);
+                width: 150px;
+                height: 150px;
+                position: fixed;
+                left: 0;
+                &:before {
+                    content: '求是潮微信：qscqscqsc';
+                    color: #fff;
+                }
+                padding-left: 15px;
+                padding-top: 15px;
             }
         }
         &:hover {
