@@ -1,51 +1,110 @@
-<!doctype HTML>
+<!doctype html>
 <html>
   <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>求是潮新生手册</title>
+    <meta name="Description" content="浙江大学新生手册">
+    <meta name="Keywords" content="浙江大学,新生手册,新生,入学,手册,军训,求是潮,qsc,浙大,新生群">
+    <title>浙江大学新生手册</title>
+    <link rel="shortcut icon" href="share/favicon.ico">
     <link rel="stylesheet/less" type="text/css" href="css/styles.less">
     <script type="text/javascript">
-      less = {
+    window.baseUrl = window.location.href.match(/f\.myqsc\.com/) ? "//f.myqsc.com/" : "/freshman/";
+    window.supportsTouch = (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch);
+    var debug = false
+    less = {
       functions: {
-      },      // user functions, keyed by name
+      },
       relativeUrls: false,
-      rootpath: "/freshman/css/"// a path to add on to the start of every url
-      };
+      rootpath: window.baseUrl + '/css/'
+    };
     </script>
+    <style>
+    @font-face {
+      font-family: 'FontAwesome';
+      src: url('./font/fontawesome-webfont.eot'),
+           url('./font/fontawesome-webfont.woff') format('woff'),
+           url('./font/fontawesome-webfont.ttf') format('truetype'),
+           url('./font/fontawesome-webfont.svg#fontawesomeregular') format('svg');
+      font-weight: normal;
+      font-style: normal;
+    }
+    [class^="icon-"],
+    [class*=" icon-"] {
+      font-family: FontAwesome;
+      font-weight: normal;
+      font-style: normal;
+      text-decoration: inherit;
+      -webkit-font-smoothing: antialiased;
+    }
+    [class^="icon-"]:before,
+    [class*=" icon-"]:before {
+      text-decoration: inherit;
+      display: inline-block;
+      speak: none;
+    }
+    .icon-angle-left:before           { content: "\f104"; }
+    .icon-angle-right:before          { content: "\f105"; }
+    .icon-angle-up:before             { content: "\f106"; }
+    .icon-angle-down:before           { content: "\f107"; }
+    </style>
+    <!-- settings START -->
+    <script src="share/themecolors.js"></script>
+    <!-- settings END -->
     <script src="js/less-1.4.0.min.js"></script>
     <script src="js/markdown.js"></script>
-    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/jquery.highlight.js"></script>
     <script src="js/lazyload-min.js"></script>
-    <script src="js/perfect-scrollbar.with-mousewheel.with-patch.min.js"></script>
+    <script src="js/jquery.event.move.js"></script>
+    <script src="js/jquery.mousewheel.js"></script>
+    <script src="js/perfect-scrollbar.js"></script>
     <script src="js/view.js"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=E3fde22d8e1d693258d1e05f751ef582"></script>
-    <!--[if lt IE 9]>
-        <script src="js/html5shiv.js"></script>
-        <![endif]-->
+
   </head>
   <body>
     <div id="cover">
       <div id="start-reading">开始阅读<i class="icon-angle-right"></i></div>
-      <div id="cover-nav"><div id="cover-logo">浙江大学<br><strong>新生手册</strong></div></div>
+      <div id="cover-nav">
+        <div id="cover-copyright">&copy; 2014 浙江大学求是潮 <span id="mobile-version">移动版</span></div>
+        <div id="cover-logo">浙江大学<br><strong>新&nbsp;生&nbsp;手&nbsp;册</strong><br>- 2014 -</div></div>
       <ul id="cover-bar">
-        <li><strong>了解求是潮</strong><br>浙江大学学生门户网站<p>浙江大学当为学工部指导下的学生门户网站，四大线上产品，八大部门，一本《水朝夕》，十二载倾情奉献等待你的到来。<a href="#" onclick="doc.section('求是潮')">点此了解更多</a></p></li>
-        <li><strong>查看阅读贴士</strong><br>善用快捷键及搜索<p>使用方向键可快速跳转到下个章节；使用右上角的搜索可以快速检索内容</p></li>
-        <li><strong>分享给好友</strong><br>与好友一起阅读浙里的故事<p>一坨分享图标在此</p></li>
-        <li><strong>下载离线版本</strong><br>随时随地在你的终端上阅读<p>
-            <a href="downloads/freshman.epub">Epub电子书</a><br>
-            <a href="downloads/freshman.mobi">Mobi电子书</a><br>
+        <li id="know-of-qsc"><strong>了解求是潮</strong><br>浙江大学学生门户网站<p>浙江大学党委学工部指导下的学生门户网站，四大线上产品，八大部门，一本《水朝夕》，十三载倾情奉献等待着你的到来。<br><a href="#" onclick="aboutQSC()">点此了解更多</a></p><div id="weixin-qsc"><img alt="微信qscqscqsc二维码" src="img/weixin_qscqscqsc.png"></div></li>
+        <li><strong>查看阅读贴士</strong><br>善用快捷键及讨论<p>使用方向键可快速跳转到下个章节；新生若有疑问可在最后的讨论区提问</p></li>
+        <li><strong>分享给好友</strong><br>与好友一起阅读浙里的故事
+          <p>
+            <!-- Baidu Button BEGIN -->
+            <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" data="{'text':'浙江大学新生手册很赞哦~ http://f.myqsc.com/', 'desc':'求是潮出品：浙江大学新生手册 —— http://f.myqsc.com/'}">
+              <a class="bds_qzone"></a>
+              <a class="bds_tsina"></a>
+              <a class="bds_tqq"></a>
+              <a class="bds_renren"></a>
+              <a class="bds_t163"></a>
+              <span class="bds_more"></span>
+            </div>
+            <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=0" ></script>
+            <script type="text/javascript" id="bdshell_js"></script>
+            <script type="text/javascript">
+            document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+            </script>
+            <!-- Baidu Button END -->
           </p>
+        </li>
+	<li><strong>下载离线版本</strong><br>随时随地在你的移动终端上阅读<p>
+          <a href="downloads/freshman.epub">Epub电子书</a><br>
+          <a href="downloads/freshman.mobi">Mobi电子书</a><br>
+          <a href="downloads/freshman.pdf">PDF电子书</a><br>
+          <a href="share/freshman.md">Markdown格式文本</a><br>
+        </p>
         </li>
       </ul>
     </div>
-    <input type="text" id="search" placeholder="搜索">
-    <i class="icon-search"></i> 
     <nav>
     </nav>
-    <article>
-    </article>
+    <div id="wrap">
+      <article>
+      </article>
+    </div>
     <div id="prev"><i class="icon-angle-left"></i></div>
     <div id="next"><i class="icon-angle-right"></i></div>
   </body>
+</html>

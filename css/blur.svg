@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink">
-  <filter id="blur3">
-     <feGaussianBlur stdDeviation="4 4">
-       <animate attributeName="stdDeviation" values="8 8;20 20;0 0" keySplines="0.25 0.1 0.25 1" keyTimes="0;0.5;1" calcMode="spline" dur="4s" begin="bx.click" fill="freeze"/>
-      </feGaussianBlur>
-  </filter>
-</svg>

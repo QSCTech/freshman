@@ -1,0 +1,18 @@
+<script src="js/jquery-1.11.1.min.js"></script>
+<script>
+$(function() {
+    $('img').each(function() {
+        $(this).remove();//width(320);
+    });
+    $('#搜索').remove();
+    $(document.body).prepend('<div id="first-page" style="margin-top: 110mm; text-align: center"><div style="font-size: 2rem">浙江大学新生手册</div><div style="margin-top: 20mm; font-size: 1.2rem">2014年版</div><div style="margin-top: 100mm;">&copy; 2001-2014 浙江大学求是潮 未经许可，禁止转载。</div></div>');
+});
+</script>
+<style>
+@media print {
+    #first-page {
+        page-break-after: always;
+    }
+}
+</style>
+
