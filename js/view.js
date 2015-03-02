@@ -32,7 +32,7 @@ var Doc = function(md) {
         window.uyan_config = {
             title:'求是潮新生手册',
             su:'qsc-freshman',
-            url:'http://f.myqsc.com/'
+            url:'http://f.zjuqsc.com/'
         };
         $('article section#comments').append('<div id="uyan_frame"></div><script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1811609" async=""></script>');
     };

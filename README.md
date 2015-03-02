@@ -5,7 +5,7 @@ freshman
 
 浙江大学新生手册线上版
 
-(http://f.myqsc.com)
+(http://f.zjuqsc.com)
 
 浙江大学求是潮 荣誉出品
 

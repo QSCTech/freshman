@@ -8,7 +8,8 @@
     <link rel="shortcut icon" href="share/favicon.ico">
     <link rel="stylesheet/less" type="text/css" href="css/styles.less">
     <script type="text/javascript">
-    window.baseUrl = window.location.href.match(/f\.myqsc\.com/) ? "//f.myqsc.com/" : "/freshman/";
+      if (window.location.href.match(/f\.zjuqsc\.com/)) window.baseUrl = '//f.zjuqsc.com/';
+      if (window.location.href.match(/f\.myqsc\.com/)) location.href = '//f.zjuqsc.com/';
     window.supportsTouch = (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch);
     var debug = false
     less = {
@@ -73,7 +74,7 @@
         <li><strong>分享给好友</strong><br>与好友一起阅读浙里的故事
           <p>
             <!-- Baidu Button BEGIN -->
-            <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" data="{'text':'浙江大学新生手册很赞哦~ http://f.myqsc.com/', 'desc':'求是潮出品：浙江大学新生手册 —— http://f.myqsc.com/'}">
+            <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare" data="{'text':'浙江大学新生手册很赞哦~ http://f.zjuqsc.com/', 'desc':'求是潮出品：浙江大学新生手册 —— http://f.zjuqsc.com/'}">
               <a class="bds_qzone"></a>
               <a class="bds_tsina"></a>
               <a class="bds_tqq"></a>
