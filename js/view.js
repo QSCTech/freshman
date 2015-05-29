@@ -1,3 +1,4 @@
+
 var aboutQSC = function() {
     $('#cover').fadeOut(800);
     doc.section('特典', function() {
@@ -260,6 +261,11 @@ var Doc = function(md) {
                 doc.search($(this).val());
             });
         }
+        if(title == '问答区') {
+            $('article').html('<input type="text" id="ask" placeholder="写下你的问题吧，24小时内回复哟～">');
+            doc.questions();
+
+        }
         window.currentSection = title;
         loadPerfectScrollBar();
     });
@@ -299,6 +305,81 @@ var Doc = function(md) {
             $('article').removeHighlight();
             $('article').highlight(text);
         }, timeout);
+    };
+
+    this.questions = function(t){
+        $.get("./share/questions.md", function(data){
+            var html = markdown.toHTML(data);
+            var ques = [];
+            var tags = [];
+            $(html).each(
+                function(){
+                    var content = this.innerHTML;
+
+                    if (content != undefined)
+                    {
+                        var time = /Time:(.*)\n/.exec(content);
+                        var tag = /Tag:(.*)\n/.exec(content);
+                        var question = /Q:(.*)\n/.exec(content);
+                        var answer = /A:(.*)/.exec(content);
+                        var alltag =/<code>(.*)<\/code>/.exec(content);
+                        console.log(alltag);
+                        if (time != null)
+                        {
+                            var thisques = {time: time[1], tag: tag[1], question:question[1], answer:answer[1]};
+                            ques.push(thisques);
+                        }
+                        if (alltag != null)
+                        {
+                            tags.push(alltag[1]);
+                        }
+                    }
+                }
+            );
+
+
+
+            var freq = $("<section class='em current' id='freq_questions'><h2>常见问题</h2></section>");
+            var latest = $("<section class='em' id='latest_questions'><h2>最新问题</h2></section>");
+
+
+            var display_frequent = function(e) {
+                ques.forEach(function(q){
+                   if (q.tag = e){
+                       var question = $("<p class='questions' style='text-indent: 0;'>Q:"+ q.question + "<br/>" + "A:"+q.answer+"<br/>"+ q.time +" </p>");
+                       freq.append(question);
+                   }
+                });
+                $('article').append(freq);
+            };
+
+            var display_latest = function () {
+                ques.forEach(function(q){
+                    //console.log(q);
+                    var question = $("<p class='questions' style='text-indent: 0;'>Q:"+ q.question + "<br/>" + "A:"+q.answer+"<br/>"+ '<span class="time">'+q.time+'</span>' +" </p>");
+                    latest.append(question);
+                });
+
+                $('article').append(latest);
+            };
+
+            var display_tags = function(){
+                var taglist = $("<p></p>");
+                tags[0] = "<code>" + tags[0] + "</code>"
+                tags.forEach(function(t){
+                    var tag = $("<span class='tags'>"+t+"</span>");
+                    taglist.append(tag);
+                });
+                freq.append(taglist);
+            };
+
+
+            display_frequent(t);
+            display_tags();
+            display_latest();
+            loadPerfectScrollBar();
+        });
+
     };
 
     this.search = function(keyword) {
@@ -433,6 +514,7 @@ var Doc = function(md) {
 };
 
 $(document).ready(function() {
+
     $.get('share/freshman.md', function(data) {
         doc = new Doc(data);
         doc.nav();
@@ -447,6 +529,7 @@ $(document).ready(function() {
         }
         doc.applyUrl();
     });
+
 
     // 下一章
     $('article').on('click', 'section', function(event) {
@@ -676,6 +759,7 @@ $(document).ready(function() {
         }
     );
 
+
     // 劫持链接点击
     // ATTENTION: window.open() will not open in new tab if it is not happening on actual click event. In the example given the url is being opened on actual click event.
     $('body').on('click', 'a', function(e) {
@@ -695,4 +779,8 @@ $(document).ready(function() {
     $(window).on('hashchange', function() {
         doc.applyUrl();
     });
+
+
+
+
 });
