@@ -21,7 +21,7 @@ a{color:#777;}
 #cover #cover-bar li:nth-child(2){background-image:url(../img/icons/icon_b_2.png);}
 #cover #cover-bar li:nth-child(3){background-image:url(../img/icons/icon_b_3.png);}
 #cover #cover-bar li:nth-child(4){background-image:url(../img/icons/icon_b_4.png);}
-#cover #cover-bar:hover{max-height:none;}
+#cover #cover-bar:hover{max-height:none;background-color:rgba(255, 144, 0,0.5)}
 body{overflow:hidden;}
 :focus{outline:none;}
 nav{padding-top:36px;height:100%;background:#ff9078 url(../img/icons/icon_b_0.png) no-repeat center 90%;position:fixed;top:0;text-align:center;z-index:19000;width:60px;transition:width .5s linear;-moz-transition:width .5s linear;-webkit-transition:width .5s linear;-o-transition:width .5s linear;}nav h1,nav h2{font-weight:normal;opacity:0;}

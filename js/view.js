@@ -51,6 +51,7 @@ var Doc = function(md) {
                     ++nth;
                 });
             }
+
             var applyThemeColor = function() {
                 var colors = window.themeColors;
                 getSectionNth(function(nth) {
@@ -515,6 +516,16 @@ $(document).ready(function() {
 
     $('#next').click(function() {
         var next = $('section.current').first().next().find('h2').first().text();
+
+        if ($(".next")[0] != undefined) {
+            var next_pos = $(".next").offset().left + $(".next").width();
+
+            if (Math.abs(next_pos - window.outerWidth) < 30 || next_pos <= window.outerWidth) {
+                next = $('nav h1.current').first().nextAll('h1').first().text();
+                doc.section(next);
+                return;
+            }
+        }
         if(next) {
             doc.subSection(next);
         } else {
@@ -566,7 +577,7 @@ $(document).ready(function() {
             if(typeof window.basePoint != "undefined") {
                 x -= window.basePoint.x;
                 y -= window.basePoint.y;
-                var rate = 0.1;
+                var rate = 0.01;
                 $('#cover').css({'margin-left': -x*rate, 'margin-top': -y*rate});
             } else {
                 window.basePoint = {x: x, y: y};
@@ -655,6 +666,15 @@ $(document).ready(function() {
     }, function() {
         $('#weixin-qsc').stop(true, false).fadeOut();
     });
+
+    $('#cover-bar').hover(
+        function(){
+            $('#cover-copyright').fadeOut();
+        },
+        function(){
+            $('#cover-copyright').fadeIn();
+        }
+    );
 
     // 劫持链接点击
     // ATTENTION: window.open() will not open in new tab if it is not happening on actual click event. In the example given the url is being opened on actual click event.

@@ -8,8 +8,9 @@
     <link rel="shortcut icon" href="share/favicon.ico">
     <link rel="stylesheet/less" type="text/css" href="css/styles.less">
     <script type="text/javascript">
-      if (window.location.href.match(/f\.zjuqsc\.com/)) window.baseUrl = '//f.zjuqsc.com/';
-      if (window.location.href.match(/f\.myqsc\.com/)) location.href = '//f.zjuqsc.com/';
+      window.baseUrl = '.';
+      //if (window.location.href.match(/f\.zjuqsc\.com/)) window.baseUrl = '//f.zjuqsc.com/';
+      //if (window.location.href.match(/f\.myqsc\.com/)) location.href = '//f.zjuqsc.com/';
     window.supportsTouch = (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch);
     var debug = false
     less = {
@@ -66,8 +67,8 @@
     <div id="cover">
       <div id="start-reading">开始阅读<i class="icon-angle-right"></i></div>
       <div id="cover-nav">
-        <div id="cover-copyright">&copy; 2014 浙江大学求是潮 <span id="mobile-version">移动版</span></div>
-        <div id="cover-logo">浙江大学<br><strong>新&nbsp;生&nbsp;手&nbsp;册</strong><br>- 2014 -</div></div>
+        <div id="cover-copyright">&copy; 2015 浙江大学求是潮 <br/><span id="mobile-version">移动版</span></div>
+        <div id="cover-logo">浙江大学<br><strong>新&nbsp;生&nbsp;手&nbsp;册</strong><br>- 2015 -</div></div>
       <ul id="cover-bar">
         <li id="know-of-qsc"><strong>了解求是潮</strong><br>浙江大学学生门户网站<p>浙江大学党委学工部指导下的学生门户网站，四大线上产品，八大部门，一本《水朝夕》，十三载倾情奉献等待着你的到来。<br><a href="#" onclick="aboutQSC()">点此了解更多</a></p><div id="weixin-qsc"><img alt="微信qscqscqsc二维码" src="img/weixin_qscqscqsc.png"></div></li>
         <li><strong>查看阅读贴士</strong><br>善用快捷键及讨论<p>使用方向键可快速跳转到下个章节；新生若有疑问可在最后的讨论区提问</p></li>
