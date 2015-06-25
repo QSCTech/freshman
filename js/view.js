@@ -492,7 +492,7 @@ $(document).ready(function() {
 
     comment_code = $('.comment');
 
-    $.get('share/freshman.md', function(data) {
+    $.get('share/freshman2015.md', function(data) {
         doc = new Doc(data);
         doc.nav();
         var lastUrl = sessionStorage.getItem('url');
