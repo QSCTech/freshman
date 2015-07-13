@@ -8,9 +8,9 @@
     <link rel="shortcut icon" href="share/favicon.ico">
     <link rel="stylesheet/less" type="text/css" href="css/styles.less">
     <script type="text/javascript">
-      window.baseUrl = '.';
-      //if (window.location.href.match(/f\.zjuqsc\.com/)) window.baseUrl = '//f.zjuqsc.com/';
-      //if (window.location.href.match(/f\.myqsc\.com/)) location.href = '//f.zjuqsc.com/';
+
+      if (window.location.href.match(/f\.zjuqsc\.com/)) window.baseUrl = '//f.zjuqsc.com/';
+      if (window.location.href.match(/f\.myqsc\.com/)) location.href = '//f.zjuqsc.com/';
     window.supportsTouch = (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch);
     var debug = false;
     less = {
