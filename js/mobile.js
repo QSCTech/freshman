@@ -1,4 +1,4 @@
-var comment = function() {
+var comment = () => {
     window.uyan_config = {
         title:'求是潮新生手册',
         su:'qsc-freshman',
@@ -6,8 +6,8 @@ var comment = function() {
     };
     $('#content').append('<div id="uyan_frame"></div><script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1811609" async=""></script>');
 }
-var init = function() {
-    $.get('../share/freshman.md', function(data) {
+var init = () => {
+    $.get('../share/freshman.md', data => {
         var html = markdown.toHTML(data);
         html = html.replace(/<h2>(.*)——(.*) (.*)<\/h2>/g, "<h2>$1</h2><div class=\"sub-header\">$2<br>$3</div>");
         html = html.replace(/@@/g, '');
@@ -33,9 +33,9 @@ var init = function() {
     });
 
 };
-$(document).ready(function() {
+$(document).ready(() => {
     init();
-    $('#top').click(function() {
+    $('#top').click(() => {
         window.scrollTo(0, 0);
     });
 });
