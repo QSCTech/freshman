@@ -1,17 +1,16 @@
 
 var comment_code = '';
 
-var aboutQSC = function() {
+var aboutQSC = () => {
     $('#cover').fadeOut(800);
-    doc.section('特典', function() {
+    doc.section('特典', () => {
         doc.subSection('求是潮');
     });
 };
 
 var Doc = function(md) {
-
-    var that = this,
-        html = markdown.toHTML(md);
+    var that = this;
+    var html = markdown.toHTML(md);
     // 匹配子题标
     html = html.replace(/<h2>(.*)——(.*) (.*)<\/h2>/g, "<h2>$1</h2><div class=\"sub-header\">$2<br>$3</div>");
     // 匹配折叠
@@ -25,13 +24,13 @@ var Doc = function(md) {
     var coverNav = $(html).filter('h1');
     $('#cover-nav').append(coverNav);
 
-    this.nav = function() {
+    this.nav = () => {
         var jq = $(html).filter('h1, h2');
         $('nav').html(jq);
         $('nav').prepend('<div id="zju-logo"></div><div id="sidebar">新生手册</div><div id="nav-top">浙江大学<br><strong>新生手册</strong></div><hr>');
     };
 
-    this.comment = function() {
+    this.comment = () => {
         window.uyan_config = {
             title:'求是潮新生手册',
             su:'qsc-freshman',
@@ -43,10 +42,10 @@ var Doc = function(md) {
         $('article section#comments').append(comment_code)
     };
 
-    this.section = function(title, callback) {
+    this.section = (title, callback) => {
         if(debug) alert(title);
-        $('article').animate({opacity: 0}, 200, 'linear', function() {
-            var getSectionNth = function(callback) {
+        $('article').animate({opacity: 0}, 200, 'linear', () => {
+            var getSectionNth = callback => {
                 var nth = 0;
                 $('nav h1').each(function() {
                     var text = $(this).text().replace(/ /g, '');
@@ -58,9 +57,9 @@ var Doc = function(md) {
                 });
             }
 
-            var applyThemeColor = function() {
+            var applyThemeColor = () => {
                 var colors = window.themeColors;
-                getSectionNth(function(nth) {
+                getSectionNth(nth => {
                     if (nth >= colors.length) {
                         nth -= colors.length;
                     }
@@ -108,8 +107,8 @@ var Doc = function(md) {
                     subSections = subSections.each(function() {
                         var nodeName = $(this).prop('nodeName').toLowerCase();
                         if(nodeName == 'h2') {
-                            var subSection = $(this).nextUntil("h1,h2"),
-                                jq;
+                            var subSection = $(this).nextUntil("h1,h2");
+                            var jq;
                             if($(this).find('em').text()) {
                                 jq = $('<section class="em"><h2>'+$(this).text()+'</h2></section>');
                             } else {
@@ -147,18 +146,18 @@ var Doc = function(md) {
                     $(this).slideUp({
                         duration: 400,
                         easing: 'linear',
-                        complete: function() {
+                        complete() {
                             window.animateLock = false;
                         }
                     });
                 });
-                var iter = function(jqObj) {
+                var iter = jqObj => {
                     var $next = jqObj.next();
                     if($next[0] && $next[0].nodeName.toLowerCase() != 'h1' && $next.parent()[0].nodeName.toLowerCase() == 'nav') {
                         $next.slideDown({
                             duration: 200,
                             easing: "linear",
-                            complete: function() {
+                            complete() {
                                 if(!window.animateLock) {
                                     iter($next);
                                 }
@@ -171,7 +170,7 @@ var Doc = function(md) {
         });
     };
 
-    this.applyScrollBar = function(that) {
+    this.applyScrollBar = that => {
         var offset = $(that)[0].scrollHeight - $(that).height();
         if(offset <= 40) return;
         if($(that).hasClass('perfect-scrollbar')) return;
@@ -181,20 +180,16 @@ var Doc = function(md) {
             wheelPropagation: false
         });
     }
-    var loadPerfectScrollBar = function() {
-        var loadPerfectScrollBar = function(dom) {
+    var loadPerfectScrollBar = () => {
+        var loadPerfectScrollBar = dom => {
             that.applyScrollBar(dom);
         };
-        var isInScrolling = function () {
-            return $('article section .ps-scrollbar-y.in-scrolling').length > 0;
-        };
+        var isInScrolling = () => $('article section .ps-scrollbar-y.in-scrolling').length > 0;
         // 保证点击折叠类的东西点击后能正常加载滚动条
         $('article section').click(function() {
-            var callback = (function(that) {
-                return function () {
-                    loadPerfectScrollBar(that);
-                }
-            })(this);
+            var callback = ((that => () => {
+                loadPerfectScrollBar(that);
+            }))(this);
             setTimeout(callback, 400);
             loadPerfectScrollBar(this);
         });
@@ -213,7 +208,7 @@ var Doc = function(md) {
         );
     };
 
-    this.sectionReady = function(arg) {
+    this.sectionReady = arg => {
         if(typeof arg == "function") {
             window.sectionOnloadHook = window.sectionOnloadHook ? window.sectionOnloadHook.push(arg) : [arg];
         } else {
@@ -228,7 +223,7 @@ var Doc = function(md) {
         }
     };
 
-    this.testPrevAndNext = function() {
+    this.testPrevAndNext = () => {
         // 判断是否应该显示#prev, #next, #section-pracface，并操作之
         if($('section.current').prevAll('section').first().html()) {
             $('#prev').show();
@@ -254,7 +249,7 @@ var Doc = function(md) {
         $('#search').css('right', offset);
     }
 
-    this.sectionReady(function(title) {
+    this.sectionReady(title => {
         that.img();
         setSectionPreface();
         that.testPrevAndNext();
@@ -277,7 +272,7 @@ var Doc = function(md) {
         loadPerfectScrollBar();
     });
 
-    this.subSection = function(title) {
+    this.subSection = title => {
         title = title.replace(/ /g, '');
         var isSectionPreface = false;
         $('nav h1').each(function() {
@@ -306,16 +301,16 @@ var Doc = function(md) {
         });
     };
 
-    this.highlight = function(text, timeout) {
+    this.highlight = (text, timeout) => {
         if(!timeout) timeout = 50;
-        setTimeout(function() {
+        setTimeout(() => {
             $('article').removeHighlight();
             $('article').highlight(text);
         }, timeout);
     };
 
-    this.questions = function(t){
-        $.get("./share/questions.md", function(data){
+    this.questions = t => {
+        $.get("./share/questions.md", data => {
             var html = markdown.toHTML(data);
             var ques = [];
             $(html).each(
@@ -340,8 +335,8 @@ var Doc = function(md) {
 
             var latest = $("<section class='em' id='latest_questions'><h2>最新问题</h2><div class='sub-header'><br/>常见问题， 及时解答</div></section>");
 
-            var display_latest = function () {
-                ques.forEach(function(q){
+            var display_latest = () => {
+                ques.forEach(q => {
                     //console.log(q);
                     var question = $("<p class='questions' style='text-indent: 0;'>Q: "+ q.question + "<br/>" + "A: "+q.answer+"<br/>"+ '<span class="time">'+q.time+'</span>' +" </p>");
                     latest.append(question);
@@ -357,18 +352,18 @@ var Doc = function(md) {
 
     };
 
-    this.search = function(keyword) {
+    this.search = keyword => {
         var html = markdown.toHTML(md);
 
         // 判断有无包含关键词
-        var match = function(jq, text) {
+        var match = (jq, text) => {
             text = text.toLowerCase();
             if (text == '') return true;
             return jq.text().toLowerCase().indexOf(text) > -1;
         };
 
         var collection = $('<div id="search-results"></div>')
-        var collect = function(jq) {
+        var collect = jq => {
             var subSection = $('<section></section>');
             // header
             var header = jq.first();
@@ -388,7 +383,7 @@ var Doc = function(md) {
             collection.append(subSection);
         };
 
-        var display = function() {
+        var display = () => {
             var html = collection.html();
             $('article section').remove();
             $('article').css('margin-left', 0);
@@ -412,13 +407,13 @@ var Doc = function(md) {
         display();
     };
 
-    this.updateUrl = function(url) {
+    this.updateUrl = url => {
         url = window.baseUrl + url;
         window.history.pushState("求是潮新生手册", "求是潮新生手册", url);
-        sessionStorage.setItem('url', JSON.stringify({url: url, timestamp: new Date().getTime()}));
+        sessionStorage.setItem('url', JSON.stringify({url, timestamp: new Date().getTime()}));
     };
 
-    this.applyUrl = function(url) {
+    this.applyUrl = url => {
         if(!url) {
             url = decodeURIComponent(window.location.href);
         }
@@ -429,10 +424,10 @@ var Doc = function(md) {
     };
 
     // path is something like ["学习", "选课入门"]
-    this.applyPath = function(path) {
+    this.applyPath = path => {
         if(path[0]) {
             $('#cover').hide();
-            that.section(path[0], function() {
+            that.section(path[0], () => {
                 if(path[1])
                   that.subSection(path[1]);
                 if(path[2]) {
@@ -450,49 +445,47 @@ var Doc = function(md) {
         }
     };
 
-    this.img = function() {
+    this.img = () => {
         $('img[alt="background"]').each(function() {
             // cacl the corret height and width to set
-            var callback = (function(that) {
-                return function (imgScale) {
-                    var section = $(that).parent().parent(),
-                        width = section.width(),
-                        height = section.height(),
-                        sectionScale = width / height;
-                    section.addClass('background');
-                    if(imgScale > sectionScale) {
-                        $(that).css({width: 'auto', height: height});
-                    } else {
-                        $(that).css({width: width, height: 'auto'});
-                    }
+            var callback = ((that => imgScale => {
+                var section = $(that).parent().parent();
+                var width = section.width();
+                var height = section.height();
+                var sectionScale = width / height;
+                section.addClass('background');
+                if(imgScale > sectionScale) {
+                    $(that).css({width: 'auto', height});
+                } else {
+                    $(that).css({width, height: 'auto'});
                 }
-            })(this);
+            }))(this);
 
             // Make in memory copy of image to avoid css issues
             $("<img/>").attr("src", $(this).attr("src")).load(function() {
-                var real_width = this.width,
-                    real_height = this.height,
-                    imgScale = real_width / real_height;
+                var real_width = this.width;
+                var real_height = this.height;
+                var imgScale = real_width / real_height;
                 callback(imgScale);
             });
 
         });
 
         $('img[alt="background-width"]').each(function() {
-            var section = $(this).parent().parent(),
-                width = section.width();
+            var section = $(this).parent().parent();
+            var width = section.width();
             section.addClass('background');
-            $(this).css({width: width, height: 'auto'});
+            $(this).css({width, height: 'auto'});
         });
 
     };
 };
 
-$(document).ready(function() {
+$(document).ready(() => {
 
     comment_code = $('.comment');
 
-    $.get('share/freshman2015.md', function(data) {
+    $.get('share/freshman2015.md', data => {
         doc = new Doc(data);
         doc.nav();
         var lastUrl = sessionStorage.getItem('url');
@@ -539,10 +532,10 @@ $(document).ready(function() {
                 if($(this).html() == section.find('.hide-elem-content').last().html()) {
                     isLastElem = true;
                 }
-                $(this).slideDown(isLastElem ? 0 : 400, function() {
+                $(this).slideDown(isLastElem ? 0 : 400, () => {
                     if(isLastElem) {
                         var scroll = section.prop('scrollHeight');
-                        section.animate({scrollTop: scroll}, 400, 'swing', function() {
+                        section.animate({scrollTop: scroll}, 400, 'swing', () => {
                             section.perfectScrollbar('update');
                         });
                     }
@@ -552,7 +545,7 @@ $(document).ready(function() {
     });
 
     // 绑定方向键
-    $('body').keyup(function(e) {
+    $('body').keyup(e => {
         var code = e.keyCode;
         if(code == 39 || code == 40) {
             $('#next').click();
@@ -563,18 +556,18 @@ $(document).ready(function() {
     });
 
     // 对 #comments，应该直接阻止事件冒泡，防止方向键之类的事件触发
-    $('body').on('keyup', '#comments', function(e) {
+    $('body').on('keyup', '#comments', e => {
         var code = e.keyCode;
         e.preventDefault();
         e.stopPropagation();
     });
 
     // force no scroll
-    $(window).scroll(function() {
+    $(window).scroll(() => {
         window.scrollTo(0, 0);
     });
 
-    $('#next').click(function() {
+    $('#next').click(() => {
         var next = $('section.current').first().next().find('h2').first().text();
 
         if ($(".next")[0] != undefined) {
@@ -596,7 +589,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#prev').click(function() {
+    $('#prev').click(() => {
         if($('section.current').first().prev('.cover').html()) {
             $('article').animate({'margin-left': 0});
             $('article .current').removeClass('current');
@@ -617,32 +610,32 @@ $(document).ready(function() {
 
 });
 
-var resizeHook = function() {
+var resizeHook = () => {
     var w = $(window).width();
     var h = $(window).height();
     $('article').css({height: h});
 };
-$(document).ready(function() {
+$(document).ready(() => {
     resizeHook();
 });
 if (window.addEventListener) {
-    window.addEventListener('resize', function() { resizeHook(); });
+    window.addEventListener('resize', () => { resizeHook(); });
 } else if (window.attachEvent) {
     // for ie
-    window.attachEvent('resize', function() { resizeHook(); });
+    window.attachEvent('resize', () => { resizeHook(); });
 }
-$(document).ready(function() {
-    $('#cover').mousemove(function(event) {
-        (function(x, y) {
+$(document).ready(() => {
+    $('#cover').mousemove(event => {
+        (((x, y) => {
             if(typeof window.basePoint != "undefined") {
                 x -= window.basePoint.x;
                 y -= window.basePoint.y;
                 var rate = 0.01;
                 $('#cover').css({'margin-left': -x*rate, 'margin-top': -y*rate});
             } else {
-                window.basePoint = {x: x, y: y};
+                window.basePoint = {x, y};
             }
-        })(event.pageX, event.pageY);
+        }))(event.pageX, event.pageY);
     });
     $('#cover').on('click', 'h1', function() {
         $('#cover').fadeOut(800);
@@ -652,13 +645,13 @@ $(document).ready(function() {
             doc.section($(this).text());
         }
     });
-    $('#start-reading').click(function() {
+    $('#start-reading').click(() => {
         $('#cover').fadeOut(800);
         var first = $('nav h1').first().text();
         doc.section(first);
     });
 });
-var setSectionPreface = function() {
+var setSectionPreface = () => {
     if(!window.count) window.count = 0;
     var max = $('section.cover img').length;
     if(window.count >= max) {
@@ -671,45 +664,45 @@ var setSectionPreface = function() {
     if(src == window.sectionPrefaceLast) return;
     window.sectionPrefaceLast = src;
     window.count++;
-    $('section.cover .mask').fadeIn(400, function() {
+    $('section.cover .mask').fadeIn(400, () => {
         $('section.cover.current').css({width: $(window).width(), 'background-image': 'url('+src+')'});
         $('section.cover .mask').fadeOut();
     });
 }
 setInterval(setSectionPreface, 3000);
-$(document).ready(function() {
-    $('article').on('click', '#section-preface', function() {
+$(document).ready(() => {
+    $('article').on('click', '#section-preface', () => {
         $('#next').click();
     });
 
-    $('article').on('mouseover', '#section-preface', function() {
+    $('article').on('mouseover', '#section-preface', () => {
         $('#next').css('background-color', window.themeColor);
     });
-    $('article').on('mouseout', '#section-preface', function() {
+    $('article').on('mouseout', '#section-preface', () => {
         $('#next').css('background-color', ''); // 使用无效值使声明丢弃而使用原先值
     });
-    $('#next').on('mouseover', function() {
+    $('#next').on('mouseover', () => {
         $('#section-preface').css('background-color', window.themeColor);
     });
-    $('#next').on('mouseout', function() {
+    $('#next').on('mouseout', () => {
         $('#section-preface').css('background-color', '');
     });
     $('nav').hover(
-      function() {
+      () => {
           $('nav').css({width: 180});
           $('article').css({left: 180});
       },
-      function() {
+      () => {
           $('nav').css({width: 60});
           $('article').css({left: 60});
       });
 });
 
-$(document).ready(function() {
+$(document).ready(() => {
     // dirty hack for 搜狗高速浏览器 to force download the font
     localStorage.clear();
 
-    $('body').on('click', '#zju-logo, #sidebar, #nav-top', function() {
+    $('body').on('click', '#zju-logo, #sidebar, #nav-top', () => {
         doc.updateUrl('');
         $('#cover').fadeIn(800);
     });
@@ -720,18 +713,18 @@ $(document).ready(function() {
         $(this).text('移动版');
     });
 
-    $('#know-of-qsc').hover(function() {
+    $('#know-of-qsc').hover(() => {
         $('#weixin-qsc').stop(true, false).fadeIn()
                         .css('bottom', 40 + $('#cover-bar').height());
-    }, function() {
+    }, () => {
         $('#weixin-qsc').stop(true, false).fadeOut();
     });
 
     $('#cover-bar').hover(
-        function(){
+        () => {
             $('#cover-copyright').fadeOut();
         },
-        function(){
+        () => {
             $('#cover-copyright').fadeIn();
         }
     );
@@ -753,7 +746,7 @@ $(document).ready(function() {
         }
     });
 
-    $(window).on('hashchange', function() {
+    $(window).on('hashchange', () => {
         doc.applyUrl();
     });
 

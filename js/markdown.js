@@ -5,7 +5,7 @@
 
 /*jshint browser:true, devel:true */
 
-(function( expose ) {
+((expose => {
 
 /**
  *  class Markdown
@@ -63,7 +63,7 @@ var Markdown = expose.Markdown = function(dialect) {
  *
  *  Parse `markdown` and return a markdown document as a Markdown.JsonML tree.
  **/
-expose.parse = function( source, dialect ) {
+expose.parse = (source, dialect) => {
   // dialect will default if undefined
   var md = new Markdown( dialect );
   return md.toTree( source );
@@ -102,8 +102,9 @@ expose.toHTMLTree = function toHTMLTree( input, dialect , options ) {
   // Now convert the MD tree to an HTML tree
 
   // remove references from the tree
-  var attrs = extract_attr( input ),
-      refs = {};
+  var attrs = extract_attr( input );
+
+  var refs = {};
 
   if ( attrs && attrs.references ) {
     refs = attrs.references;
@@ -155,7 +156,8 @@ var mk_block = Markdown.mk_block = function(block, trail, line) {
 };
 
 function count_lines( str ) {
-  var n = 0, i = -1;
+  var n = 0;
+  var i = -1;
   while ( ( i = str.indexOf("\n", i + 1) ) !== -1 ) n++;
   return n;
 }
@@ -163,10 +165,12 @@ function count_lines( str ) {
 // Internal - split source into rough blocks
 Markdown.prototype.split_blocks = function splitBlocks( input, startLine ) {
   input = input.replace(/(\r\n|\n|\r)/g, "\n");
+
   // [\s\S] matches _anything_ (newline or space)
-  var re = /([\s\S]+?)($|\n(?:\s*\n|$)+)/g,
-      blocks = [],
-      m;
+  var re = /([\s\S]+?)($|\n(?:\s*\n|$)+)/g;
+
+  var blocks = [];
+  var m;
 
   var line_no = 1;
 
@@ -206,8 +210,8 @@ Markdown.prototype.split_blocks = function splitBlocks( input, startLine ) {
  * the block processing.
  */
 Markdown.prototype.processBlock = function processBlock( block, next ) {
-  var cbs = this.dialect.block,
-      ord = cbs.__order__;
+  var cbs = this.dialect.block;
+  var ord = cbs.__order__;
 
   if ( "__call__" in cbs ) {
     return cbs.__call__.call(this, block, next);
@@ -255,7 +259,7 @@ Markdown.prototype.toTree = function toTree( source, custom_root ) {
       // Reference blocks and the like won't return any content
       if ( !b.length ) continue blocks;
 
-      this.tree.push.apply( this.tree, b );
+      this.tree.push(...b);
     }
     return this.tree;
   }
@@ -278,8 +282,9 @@ Markdown.prototype.debug = function () {
 
 Markdown.prototype.loop_re_over_block = function( re, block, cb ) {
   // Dont use /g regexps with this
-  var m,
-      b = block.valueOf();
+  var m;
+
+  var b = block.valueOf();
 
   while ( b.length && (m = re.exec(b) ) != null ) {
     b = b.substr( m[0].length );
@@ -325,7 +330,7 @@ Markdown.dialects.Gruber = {
       if ( !m ) return undefined;
 
       var level = ( m[ 2 ] === "=" ) ? 1 : 2;
-      var header = [ "header", { level : level }, m[ 1 ] ];
+      var header = [ "header", { level }, m[ 1 ] ];
 
       if ( m[0].length < block.length )
         next.unshift( mk_block( block.substr( m[0].length ), block.trailing, block.lineNumber + 2 ) );
@@ -340,9 +345,10 @@ Markdown.dialects.Gruber = {
       //
       // There might also be adjacent code block to merge.
 
-      var ret = [],
-          re = /^(?: {0,3}\t| {4})(.*)\n?/,
-          lines;
+      var ret = [];
+
+      var re = /^(?: {0,3}\t| {4})(.*)\n?/;
+      var lines;
 
       // 4 spaces + content
       if ( !block.match( re ) ) return undefined;
@@ -351,7 +357,7 @@ Markdown.dialects.Gruber = {
       do {
         // Now pull out the rest of the lines
         var b = this.loop_re_over_block(
-                  re, block.valueOf(), function( m ) { ret.push( m[1] ); } );
+                  re, block.valueOf(), m => { ret.push( m[1] ); } );
 
         if ( b.length ) {
           // Case alluded to in first comment. push it back on as a new block
@@ -387,7 +393,7 @@ Markdown.dialects.Gruber = {
 
       // if there's a leading abutting block, process it
       if ( m[ 1 ] ) {
-        jsonml.unshift.apply( jsonml, this.processBlock( m[ 1 ], [] ) );
+        jsonml.unshift(...this.processBlock( m[ 1 ], [] ));
       }
 
       // if there's a trailing abutting block, stick it into next
@@ -415,14 +421,17 @@ Markdown.dialects.Gruber = {
     //    first item at the indent. Subsequent changes are ignored unless they
     //    are for nested lists
     //
-    lists: (function( ) {
+    lists: ((() => {
       // Use a closure to hide a few variables.
-      var any_list = "[*+-]|\\d+\\.",
-          bullet_list = /[*+-]/,
-          number_list = /\d+\./,
-          // Capture leading indent as it matters for determining nested lists.
-          is_list_re = new RegExp( "^( {0,3})(" + any_list + ")[ \t]+" ),
-          indent_re = "(?: {0,3}\\t| {4})";
+      var any_list = "[*+-]|\\d+\\.";
+
+      var bullet_list = /[*+-]/;
+      var number_list = /\d+\./;
+
+      var // Capture leading indent as it matters for determining nested lists.
+      is_list_re = new RegExp( "^( {0,3})(" + any_list + ")[ \t]+" );
+
+      var indent_re = "(?: {0,3}\\t| {4})";
 
       // TODO: Cache this regexp for certain depths.
       // Create a regexp suitable for matching an li for a given stack depth
@@ -455,8 +464,8 @@ Markdown.dialects.Gruber = {
         if ( nl && li.length > 1 ) inline.unshift(nl);
 
         for ( var i = 0; i < inline.length; i++ ) {
-          var what = inline[i],
-              is_str = typeof what == "string";
+          var what = inline[i];
+          var is_str = typeof what == "string";
           if ( is_str && add_to.length > 1 && typeof add_to[add_to.length-1] == "string" ) {
             add_to[ add_to.length-1 ] += what;
           }
@@ -469,16 +478,16 @@ Markdown.dialects.Gruber = {
       // contained means have an indent greater than the current one. On
       // *every* line in the block
       function get_contained_blocks( depth, blocks ) {
-
-        var re = new RegExp( "^(" + indent_re + "{" + depth + "}.*?\\n?)*$" ),
-            replace = new RegExp("^" + indent_re + "{" + depth + "}", "gm"),
-            ret = [];
+        var re = new RegExp( "^(" + indent_re + "{" + depth + "}.*?\\n?)*$" );
+        var replace = new RegExp("^" + indent_re + "{" + depth + "}", "gm");
+        var ret = [];
 
         while ( blocks.length > 0 ) {
           if ( re.exec( blocks[0] ) ) {
-            var b = blocks.shift(),
-                // Now remove that indent
-                x = b.replace( replace, "");
+            var b = blocks.shift();
+
+            var // Now remove that indent
+            x = b.replace( replace, "");
 
             ret.push( mk_block( x, b.trailing, b.lineNumber ) );
           }
@@ -518,17 +527,19 @@ Markdown.dialects.Gruber = {
                    ? ["bulletlist"]
                    : ["numberlist"];
 
-          stack.push( { list: list, indent: m[1] } );
+          stack.push( { list, indent: m[1] } );
           return list;
         }
 
 
-        var stack = [], // Stack of lists for nesting.
-            list = make_list( m ),
-            last_li,
-            loose = false,
-            ret = [ stack[0].list ],
-            i;
+        var // Stack of lists for nesting.
+        stack = [];
+
+        var list = make_list( m );
+        var last_li;
+        var loose = false;
+        var ret = [ stack[0].list ];
+        var i;
 
         // Loop to search over block looking for inner block elements and loose lists
         loose_search:
@@ -543,8 +554,8 @@ Markdown.dialects.Gruber = {
           // Loop over the lines in this block looking for tight lists.
           tight_search:
           for ( var line_no = 0; line_no < lines.length; line_no++ ) {
-            var nl = "",
-                l = lines[line_no].replace(/^\n/, function(n) { nl = n; return ""; });
+            var nl = "";
+            var l = lines[line_no].replace(/^\n/, n => { nl = n; return ""; });
 
             // TODO: really should cache this
             var line_re = regex_for_depth( stack.length );
@@ -631,7 +642,7 @@ Markdown.dialects.Gruber = {
             // Make sure all listitems up the stack are paragraphs
             forEach( stack, paragraphify, this);
 
-            last_li.push.apply( last_li, this.toTree( contained, [] ) );
+            last_li.push(...this.toTree( contained, [] ));
           }
 
           var next_block = next[0] && next[0].valueOf() || "";
@@ -643,7 +654,7 @@ Markdown.dialects.Gruber = {
             var hr = this.dialect.block.horizRule( block, next );
 
             if ( hr ) {
-              ret.push.apply(ret, hr);
+              ret.push(...hr);
               break;
             }
 
@@ -658,7 +669,7 @@ Markdown.dialects.Gruber = {
 
         return ret;
       };
-    })(),
+    }))(),
 
     blockquote: function blockquote( block, next ) {
       if ( !block.match( /^>/m ) )
@@ -668,8 +679,8 @@ Markdown.dialects.Gruber = {
 
       // separate out the leading abutting block, if any
       if ( block[ 0 ] != ">" ) {
-        var lines = block.split( /\n/ ),
-            prev = [];
+        var lines = block.split( /\n/ );
+        var prev = [];
 
         // keep shifting lines until you find a crotchet
         while ( lines.length && lines[ 0 ][ 0 ] != ">" ) {
@@ -678,7 +689,7 @@ Markdown.dialects.Gruber = {
 
         // reassemble!
         block = lines.join( "\n" );
-        jsonml.push.apply( jsonml, this.processBlock( prev.join( "\n" ), [] ) );
+        jsonml.push(...this.processBlock( prev.join( "\n" ), [] ));
       }
 
       // if the next block is also a blockquote merge it in
@@ -689,10 +700,11 @@ Markdown.dialects.Gruber = {
       }
 
       // Strip off the leading "> " and re-process as a block.
-      var input = block.replace( /^> ?/gm, "" ),
-          old_tree = this.tree,
-          processedBlock = this.toTree( input, [ "blockquote" ] ),
-          attr = extract_attr( processedBlock );
+      var input = block.replace( /^> ?/gm, "" );
+
+      var old_tree = this.tree;
+      var processedBlock = this.toTree( input, [ "blockquote" ] );
+      var attr = extract_attr( processedBlock );
 
       // If any link references were found get rid of them
       if ( attr && attr.references ) {
@@ -726,7 +738,7 @@ Markdown.dialects.Gruber = {
         attrs.references = {};
       }
 
-      var b = this.loop_re_over_block(re, block, function( m ) {
+      var b = this.loop_re_over_block(re, block, m => {
 
         if ( m[2] && m[2][0] == "<" && m[2][m[2].length-1] == ">" )
           m[2] = m[2].substring( 1, m[2].length - 1 );
@@ -758,9 +770,9 @@ Markdown.dialects.Gruber = {
 Markdown.dialects.Gruber.inline = {
 
     __oneElement__: function oneElement( text, patterns_or_re, previous_nodes ) {
-      var m,
-          res,
-          lastIndex = 0;
+      var m;
+      var res;
+      var lastIndex = 0;
 
       patterns_or_re = patterns_or_re || this.dialect.inline.__patterns__;
       var re = new RegExp( "([\\s\\S]*?)(" + (patterns_or_re.source || patterns_or_re) + ")" );
@@ -787,9 +799,8 @@ Markdown.dialects.Gruber.inline = {
     },
 
     __call__: function inline( text, patterns ) {
-
-      var out = [],
-          res;
+      var out = [];
+      var res;
 
       function add(x) {
         //D:self.debug("  adding output", uneval(x));
@@ -859,7 +870,6 @@ Markdown.dialects.Gruber.inline = {
     },
 
     "[": function link( text ) {
-
       var orig = String(text);
       // Inline content is possible inside `link text`
       var res = Markdown.DialectHelpers.inline_until_char.call( this, text.substr(1), "]" );
@@ -867,10 +877,10 @@ Markdown.dialects.Gruber.inline = {
       // No closing ']' found. Just consume the [
       if ( !res ) return [ 1, "[" ];
 
-      var consumed = 1 + res[ 0 ],
-          children = res[ 1 ],
-          link,
-          attrs;
+      var consumed = 1 + res[ 0 ];
+      var children = res[ 1 ];
+      var link;
+      var attrs;
 
       // At this point the first [...] has been parsed. See what follows to find
       // out which kind of link we are (reference or direct url)
@@ -991,9 +1001,8 @@ Markdown.dialects.Gruber.inline = {
 
 // Meta Helper/generator method for em and strong handling
 function strong_em( tag, md ) {
-
-  var state_slot = tag + "_state",
-      other_slot = tag == "strong" ? "em_state" : "strong_state";
+  var state_slot = tag + "_state";
+  var other_slot = tag == "strong" ? "em_state" : "strong_state";
 
   function CloseTag(len) {
     this.len_after = len;
@@ -1012,8 +1021,9 @@ function strong_em( tag, md ) {
     }
     else {
       // Store a clone of the em/strong states
-      var other = this[other_slot].slice(),
-          state = this[state_slot].slice();
+      var other = this[other_slot].slice();
+
+      var state = this[state_slot].slice();
 
       this[state_slot].unshift(md);
 
@@ -1053,7 +1063,7 @@ Markdown.dialects.Gruber.inline["_"]  = strong_em("em", "_");
 
 
 // Build default order from insertion order.
-Markdown.buildBlockOrder = function(d) {
+Markdown.buildBlockOrder = d => {
   var ord = [];
   for ( var i in d ) {
     if ( i == "__order__" || i == "__call__" ) continue;
@@ -1063,7 +1073,7 @@ Markdown.buildBlockOrder = function(d) {
 };
 
 // Build patterns for inline matcher
-Markdown.buildInlinePatterns = function(d) {
+Markdown.buildInlinePatterns = d => {
   var patterns = [];
 
   for ( var i in d ) {
@@ -1092,8 +1102,8 @@ Markdown.buildInlinePatterns = function(d) {
 
 Markdown.DialectHelpers = {};
 Markdown.DialectHelpers.inline_until_char = function( text, want ) {
-  var consumed = 0,
-      nodes = [];
+  var consumed = 0;
+  var nodes = [];
 
   while ( true ) {
     if ( text.charAt( consumed ) == want ) {
@@ -1110,12 +1120,12 @@ Markdown.DialectHelpers.inline_until_char = function( text, want ) {
     var res = this.dialect.inline.__oneElement__.call(this, text.substr( consumed ) );
     consumed += res[ 0 ];
     // Add any returned nodes.
-    nodes.push.apply( nodes, res.slice( 1 ) );
+    nodes.push(...res.slice( 1 ));
   }
 }
 
 // Helper function to make sub-classing a dialect easier
-Markdown.subclassDialect = function( d ) {
+Markdown.subclassDialect = d => {
   function Block() {}
   Block.prototype = d.block;
   function Inline() {}
@@ -1130,8 +1140,8 @@ Markdown.buildInlinePatterns( Markdown.dialects.Gruber.inline );
 Markdown.dialects.Maruku = Markdown.subclassDialect( Markdown.dialects.Gruber );
 
 Markdown.dialects.Maruku.processMetaHash = function processMetaHash( meta_string ) {
-  var meta = split_meta_hash( meta_string ),
-      attr = {};
+  var meta = split_meta_hash( meta_string );
+  var attr = {};
 
   for ( var i = 0; i < meta.length; ++i ) {
     // id: #foo
@@ -1159,9 +1169,9 @@ Markdown.dialects.Maruku.processMetaHash = function processMetaHash( meta_string
 }
 
 function split_meta_hash( meta_string ) {
-  var meta = meta_string.split( "" ),
-      parts = [ "" ],
-      in_quotes = false;
+  var meta = meta_string.split( "" );
+  var parts = [ "" ];
+  var in_quotes = false;
 
   while ( meta.length ) {
     var letter = meta.shift();
@@ -1208,9 +1218,9 @@ Markdown.dialects.Maruku.block.document_meta = function document_meta( block, ne
 
   var pairs = block.split( /\n/ );
   for ( p in pairs ) {
-    var m = pairs[ p ].match( /(\w+):\s*(.*)$/ ),
-        key = m[ 1 ].toLowerCase(),
-        value = m[ 2 ];
+    var m = pairs[ p ].match( /(\w+):\s*(.*)$/ );
+    var key = m[ 1 ].toLowerCase();
+    var value = m[ 2 ];
 
     this.tree[ 1 ][ key ] = value;
   }
@@ -1253,8 +1263,9 @@ Markdown.dialects.Maruku.block.block_meta = function block_meta( block, next ) {
   }
 
   // pull the meta hash off the block and process what's left
-  var b = block.replace( /\n.*$/, "" ),
-      result = this.processBlock( b, [] );
+  var b = block.replace( /\n.*$/, "" );
+
+  var result = this.processBlock( b, [] );
 
   // get or make the attributes hash
   hash = extract_attr( result[ 0 ] );
@@ -1273,9 +1284,10 @@ Markdown.dialects.Maruku.block.block_meta = function block_meta( block, next ) {
 
 Markdown.dialects.Maruku.block.definition_list = function definition_list( block, next ) {
   // one or more terms followed by one or more definitions, in a single block
-  var tight = /^((?:[^\s:].*\n)+):\s+([\s\S]+)$/,
-      list = [ "dl" ],
-      i;
+  var tight = /^((?:[^\s:].*\n)+):\s+([\s\S]+)$/;
+
+  var list = [ "dl" ];
+  var i;
 
   // see if we're dealing with a tight or loose block
   if ( ( m = block.match( tight ) ) ) {
@@ -1286,9 +1298,9 @@ Markdown.dialects.Maruku.block.definition_list = function definition_list( block
     }
 
     for ( var b = 0; b < blocks.length; ++b ) {
-      var m = blocks[ b ].match( tight ),
-          terms = m[ 1 ].replace( /\n$/, "" ).split( /\n/ ),
-          defns = m[ 2 ].split( /\n:\s+/ );
+      var m = blocks[ b ].match( tight );
+      var terms = m[ 1 ].replace( /\n$/, "" ).split( /\n/ );
+      var defns = m[ 2 ].split( /\n:\s+/ );
 
       // print( uneval( m ) );
 
@@ -1330,8 +1342,9 @@ Markdown.dialects.Maruku.inline[ "{:" ] = function inline_meta( text, matches, o
   }
 
   // attach the attributes to the preceeding element
-  var meta = this.dialect.processMetaHash( m[ 1 ] ),
-      attr = extract_attr( before );
+  var meta = this.dialect.processMetaHash( m[ 1 ] );
+
+  var attr = extract_attr( before );
 
   if ( !attr ) {
     attr = {};
@@ -1349,26 +1362,22 @@ Markdown.dialects.Maruku.inline[ "{:" ] = function inline_meta( text, matches, o
 Markdown.buildBlockOrder ( Markdown.dialects.Maruku.block );
 Markdown.buildInlinePatterns( Markdown.dialects.Maruku.inline );
 
-var isArray = Array.isArray || function(obj) {
-  return Object.prototype.toString.call(obj) == "[object Array]";
-};
+var isArray = Array.isArray || (obj => Object.prototype.toString.call(obj) == "[object Array]");
 
 var forEach;
 // Don't mess with Array.prototype. Its not friendly
 if ( Array.prototype.forEach ) {
-  forEach = function( arr, cb, thisp ) {
-    return arr.forEach( cb, thisp );
-  };
+  forEach = (arr, cb, thisp) => arr.forEach( cb, thisp );
 }
 else {
-  forEach = function(arr, cb, thisp) {
+  forEach = (arr, cb, thisp) => {
     for (var i = 0; i < arr.length; i++) {
       cb.call(thisp || arr, arr[i], i, arr);
     }
   }
 }
 
-var isEmpty = function( obj ) {
+var isEmpty = obj => {
   for ( var key in obj ) {
     if ( hasOwnProperty.call( obj, key ) ) {
       return false;
@@ -1402,7 +1411,7 @@ function extract_attr( jsonml ) {
  *    output, or just its children. The default `false` is to not include the
  *    root itself.
  */
-expose.renderJsonML = function( jsonml, options ) {
+expose.renderJsonML = (jsonml, options) => {
   options = options || {};
   // include the root element in the rendered output?
   options.root = options.root || false;
@@ -1440,9 +1449,9 @@ function render_tree( jsonml ) {
     return escapeHTML( jsonml );
   }
 
-  var tag = jsonml.shift(),
-      attributes = {},
-      content = [];
+  var tag = jsonml.shift();
+  var attributes = {};
+  var content = [];
 
   if ( jsonml.length && typeof jsonml[ 0 ] === "object" && !( jsonml[ 0 ] instanceof Array ) ) {
     attributes = jsonml.shift();
@@ -1518,7 +1527,7 @@ function convert_tree_to_html( tree, references, options ) {
       jsonml[ 0 ] = "pre";
       i = attrs ? 2 : 1;
       var code = [ "code" ];
-      code.push.apply( code, jsonml.splice( i, jsonml.length - i ) );
+      code.push(...jsonml.splice( i, jsonml.length - i ));
       jsonml[ i ] = code;
       break;
     case "inlinecode":
@@ -1631,7 +1640,7 @@ function merge_text_nodes( jsonml ) {
   }
 }
 
-} )( (function() {
+}) )( ((() => {
   if ( typeof exports === "undefined" ) {
     window.markdown = {};
     return window.markdown;
@@ -1639,4 +1648,4 @@ function merge_text_nodes( jsonml ) {
   else {
     return exports;
   }
-} )() );
+}) )() );
